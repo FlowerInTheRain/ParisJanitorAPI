@@ -71,14 +71,6 @@ public class UserController {
                 .orElseThrow(UserNotFoundException::new);
     }
 
-    @GetMapping("/pseudo/{pseudo}")
-    @ResponseStatus(OK)
-    public UserDto getUserByPseudo(@PathVariable String pseudo) {
-        return userFinderApi.findByPseudo(pseudo)
-                .map(UserDtoMapper::toDto)
-                .orElseThrow(UserNotFoundException::new);
-    }
-
     @PostMapping
     @ResponseStatus(CREATED)
     public UserDto createUser(@Valid @RequestBody UserCreationRequest request) {
@@ -123,7 +115,7 @@ public class UserController {
     public UserDto login(@RequestBody UserLogRequest log) {
         return UserDtoMapper.toDto(
                 userLoggerApi.login(
-                        log.pseudo(),
+                        log.email(),
                         log.password()));
     }
 

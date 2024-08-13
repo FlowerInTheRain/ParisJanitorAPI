@@ -22,11 +22,6 @@ public class UserErrorHandler {
         return new ErrorDto(EmailAlreadyUsedException.EXCEPTION_MESSAGE);
     }
 
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(PseudoAlreadyUsedException.class)
-    public ErrorDto handlePseudoAlreadyUsedException() {
-        return new ErrorDto(PseudoAlreadyUsedException.EXCEPTION_MESSAGE);
-    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(TokenNotValidException.class)

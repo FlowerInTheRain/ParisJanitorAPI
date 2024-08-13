@@ -14,6 +14,4 @@ public interface UserFinderApi {
 
     Optional<User> findByEmail(String email);
 
-    Optional<User> findByPseudo(String pseudo);
-
 }

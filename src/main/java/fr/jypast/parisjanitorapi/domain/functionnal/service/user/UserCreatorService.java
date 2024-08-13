@@ -23,7 +23,6 @@ public class UserCreatorService implements UserCreatorApi {
 
     @Override
     public User create(User user) {
-        userCheckerService.pseudoIsAvailable(user);
         userCheckerService.emailIsAvailable(user);
 
         UserModifierService userModifierService = new UserModifierService();

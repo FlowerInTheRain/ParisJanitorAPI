@@ -11,9 +11,8 @@ public interface UserPersistenceSpi extends PersistenceSpi<User, UUID> {
 
     Optional<User> findByEmail(String email);
 
-    Optional<User> findByPseudo(String pseudo);
 
-    Optional<User> findUserByPseudoAndPassword(String pseudo, String password);
+    Optional<User> findUserByEmailAndPassword(String email, String password);
 
     Optional<User> findByVerificationCode(String code);
 

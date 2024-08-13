@@ -46,7 +46,7 @@ public class EmailingAdapter implements EmailingSpi {
             helper.setSubject(subject);
 
             String verifyUrl = apiBaseUrl + "/users/verify?email="+user.getEmail()+"&code=" + user.getVerificationCode();
-            content = content.replace("[[name]]", user.getPseudo());
+            content = content.replace("[[name]]", user.getFirstName());
             content = content.replace("[[URL]]", verifyUrl);
 
             helper.setText(content, true);
@@ -75,11 +75,11 @@ public class EmailingAdapter implements EmailingSpi {
             helper.setFrom(emailSenderUsername, senderName);
             helper.setTo(receiver.getEmail());
 
-            subject = subject.replace("[[senderName]]", sender.getPseudo());
+            subject = subject.replace("[[senderName]]", sender.getFirstName());
             helper.setSubject(subject);
 
-            content = content.replace("[[senderName]]", sender.getPseudo());
-            content = content.replace("[[receiverName]]", receiver.getPseudo());
+            content = content.replace("[[senderName]]", sender.getFirstName());
+            content = content.replace("[[receiverName]]", receiver.getFirstName());
             content = content.replace("[[code]]", code);
 
             helper.setText(content, true);

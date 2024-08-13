@@ -15,10 +15,10 @@ public class UserLoggerService implements UserLoggerApi {
     private final UserPersistenceSpi spi;
 
     @Override
-    public User login(String pseudo, String password) {
+    public User login(String email, String password) {
         PasswordEncoder passwordEncoder = new PasswordEncoder();
-        User user = spi.findUserByPseudoAndPassword(
-                        pseudo,
+        User user = spi.findUserByEmailAndPassword(
+                        email,
                         passwordEncoder.hashPassword(password))
                 .orElseThrow(UserCredentialNotFoundException::new);
 

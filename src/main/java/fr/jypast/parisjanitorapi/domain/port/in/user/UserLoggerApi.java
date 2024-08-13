@@ -4,6 +4,6 @@ import fr.jypast.parisjanitorapi.domain.functionnal.model.user.User;
 
 public interface UserLoggerApi {
 
-    User login(String pseudo, String password);
+    User login(String email, String password);
 
 }

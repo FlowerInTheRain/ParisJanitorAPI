@@ -6,8 +6,14 @@ import jakarta.validation.constraints.NotNull;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public record UserCreationRequest(
-        @NotNull @JsonProperty("email")      String email,
-        @NotNull @JsonProperty("password")   String password,
-        @NotNull @JsonProperty("pseudo")     String pseudo
+        @NotNull @JsonProperty("email") String email,
+        @NotNull @JsonProperty("password") String password,
+        @NotNull @JsonProperty("lastName") String lastName,
+        @NotNull @JsonProperty("firstName") String firstName,
+        @JsonProperty("birthday") String birthday,
+        @JsonProperty("phoneNumber") String phoneNumber,
+        @JsonProperty("region") String region,
+        @JsonProperty("adresse1") String adresse1,
+        @JsonProperty("adresse2") String adresse2
 ) {
 }

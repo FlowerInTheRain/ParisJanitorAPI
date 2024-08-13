@@ -32,9 +32,5 @@ public class UserFinderService implements UserFinderApi {
         return spi.findByEmail(email);
     }
 
-    @Override
-    public Optional<User> findByPseudo(String pseudo) {
-        return spi.findByPseudo(pseudo);
-    }
 
 }

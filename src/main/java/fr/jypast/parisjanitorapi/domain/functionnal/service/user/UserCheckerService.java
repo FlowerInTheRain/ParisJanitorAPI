@@ -1,11 +1,9 @@
 package fr.jypast.parisjanitorapi.domain.functionnal.service.user;
 
-import fr.jypast.parisjanitorapi.domain.functionnal.exception.user.EmailAlreadyUsedException;
-import fr.jypast.parisjanitorapi.domain.functionnal.exception.user.PseudoAlreadyUsedException;
 import fr.jypast.parisjanitorapi.domain.functionnal.exception.user.AccountNotValidatedException;
+import fr.jypast.parisjanitorapi.domain.functionnal.exception.user.EmailAlreadyUsedException;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.user.User;
 import fr.jypast.parisjanitorapi.domain.port.out.UserPersistenceSpi;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,13 +14,6 @@ import java.util.Optional;
 public class UserCheckerService {
 
     private final UserPersistenceSpi spi;
-
-    public void pseudoIsAvailable(User user) {
-        Optional<User> userWithSamePseudo = spi.findByPseudo(user.getPseudo());
-        if (userWithSamePseudo.isPresent()) {
-            throw new PseudoAlreadyUsedException();
-        }
-    }
 
     public void emailIsAvailable(User user) {
         Optional<User> userWithSameEmail = spi.findByEmail(user.getEmail());

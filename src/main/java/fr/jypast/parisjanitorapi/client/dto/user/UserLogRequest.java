@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public record UserLogRequest(
-        @NotNull @JsonProperty String pseudo,
+        @NotNull @JsonProperty String email,
         @NotNull @JsonProperty String password
 ) {
 

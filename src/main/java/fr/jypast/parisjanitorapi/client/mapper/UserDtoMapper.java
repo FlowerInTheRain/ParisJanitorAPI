@@ -12,10 +12,19 @@ public interface UserDtoMapper {
         return new UserDto(
                 domain.getId(),
                 domain.getEmail(),
-                domain.getPseudo(),
+                domain.getLastName(),
+                domain.getFirstName(),
+                domain.getBirthday(),
+                domain.getPhoneNumber(),
+                domain.getRegion(),
+                domain.getAdresse1(),
+                domain.getAdresse2(),
                 domain.getToken(),
                 domain.getTokenDate(),
-                domain.getRoles()
+                domain.getRoles(),
+                domain.getStatut(),
+                domain.isActivated(),
+                domain.getVerificationCode()
         );
     }
 
@@ -23,8 +32,14 @@ public interface UserDtoMapper {
         return User.builder()
                 .id(UUID.randomUUID())
                 .email(request.email().trim())
+                .lastName(request.lastName().trim())
+                .firstName(request.firstName().trim())
+                .birthday(request.birthday())
                 .password(request.password().trim())
-                .pseudo(request.pseudo().trim())
+                .phoneNumber(request.phoneNumber().trim())
+                .region(request.region().trim())
+                .adresse1(request.adresse1().trim())
+                .adresse2(request.adresse2().trim())
                 .build();
     }
 }

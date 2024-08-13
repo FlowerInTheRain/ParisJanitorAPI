@@ -21,10 +21,28 @@ public class User {
     String email;
 
     @With
+    String lastName;
+
+    @With
+    String firstName;
+
+    @With
+    String birthday;
+
+    @With
     String password;
 
     @With
-    String pseudo;
+    String phoneNumber;
+
+    @With
+    String region;
+
+    @With
+    String adresse1;
+
+    @With
+    String adresse2;
 
     @With
     UUID token;
@@ -34,6 +52,9 @@ public class User {
 
     @With
     List<UserRole> roles;
+
+    @With
+    List<UserStatut> statut;
 
     @Builder.Default
     @With

@@ -1,6 +1,5 @@
 package fr.jypast.parisjanitorapi.server.adapter;
 
-
 import fr.jypast.parisjanitorapi.domain.ApplicationError;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.user.User;
 import fr.jypast.parisjanitorapi.domain.port.out.UserPersistenceSpi;
@@ -10,11 +9,9 @@ import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
 import static io.vavr.API.Try;
 
 @Service
@@ -58,14 +55,8 @@ public class UserDatabaseAdapter implements UserPersistenceSpi {
 
     @Override
     @Transactional
-    public Optional<User> findByPseudo(String pseudo) {
-        return repository.findByPseudo(pseudo).map(UserEntityMapper::toDomain);
-    }
-
-    @Override
-    @Transactional
-    public Optional<User> findUserByPseudoAndPassword(String pseudo, String password) {
-        return repository.findByPseudoAndPassword(pseudo, password).map(UserEntityMapper::toDomain);
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
+        return repository.findByEmailAndPassword(email, password).map(UserEntityMapper::toDomain);
     }
 
     @Override
@@ -91,6 +82,4 @@ public class UserDatabaseAdapter implements UserPersistenceSpi {
     public User update(User o) {
         return UserEntityMapper.toDomain(repository.save(UserEntityMapper.fromDomain(o)));
     }
-
-
 }

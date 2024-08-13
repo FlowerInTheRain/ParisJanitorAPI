@@ -25,9 +25,8 @@ public class UserUpdaterService implements UserUpdaterApi {
         User previousUser = tokenControllerService.getUserByToken(token);
 
         userCheckerService.emailIsAvailable(user);
-        userCheckerService.pseudoIsAvailable(user);
 
-        User patchedUser = previousUser.withPseudo(user.getPseudo())
+        User patchedUser = previousUser.withEmail(user.getEmail())
                 .withPassword(user.getPassword())
                 .withEmail(user.getEmail());
 

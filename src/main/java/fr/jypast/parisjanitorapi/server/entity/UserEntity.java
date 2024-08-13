@@ -1,6 +1,5 @@
 package fr.jypast.parisjanitorapi.server.entity;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -31,8 +30,26 @@ public class UserEntity implements Serializable {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "pseudo", unique = true, nullable = false)
-    private String pseudo;
+    @Column(name = "lastName", nullable = false)
+    private String lastName;
+
+    @Column(name = "firstName", nullable = false)
+    private String firstName;
+
+    @Column(name = "birthday")
+    private String birthday;
+
+    @Column(name = "phoneNumber")
+    private String phoneNumber;
+
+    @Column(name = "region")
+    private String region;
+
+    @Column(name = "adresse1")
+    private String adresse1;
+
+    @Column(name = "adresse2")
+    private String adresse2;
 
     @Column(name = "token", nullable = false)
     private UUID token;
@@ -43,8 +60,6 @@ public class UserEntity implements Serializable {
     @Column(name = "activated", nullable = false)
     private boolean activated;
 
-    @Column(name = "verification_code")
+    @Column(name = "verification_code", nullable = true)
     private String verificationCode;
-
-
 }
