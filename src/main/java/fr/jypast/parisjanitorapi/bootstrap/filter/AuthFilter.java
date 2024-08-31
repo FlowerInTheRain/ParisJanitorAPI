@@ -14,7 +14,10 @@ import java.util.regex.Pattern;
 @Order(1)
 public class AuthFilter implements Filter {
 
-    private static final Pattern EXCLUDED_PATHS = Pattern.compile("^/parisjanitor-api/users(/.*)?$", Pattern.CASE_INSENSITIVE);
+    private static final Pattern EXCLUDED_PATHS = Pattern.compile(
+            "^/parisjanitor-api/users(/email/.+)?$|^/parisjanitor-api/users(/.*)?$",
+            Pattern.CASE_INSENSITIVE
+    );
 
     @Override
     public void doFilter(
@@ -25,11 +28,10 @@ public class AuthFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse hsResponse = (HttpServletResponse) response;
 
-        // Vérifiez si la requête est une requête POST vers "/users"
         boolean isExcluded = ("POST".equalsIgnoreCase(req.getMethod()) && EXCLUDED_PATHS.matcher(req.getRequestURI()).matches())
-                || ("GET".equalsIgnoreCase(req.getMethod()) && req.getRequestURI().contains("verify"));
+                || ("GET".equalsIgnoreCase(req.getMethod()) && req.getRequestURI().contains("verify"))
+                || req.getRequestURI().matches("^/parisjanitor-api/users/email/.+$"); // Ajouter cette ligne
 
-        // Vérifiez si la requête est une requête WebSocket
         boolean isWebSocket = req.getRequestURI().startsWith("/parisjanitor-api/ws");
 
         if (!isExcluded && !isWebSocket && !"OPTIONS".equalsIgnoreCase(req.getMethod())) {
@@ -41,4 +43,5 @@ public class AuthFilter implements Filter {
         }
         chain.doFilter(request, response);
     }
+
 }

@@ -21,6 +21,7 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID> {
     Optional<UserEntity> findByEmailAndPassword(String email, String password);
 
     Optional<UserEntity> findByVerificationCode(String code);
+    Optional<UserEntity> findByPasswordVerification(String code);
 
     void deleteByToken(UUID token);
 

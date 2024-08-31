@@ -58,10 +58,14 @@ public class User {
 
     @Builder.Default
     @With
-    boolean activated = false;
+    boolean activated = true;
 
     @Builder.Default
     @With
-    String verificationCode = RandomStringGenerator.generateAlphanumericString(10);
+    String verificationCode = RandomStringGenerator.generateAlphanumericString(6);
+
+    @Builder.Default
+    @With
+    String passwordVerification = RandomStringGenerator.generateAlphanumericString(7);
 
 }

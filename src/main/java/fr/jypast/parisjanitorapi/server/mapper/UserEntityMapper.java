@@ -21,6 +21,7 @@ public interface UserEntityMapper {
                 .tokenDate(entity.getTokenDate())
                 .activated(entity.isActivated())
                 .verificationCode(entity.getVerificationCode())
+                .passwordVerification(entity.getPasswordVerification())
                 .build();
     }
 
@@ -40,6 +41,7 @@ public interface UserEntityMapper {
                 .tokenDate(domain.getTokenDate())
                 .activated(domain.isActivated())
                 .verificationCode(domain.getVerificationCode())
+                .passwordVerification(domain.getPasswordVerification())
                 .build();
     }
 }

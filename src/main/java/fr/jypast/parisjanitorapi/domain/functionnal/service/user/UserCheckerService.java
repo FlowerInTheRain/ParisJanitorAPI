@@ -17,10 +17,11 @@ public class UserCheckerService {
 
     public void emailIsAvailable(User user) {
         Optional<User> userWithSameEmail = spi.findByEmail(user.getEmail());
-        if (userWithSameEmail.isPresent()) {
+        if (userWithSameEmail.isPresent() && !userWithSameEmail.get().getId().equals(user.getId())) {
             throw new EmailAlreadyUsedException();
         }
     }
+
 
     public void accountIsActivated(User user) {
         if(!user.isActivated()) {

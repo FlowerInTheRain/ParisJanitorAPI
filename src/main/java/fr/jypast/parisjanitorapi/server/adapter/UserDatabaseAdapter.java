@@ -67,6 +67,12 @@ public class UserDatabaseAdapter implements UserPersistenceSpi {
 
     @Override
     @Transactional
+    public Optional<User> findByPasswordVerification(String code) {
+        return repository.findByPasswordVerification(code).map(UserEntityMapper::toDomain);
+    }
+
+    @Override
+    @Transactional
     public void deleteById(UUID id) {
         repository.deleteById(id);
     }

@@ -23,5 +23,6 @@ public record UserDto(
         @JsonProperty("roles") List<UserRole> roles,
         @JsonProperty("statut") List<UserStatut> statut,
         @JsonProperty("activated") boolean activated,
-        @JsonProperty("verificationCode") String verificationCode
+        @JsonProperty("verificationCode") String verificationCode,
+        @JsonProperty("passwordVerification") String passwordVerification
 ) { }

@@ -16,19 +16,19 @@ public class RandomStringGenerator {
     }
 
     public static String generateAlphabeticString(int targetStringLength) {
-        int leftLimit = 97; // letter 'a'
-        int rightLimit = 122; // letter 'z'
+        int leftLimit = 65; // letter 'A'
+        int rightLimit = 90; // letter 'Z'
         return generateString(targetStringLength, leftLimit, rightLimit);
     }
 
     public static String generateAlphanumericString(int targetStringLength) {
         int leftLimit = 48; // numeral '0'
-        int rightLimit = 122; // letter 'z'
+        int rightLimit = 90; // letter 'Z'
 
         Random random = new Random();
 
         return random.ints(leftLimit, rightLimit + 1)
-                .filter(i -> (i <= 57 || i >= 65) && (i <= 90 || i >= 97))
+                .filter(i -> (i <= 57 || (i >= 65 && i <= 90)))
                 .limit(targetStringLength)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();

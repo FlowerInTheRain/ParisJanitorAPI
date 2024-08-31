@@ -8,4 +8,6 @@ public interface UserUpdaterApi {
 
     User update(UUID token, User user);
 
+    User updatePwd(UUID token, User user);
+
 }

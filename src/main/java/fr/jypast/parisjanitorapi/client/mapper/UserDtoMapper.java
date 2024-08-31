@@ -24,7 +24,8 @@ public interface UserDtoMapper {
                 domain.getRoles(),
                 domain.getStatut(),
                 domain.isActivated(),
-                domain.getVerificationCode()
+                domain.getVerificationCode(),
+                domain.getPasswordVerification()
         );
     }
 
@@ -35,11 +36,12 @@ public interface UserDtoMapper {
                 .lastName(request.lastName().trim())
                 .firstName(request.firstName().trim())
                 .birthday(request.birthday())
-                .password(request.password().trim())
-                .phoneNumber(request.phoneNumber().trim())
-                .region(request.region().trim())
-                .adresse1(request.adresse1().trim())
-                .adresse2(request.adresse2().trim())
+                .password(request.password() != null ? request.password().trim() : null)
+                .phoneNumber(request.phoneNumber() != null ? request.phoneNumber().trim() : null)
+                .region(request.region() != null ? request.region().trim() : null)
+                .adresse1(request.adresse1() != null ? request.adresse1().trim() : null)
+                .adresse2(request.adresse2() != null ? request.adresse2().trim() : null)
                 .build();
     }
+
 }

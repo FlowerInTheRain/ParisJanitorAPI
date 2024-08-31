@@ -27,10 +27,29 @@ public class UserUpdaterService implements UserUpdaterApi {
         userCheckerService.emailIsAvailable(user);
 
         User patchedUser = previousUser.withEmail(user.getEmail())
-                .withPassword(user.getPassword())
-                .withEmail(user.getEmail());
+                .withLastName(user.getLastName())
+                .withFirstName(user.getFirstName())
+                .withBirthday(user.getBirthday())
+                .withPhoneNumber(user.getPhoneNumber())
+                .withRegion(user.getRegion())
+                .withAdresse1(user.getAdresse1())
+                .withAdresse2(user.getAdresse2());
 
         return spi.save(patchedUser)
                 .getOrElseThrow(DataNotSaveException::new);
     }
+
+    @Override
+    public User updatePwd(UUID token, User user) {
+        User previousUser = tokenControllerService.getUserByToken(token);
+
+        userCheckerService.emailIsAvailable(user);
+
+        User patchedUser = previousUser.withEmail(user.getEmail())
+                .withPassword(user.getPassword());
+
+        return spi.save(patchedUser)
+                .getOrElseThrow(DataNotSaveException::new);
+    }
+
 }

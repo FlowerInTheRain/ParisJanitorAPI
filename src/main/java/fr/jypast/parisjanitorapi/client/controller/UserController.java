@@ -1,21 +1,26 @@
 package fr.jypast.parisjanitorapi.client.controller;
 
-import fr.jypast.parisjanitorapi.client.dto.user.UserCreationRequest;
-import fr.jypast.parisjanitorapi.client.dto.user.UserDto;
-import fr.jypast.parisjanitorapi.client.dto.user.UserLogRequest;
+import fr.jypast.parisjanitorapi.client.dto.user.*;
 import fr.jypast.parisjanitorapi.client.mapper.UserDtoMapper;
 import fr.jypast.parisjanitorapi.client.service.AuthVerifierService;
 import fr.jypast.parisjanitorapi.client.validator.UuidValidator;
 import fr.jypast.parisjanitorapi.domain.functionnal.exception.user.UserNotFoundException;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.user.User;
+import fr.jypast.parisjanitorapi.domain.functionnal.service.PasswordEncoder;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
 import fr.jypast.parisjanitorapi.domain.port.in.user.*;
+import fr.jypast.parisjanitorapi.domain.port.out.EmailingSpi;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -37,6 +42,8 @@ public class UserController {
     private final UserDeleterApi userDeleterApi;
 
     private final UserVerifierApi userVerifierApi;
+
+    private final EmailingSpi emailSenderSpi;
 
     private final TokenControllerService tokenControllerService;
 
@@ -81,15 +88,30 @@ public class UserController {
         );
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update")
     @ResponseStatus(OK)
-    public UserDto createOrUpdateUser(@PathVariable String id, @Valid @RequestBody UserCreationRequest request) {
-        return UserDtoMapper.toDto(
-                userCreatorApi.createWithId(
-                        UserDtoMapper.creationRequestToDomain(request),
-                        UuidValidator.validate(id)
-                )
-        );
+    public UserDto updateUser(@RequestHeader HttpHeaders headers, @Valid @RequestBody UserUpdateRequest request) {
+        UUID token = authVerifierService.getToken(headers);
+        User existingUser = tokenControllerService.getUserByToken(token);
+
+        Optional<User> userWithSameEmail = userFinderApi.findByEmail(request.email().trim());
+
+        if (userWithSameEmail.isPresent() && !userWithSameEmail.get().getId().equals(existingUser.getId())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Email is already in use");
+        }
+
+        User updatedUser = existingUser.withEmail(request.email().trim())
+                .withLastName(request.lastName().trim())
+                .withFirstName(request.firstName().trim())
+                .withBirthday(request.birthday())
+                .withPhoneNumber(request.phoneNumber() != null ? request.phoneNumber().trim() : null)
+                .withRegion(request.region() != null ? request.region().trim() : null)
+                .withAdresse1(request.adresse1() != null ? request.adresse1().trim() : null)
+                .withAdresse2(request.adresse2() != null ? request.adresse2().trim() : null);
+
+        User savedUser = userUpdaterApi.update(token, updatedUser);
+
+        return UserDtoMapper.toDto(savedUser);
     }
 
     @PatchMapping
@@ -126,6 +148,53 @@ public class UserController {
             @RequestParam String code
     ) {
         return userVerifierApi.verify(email, code) ? "Vérification effectué" : "Erreur lors de la vérification";
+    }
+
+    @PostMapping("/securityModifier")
+    @ResponseStatus(OK)
+    public void securityModifier(@RequestHeader HttpHeaders headers) {
+        UUID token = authVerifierService.getToken(headers);
+        User user = tokenControllerService.getUserByToken(token);
+
+        emailSenderSpi.sendCodeVerifier(user, user.getVerificationCode());
+    }
+
+    @GetMapping("/verifyPasswordCode/{code}")
+    @ResponseStatus(OK)
+    public void verifyPasswordCode(@RequestHeader HttpHeaders headers, @PathVariable String code) {
+        UUID token = authVerifierService.getToken(headers);
+        User user = tokenControllerService.getUserByToken(token);
+
+        if (user.getVerificationCode() == null || !user.getVerificationCode().equals(code.trim())) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid verification code");
+        }
+    }
+
+    @PatchMapping("/updatePassword")
+    @ResponseStatus(OK)
+    public void updatePassword(@RequestHeader HttpHeaders headers, @RequestBody PasswordVerificationRequest request) {
+        UUID token = authVerifierService.getToken(headers);
+        User existingUser = tokenControllerService.getUserByToken(token);
+
+        PasswordEncoder passwordEncoder = new PasswordEncoder();
+        String hashedPassword = passwordEncoder.hashPassword(request.password());
+
+        User updatedUser = existingUser.withPassword(hashedPassword);
+
+        userUpdaterApi.updatePwd(token, updatedUser);
+    }
+
+    @PostMapping("/verifyPassword")
+    @ResponseStatus(OK)
+    public boolean verifyPassword(@RequestHeader HttpHeaders headers, @RequestBody PasswordVerificationRequest request) {
+        UUID token = authVerifierService.getToken(headers);
+        User user = tokenControllerService.getUserByToken(token);
+
+        PasswordEncoder passwordEncoder = new PasswordEncoder();
+        String hashedPassword = passwordEncoder.hashPassword(request.password());
+        boolean result = hashedPassword.equals(user.getPassword());
+
+        return result;
     }
 
     private String getSiteURL(HttpServletRequest request) {
