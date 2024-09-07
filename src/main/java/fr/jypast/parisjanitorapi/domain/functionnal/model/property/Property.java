@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.With;
 
+import java.util.List;
 import java.util.UUID;
 
 @Value
@@ -25,6 +26,9 @@ public class Property {
 
     @With
     UUID ownerId;
+
+    @With
+    List<String> imageUrls;
 
     @Builder.Default
     @With
