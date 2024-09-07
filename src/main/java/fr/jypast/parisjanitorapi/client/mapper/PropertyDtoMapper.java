@@ -28,5 +28,13 @@ public interface PropertyDtoMapper {
                 .build();
     }
 
+    static Property patchRequestToDomain(PropertyCreationRequest request) {
+        return Property.builder()
+                .address(request.adress().trim())
+                .description(request.description().trim())
+                .ownerId(request.ownerId())
+                .build();
+    }
+
 }
 
