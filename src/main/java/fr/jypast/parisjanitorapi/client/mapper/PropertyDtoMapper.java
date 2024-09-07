@@ -24,7 +24,6 @@ public interface PropertyDtoMapper {
                 .id(UUID.randomUUID())
                 .address(request.adress().trim())
                 .description(request.description().trim())
-                .ownerId(request.ownerId())
                 .build();
     }
 
@@ -32,7 +31,6 @@ public interface PropertyDtoMapper {
         return Property.builder()
                 .address(request.adress().trim())
                 .description(request.description().trim())
-                .ownerId(request.ownerId())
                 .build();
     }
 
