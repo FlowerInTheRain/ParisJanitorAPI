@@ -25,6 +25,9 @@ stages:
         versionSpec: '17'
         jdkArchitectureOption: 'x64'
         jdkSourceOption: 'PreInstalled'
+    - task: CmdLine@2
+      inputs:
+        script: 'ls -l'
     - task: Maven@3
       inputs:
         mavenPomFile: '$(Build.SourcesDirectory)/ParisJanitorAPI/pom.xml'
