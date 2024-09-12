@@ -30,7 +30,7 @@ stages:
         script: 'ls -l'
     - task: Maven@3
       inputs:
-        mavenPomFile: '$(Build.SourcesDirectory)/ParisJanitorAPI/pom.xml'
+        mavenPomFile: 'pom.xml'
         goals: 'clean install'
         publishJUnitResults: false
         javaHomeOption: 'JDKVersion'
@@ -43,7 +43,7 @@ stages:
     - task: CopyFiles@2
       displayName: 'Copy Files to artifact staging directory'
       inputs:
-        SourceFolder: '$(System.DefaultWorkingDirectory)/$(APP_NAME)/target'
+        SourceFolder: 'target'
         Contents: '*.jar'
         TargetFolder: $(Build.ArtifactStagingDirectory)
     - task: PublishBuildArtifacts@1
