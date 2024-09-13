@@ -8,10 +8,11 @@ import static com.tngtech.archunit.junit.CacheMode.FOREVER;
 import static com.tngtech.archunit.library.Architectures.layeredArchitecture;
 
 @AnalyzeClasses(
-    packages = "fr.barlords.parisjanitorapi",
+    packages = "fr.jypast.parisjanitorapi",
     cacheMode = FOREVER)
 public class LayersDevelopmentRulesTest {
 
+  
   @ArchTest
   public static final ArchRule LAYERS_DEVELOPMENT_RULE =
       layeredArchitecture()
