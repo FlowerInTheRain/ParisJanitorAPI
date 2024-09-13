@@ -3,11 +3,13 @@ package fr.jypast.parisjanitorapi.bootstrap.config.domain;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.property.PropertyCreatorService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.property.PropertyDeleterService;
+
 import fr.jypast.parisjanitorapi.domain.functionnal.service.property.PropertyFinderService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.property.PropertyUpdaterService;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyDeleterApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyFinderApi;
+
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyUpdaterApi;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import org.springframework.context.annotation.Bean;
@@ -22,6 +24,7 @@ public class PropertyConfiguration {
     ) {
         return new PropertyFinderService(spi);
     }
+
     @Bean
     public PropertyCreatorApi propertyCreatorApi(PropertyPersistenceSpi spi,
                                                  TokenControllerService tokenControllerService) {
