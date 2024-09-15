@@ -11,4 +11,5 @@ public interface PropertyFinderApi {
     List<Property> findAll();
 
     Optional<Property> findById(UUID id);
+    List<Property> findByIds(List<UUID> ids);
 }

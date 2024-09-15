@@ -26,4 +26,9 @@ public class PropertyFinderService implements PropertyFinderApi {
         return spi.findById(id);
     }
 
+    @Override
+    public List<Property> findByIds(List<UUID> ids) {
+        return spi.findByIds(ids);
+    }
+
 }

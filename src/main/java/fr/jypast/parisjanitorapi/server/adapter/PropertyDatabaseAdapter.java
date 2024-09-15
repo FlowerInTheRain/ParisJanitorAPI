@@ -54,4 +54,9 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
     public Property update(Property o) {
         return PropertyEntityMapper.toDomain(repository.save(PropertyEntityMapper.fromDomain(o)));
     }
+
+    @Override
+    public List<Property> findByIds(List<UUID> ids) {
+        return repository.findAllById(ids);
+    }
 }
