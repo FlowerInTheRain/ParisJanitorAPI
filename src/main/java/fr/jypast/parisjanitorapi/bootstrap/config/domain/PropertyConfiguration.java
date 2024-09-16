@@ -1,7 +1,7 @@
 package fr.jypast.parisjanitorapi.bootstrap.config.domain;
 
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
-import fr.jypast.parisjanitorapi.domain.functionnal.service.calendar.CalendarBlockerService;
+import fr.jypast.parisjanitorapi.domain.functionnal.service.booking.CalendarBlockerService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.property.PropertyCreatorService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.property.PropertyDeleterService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.property.PropertyFinderService;

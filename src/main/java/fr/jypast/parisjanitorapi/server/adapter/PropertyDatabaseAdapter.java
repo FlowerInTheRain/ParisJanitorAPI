@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static io.vavr.API.Try;
 
@@ -56,7 +57,10 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
     }
 
     @Override
+    @Transactional
     public List<Property> findByIds(List<UUID> ids) {
-        return repository.findAllById(ids);
+        return repository.findAllById(ids).stream()
+                .map(PropertyEntityMapper::toDomain)
+                .collect(Collectors.toList());
     }
 }
