@@ -21,5 +21,7 @@ public class Booking {
     @With
     private LocalDate endDate;
     @With
+    private UUID tenantId;
+    @With
     private BookingStatus status;
 }
