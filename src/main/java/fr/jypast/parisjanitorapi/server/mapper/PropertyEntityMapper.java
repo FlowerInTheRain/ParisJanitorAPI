@@ -10,9 +10,16 @@ public interface PropertyEntityMapper {
                 .id(entity.getId())
                 .address(entity.getAddress())
                 .description(entity.getDescription())
-                .isAvailable(entity.isValidated())
+                .isAvailable(entity.isAvailable())
                 .ownerId(entity.getOwnerId())
                 .isValidated(entity.isValidated())
+                .numberOfRooms(entity.getNumberOfRooms())
+                .capacity(entity.getCapacity())
+                .propertyType(entity.getPropertyType())
+                .country(entity.getCountry())
+                .size(entity.getSize())
+                .contactSlots(entity.getContactSlots())
+                .privacyDeclaration(entity.isPrivacyDeclaration())
                 .build();
     }
 
@@ -24,6 +31,13 @@ public interface PropertyEntityMapper {
                 .isAvailable(domain.isAvailable())
                 .ownerId(domain.getOwnerId())
                 .isValidated(domain.isValidated())
+                .numberOfRooms(domain.getNumberOfRooms())
+                .capacity(domain.getCapacity())
+                .propertyType(domain.getPropertyType())
+                .country(domain.getCountry())
+                .size(domain.getSize())
+                .contactSlots(domain.getContactSlots())
+                .privacyDeclaration(domain.isPrivacyDeclaration())
                 .build();
     }
 }
