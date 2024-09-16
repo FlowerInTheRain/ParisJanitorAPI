@@ -10,4 +10,7 @@ public interface CalendarBlockerApi {
     List<OccupancyCalendar> getOccupancyCalendar(UUID propertyId);
     void blockDates(UUID propertyId, List<LocalDate> dates);
     void unblockDates(UUID propertyId, List<LocalDate> dates);
+
+    List<UUID> findAvailablePropertiesBetweenDates(LocalDate startDate, LocalDate endDate);
+
 }

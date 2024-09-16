@@ -1,9 +1,7 @@
-package fr.jypast.parisjanitorapi.domain.functionnal.service.calendar;
+package fr.jypast.parisjanitorapi.domain.functionnal.service.booking;
 
 import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.OccupancyCalendar;
-import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.CalendarBlockerApi;
-import fr.jypast.parisjanitorapi.domain.port.in.calendar.OccupancyCalendarApi;
 import fr.jypast.parisjanitorapi.domain.port.out.CalendarPersistenceSpi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,7 +30,7 @@ public class CalendarBlockerService implements CalendarBlockerApi {
 
         for (LocalDate date : dates) {
             OccupancyCalendar calendarEntry = OccupancyCalendar.builder()
-                    .property(Property.builder().id(propertyId).build())
+                    .propertyId(propertyId)
                     .date(date)
                     .isAvailable(false)
                     .build();
@@ -43,5 +41,10 @@ public class CalendarBlockerService implements CalendarBlockerApi {
     @Override
     public void unblockDates(UUID propertyId, List<LocalDate> dates) {
         calendarPersistenceSpi.deleteByPropertyIdAndDates(propertyId, dates);
+    }
+
+    @Override
+    public List<UUID> findAvailablePropertiesBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return calendarPersistenceSpi.findAvailablePropertiesBetweenDates(startDate, endDate);
     }
 }
