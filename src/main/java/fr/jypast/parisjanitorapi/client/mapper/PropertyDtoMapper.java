@@ -2,6 +2,7 @@ package fr.jypast.parisjanitorapi.client.mapper;
 
 import fr.jypast.parisjanitorapi.client.dto.property.PropertyCreationRequest;
 import fr.jypast.parisjanitorapi.client.dto.property.PropertyDto;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ConciergerieType;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ContactSlot;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
@@ -25,7 +26,8 @@ public interface PropertyDtoMapper {
                 domain.getCountry(),
                 domain.getSize(),
                 domain.getContactSlots().stream().map(Enum::name).collect(Collectors.toList()),
-                domain.isPrivacyDeclaration()
+                domain.isPrivacyDeclaration(),
+                domain.getConciergerieType().name()
         );
     }
 
@@ -43,6 +45,7 @@ public interface PropertyDtoMapper {
                         .map(slot -> ContactSlot.valueOf(slot.toUpperCase()))
                         .collect(Collectors.toList()))
                 .privacyDeclaration(request.privacyDeclaration())
+                .conciergerieType(ConciergerieType.valueOf(request.conciergerieType().toUpperCase()))
                 .build();
     }
 
@@ -59,6 +62,7 @@ public interface PropertyDtoMapper {
                         .map(slot -> ContactSlot.valueOf(slot.toUpperCase()))
                         .collect(Collectors.toList()))
                 .privacyDeclaration(request.privacyDeclaration())
+                .conciergerieType(ConciergerieType.valueOf(request.conciergerieType().toUpperCase()))
                 .build();
     }
 }

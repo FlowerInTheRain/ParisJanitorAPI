@@ -20,6 +20,7 @@ public interface PropertyEntityMapper {
                 .size(entity.getSize())
                 .contactSlots(entity.getContactSlots())
                 .privacyDeclaration(entity.isPrivacyDeclaration())
+                .conciergerieType(entity.getConciergerieType())
                 .build();
     }
 
@@ -38,6 +39,7 @@ public interface PropertyEntityMapper {
                 .size(domain.getSize())
                 .contactSlots(domain.getContactSlots())
                 .privacyDeclaration(domain.isPrivacyDeclaration())
+                .conciergerieType(domain.getConciergerieType())
                 .build();
     }
 }

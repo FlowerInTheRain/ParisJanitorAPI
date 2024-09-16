@@ -1,5 +1,6 @@
 package fr.jypast.parisjanitorapi.server.entity;
 
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ConciergerieType;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ContactSlot;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 import jakarta.persistence.*;
@@ -61,4 +62,8 @@ public class PropertyEntity {
 
     @Column(name = "privacyDeclaration", nullable = false)
     private boolean privacyDeclaration;
+
+    @Column(name = "conciergerieType", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private ConciergerieType conciergerieType;
 }

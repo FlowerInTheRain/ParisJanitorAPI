@@ -16,5 +16,6 @@ public record PropertyCreationRequest(
         @NotNull @JsonProperty("country") String country,
         @NotNull @JsonProperty("size") double size,
         @NotNull @JsonProperty("contactSlots") List<String> contactSlots,
-        @NotNull @JsonProperty("privacyDeclaration") boolean privacyDeclaration
+        @NotNull @JsonProperty("privacyDeclaration") boolean privacyDeclaration,
+        @NotNull @JsonProperty("conciergerieType") String conciergerieType
 ) { }

@@ -18,6 +18,7 @@ public record PropertyDto(
         @JsonProperty("country") String country,
         @JsonProperty("size") double size,
         @JsonProperty("contactSlots") List<String> contactSlots,
-        @JsonProperty("privacyDeclaration") boolean privacyDeclaration
+        @JsonProperty("privacyDeclaration") boolean privacyDeclaration,
+        @JsonProperty("conciergerieType") String conciergerieType
 ) {
 }

@@ -54,6 +54,9 @@ public class Property {
     @With
     boolean privacyDeclaration;
 
+    @With
+    ConciergerieType conciergerieType;
+
     @Builder.Default
     @With
     boolean isValidated = false;
