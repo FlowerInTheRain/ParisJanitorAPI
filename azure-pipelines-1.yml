@@ -37,5 +37,3 @@ stages:
         package: '$(System.DefaultWorkingDirectory)/*.jar'
         runtimeStack: 'JAVA|17-java17'
         startUpCommand: 'java -jar /home/site/wwwroot/*.jar'
-        appSettings: '-WEBSITES_PORT 80'
-        configurationStrings: '-PORT 80'
