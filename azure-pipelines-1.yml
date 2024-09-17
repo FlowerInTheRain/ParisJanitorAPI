@@ -20,7 +20,7 @@ stages:
         buildVersionToDownload: 'latest'
         downloadType: 'single'
         artifactName: 'paris-janitor-api'
-        itemPattern: 'janitor-api.jar'
+        itemPattern: 
         downloadPath: '$(System.ArtifactsDirectory)'
         checkDownloadedFiles: true
     - task: CopyFiles@2
