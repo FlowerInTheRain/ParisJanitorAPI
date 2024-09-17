@@ -31,9 +31,9 @@ stages:
         TargetFolder: $(System.DefaultWorkingDirectory)
     - task: AzureWebApp@1
       inputs:
-        azureSubscription: 'Azure subscription 1(f1248dd5-2384-4478-bf73-b940c14b63dc)'
+        azureSubscription: 'Azure subscription 1 (f1248dd5-2384-4478-bf73-b940c14b63dc)'
         appType: 'webAppLinux'
-        appName: '$(APP_NAME)'
+        appName: 'paris-janitor-api'
         package: '$(System.DefaultWorkingDirectory)/*.jar'
         runtimeStack: 'JAVA|17-java17'
         startUpCommand: 'java -jar /home/site/wwwroot/*.jar'
