@@ -6,6 +6,7 @@ import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "property")
-public class PropertyEntity {
+public class PropertyEntity implements Serializable {
     @Id
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;

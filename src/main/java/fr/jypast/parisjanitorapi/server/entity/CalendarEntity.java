@@ -3,6 +3,7 @@ package fr.jypast.parisjanitorapi.server.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CalendarEntity {
+public class CalendarEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
