@@ -6,7 +6,8 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.With;
 
-import java.util.Date;
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @Value
@@ -26,6 +27,9 @@ public class OccupancyCalendar {
     Date date;
 
     @Column(nullable = false)
+    @With
+    UUID propertyId;
+
     @With
     boolean isAvailable;
 }

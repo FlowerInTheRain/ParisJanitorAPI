@@ -30,6 +30,33 @@ public class Property {
     @With
     List<String> imageUrls;
 
+    @With
+    String country;
+
+    @With
+    double size;
+
+    @With
+    PropertyType propertyType;
+
+    @With
+    AccommodationType accommodationType;
+
+    @With
+    int numberOfRooms;
+
+    @With
+    int capacity;
+
+    @With
+    List<ContactSlot> contactSlots;
+
+    @With
+    boolean privacyDeclaration;
+
+    @With
+    ConciergerieType conciergerieType;
+
     @Builder.Default
     @With
     boolean isValidated = false;

@@ -6,11 +6,13 @@ import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyUpdaterApi;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
+@Component
 public class PropertyUpdaterService implements PropertyUpdaterApi {
     private final PropertyPersistenceSpi spi;
 

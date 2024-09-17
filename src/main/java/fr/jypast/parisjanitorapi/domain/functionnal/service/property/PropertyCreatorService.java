@@ -8,11 +8,14 @@ import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
+@Component
+
 public class PropertyCreatorService implements PropertyCreatorApi {
 
     private final PropertyPersistenceSpi spi;

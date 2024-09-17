@@ -5,17 +5,24 @@ import fr.jypast.parisjanitorapi.client.dto.property.PropertyDto;
 import fr.jypast.parisjanitorapi.client.mapper.PropertyDtoMapper;
 import fr.jypast.parisjanitorapi.client.service.AuthVerifierService;
 import fr.jypast.parisjanitorapi.client.validator.UuidValidator;
+import fr.jypast.parisjanitorapi.domain.port.in.booking.CalendarBlockerApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyDeleterApi;
+import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyFinderApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyUpdaterApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -23,9 +30,22 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class PropertyController {
 
     private final AuthVerifierService authVerifierService;
+    private final PropertyFinderApi propertyFinderApi;
     private final PropertyCreatorApi propertyCreatorApi;
+    
     private final PropertyUpdaterApi propertyUpdaterApi;
     private final PropertyDeleterApi propertyDeleterApi;
+
+    private final CalendarBlockerApi calendarBlockerApi;
+
+    @GetMapping
+    @ResponseStatus(OK)
+    public List<PropertyDto> getProperties() {
+        return propertyFinderApi.findAll()
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+    }
 
     @PostMapping
     @ResponseStatus(CREATED)
@@ -55,6 +75,18 @@ public class PropertyController {
     public ResponseEntity<Void> deleteProperty(@PathVariable UUID id) {
         propertyDeleterApi.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<PropertyDto>> getAvailableProperties(
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate) {
+        List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
+        List<PropertyDto> availableProperties = propertyFinderApi.findByIds(availablePropertyIds)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+        return ResponseEntity.ok(availableProperties);
     }
 
 }
