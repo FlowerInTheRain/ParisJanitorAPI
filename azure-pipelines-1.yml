@@ -16,7 +16,7 @@ stages:
       inputs:
         buildType: 'specific'
         project: '12e6b272-e75b-4b73-aebc-da22ad6551a2'
-        pipeline: '7'
+        pipeline: '19'
         buildVersionToDownload: 'latest'
         downloadType: 'single'
         artifactName: 'paris-janitor-api'
