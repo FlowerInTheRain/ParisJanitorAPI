@@ -20,14 +20,14 @@ stages:
         buildVersionToDownload: 'latest'
         downloadType: 'single'
         artifactName: 'paris-janitor-api'
-        itemPattern: '*.jar'
+        itemPattern: 'janitor-api.jar'
         downloadPath: '$(System.ArtifactsDirectory)'
         checkDownloadedFiles: true
     - task: CopyFiles@2
       displayName: 'Copy Files from artifact staging directory'
       inputs:
-        SourceFolder: '$(System.ArtifactsDirectory)'
-        Contents: '*.jar'
+        SourceFolder: '$(System.ArtifactsDirectory)/paris-janitor-api'
+        Contents: 'janitor-api.jar'
         TargetFolder: $(System.DefaultWorkingDirectory)
     - task: AzureWebApp@1
       inputs:
