@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
+import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -16,17 +17,11 @@ public class BookingCreatorService implements BookingCreatorApi {
     private final BookingPersistenceSpi bookingPersistenceSpi;
 
     @Override
-    public Booking createBooking(Booking booking) {
-        List<Booking> existingBookings = bookingPersistenceSpi.findByPropertyIdAndDates(
-                booking.getPropertyId(),
-                booking.getStartDate(),
-                booking.getEndDate()
-        );
+    public Booking createBooking(UUID userToken, Booking booking) {
+        List<Booking> existingBookings = bookingPersistenceSpi.findByPropertyIdAndDates(booking.getPropertyId(), booking.getStartDate(), booking.getEndDate());
         if (!existingBookings.isEmpty()) {
             throw new IllegalStateException("The property is already booked for the given dates.");
         }
-
-        return bookingPersistenceSpi.save(booking)
-                .getOrElseThrow(DataNotSaveException::new);
+        return bookingPersistenceSpi.save(booking).getOrElseThrow(DataNotSaveException::new);
     }
 }
