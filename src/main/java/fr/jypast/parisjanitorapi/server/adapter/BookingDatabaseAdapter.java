@@ -2,11 +2,9 @@ package fr.jypast.parisjanitorapi.server.adapter;
 
 import fr.jypast.parisjanitorapi.domain.ApplicationError;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.Booking;
-import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.port.out.BookingPersistenceSpi;
 import fr.jypast.parisjanitorapi.server.entity.BookingEntity;
 import fr.jypast.parisjanitorapi.server.mapper.BookingEntityMapper;
-import fr.jypast.parisjanitorapi.server.mapper.PropertyEntityMapper;
 import fr.jypast.parisjanitorapi.server.repository.BookingRepository;
 import fr.jypast.parisjanitorapi.server.repository.PropertyRepository;
 import io.vavr.control.Either;
@@ -81,16 +79,12 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
     }
 
     @Override
-    public List<Property> findUnavailablePropertiesBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<UUID> unavailablePropertyIds = repository.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(endDate, startDate)
+    public List<UUID> findUnavailablePropertyIdsBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return repository.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(endDate, startDate)
                 .stream()
                 .map(BookingEntity::getPropertyId)
                 .collect(Collectors.toList());
-
-        return propertyRepository.findAllById(unavailablePropertyIds)
-                .stream()
-                .map(PropertyEntityMapper::toDomain)
-                .collect(Collectors.toList());
     }
+
 
 }

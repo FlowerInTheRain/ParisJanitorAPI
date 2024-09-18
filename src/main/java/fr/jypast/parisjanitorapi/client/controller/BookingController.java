@@ -53,4 +53,5 @@ public class BookingController {
                 .toList();
         return ResponseEntity.ok(availableProperties);
     }
+
 }

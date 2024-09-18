@@ -11,11 +11,9 @@ import java.util.UUID;
 
 public interface CalendarRepository extends JpaRepository<CalendarEntity, UUID> {
 
-    // Custom query to find available properties between two dates
     @Query("SELECT DISTINCT c.propertyId FROM CalendarEntity c WHERE c.date BETWEEN :startDate AND :endDate AND c.isAvailable = true")
     List<UUID> findAvailablePropertiesBetweenDates(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 
-    // Other existing methods
     List<CalendarEntity> findByPropertyId(UUID propertyId);
     List<CalendarEntity> findByPropertyIdAndDateIn(UUID propertyId, List<LocalDate> dates);
     void deleteByPropertyIdAndDateIn(UUID propertyId, List<LocalDate> dates);

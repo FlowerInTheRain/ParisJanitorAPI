@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -19,10 +21,10 @@ public class BookingFinderService implements BookingFinderApi {
 
     @Override
     public List<Property> findAvailablePropertiesBetweenDates(LocalDate startDate, LocalDate endDate) {
-        List<Property> unavailablePropertyIds = bookingPersistenceSpi.findUnavailablePropertiesBetweenDates(startDate, endDate);
+        List<UUID> unavailablePropertyIds = bookingPersistenceSpi.findUnavailablePropertyIdsBetweenDates(startDate, endDate);
         return propertyPersistenceSpi.findAll().stream()
                 .filter(property -> !unavailablePropertyIds.contains(property.getId()))
-                .toList();
+                .collect(Collectors.toList());
     }
 
 }

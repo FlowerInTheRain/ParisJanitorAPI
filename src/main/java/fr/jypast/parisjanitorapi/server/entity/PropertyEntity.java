@@ -38,7 +38,6 @@ public class PropertyEntity implements Serializable {
     @Column(name = "isValidated")
     private boolean isValidated;
 
-    // New fields
     @Column(name = "numberOfRooms", nullable = false)
     private int numberOfRooms;
 
