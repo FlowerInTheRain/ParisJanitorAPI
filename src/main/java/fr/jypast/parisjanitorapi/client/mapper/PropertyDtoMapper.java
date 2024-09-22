@@ -25,6 +25,7 @@ public interface PropertyDtoMapper {
                 domain.getPropertyType().name(),
                 domain.getCountry(),
                 domain.getSize(),
+                domain.getImageUrls(),
                 domain.getContactSlots().stream().map(Enum::name).collect(Collectors.toList()),
                 domain.isPrivacyDeclaration(),
                 domain.getConciergerieType().name()
@@ -34,13 +35,14 @@ public interface PropertyDtoMapper {
     static Property creationRequestToDomain(PropertyCreationRequest request) {
         return Property.builder()
                 .id(UUID.randomUUID())
-                .address(request.adress().trim())
+                .address(request.address().trim())
                 .description(request.description().trim())
                 .numberOfRooms(request.numberOfRooms())
                 .capacity(request.capacity())
                 .propertyType(PropertyType.valueOf(request.propertyType().toUpperCase()))
                 .country(request.country().trim())
                 .size(request.size())
+                .imageUrls(request.imageUrls())
                 .contactSlots(request.contactSlots().stream()
                         .map(slot -> ContactSlot.valueOf(slot.toUpperCase()))
                         .collect(Collectors.toList()))
@@ -51,7 +53,7 @@ public interface PropertyDtoMapper {
 
     static Property patchRequestToDomain(PropertyCreationRequest request) {
         return Property.builder()
-                .address(request.adress().trim())
+                .address(request.address().trim())
                 .description(request.description().trim())
                 .numberOfRooms(request.numberOfRooms())
                 .capacity(request.capacity())
