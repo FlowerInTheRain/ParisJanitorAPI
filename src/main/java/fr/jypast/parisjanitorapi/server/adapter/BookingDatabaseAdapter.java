@@ -43,14 +43,6 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
     }
 
     @Override
-    public List<Booking> findBookingsBetweenDates(LocalDate startDate, LocalDate endDate) {
-        return repository.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(endDate, startDate)
-                .stream()
-                .map(BookingEntityMapper::toDomain)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<Booking> findPropertiesNotIn(List<UUID> propertyIds) {
         return repository.findAll()
                 .stream()
@@ -76,6 +68,11 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
                 .stream()
                 .map(BookingEntityMapper::toDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UUID> findBookedPropertyIdsBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return repository.findBookedPropertyIdsBetweenDates(startDate, endDate);
     }
 
     @Override
