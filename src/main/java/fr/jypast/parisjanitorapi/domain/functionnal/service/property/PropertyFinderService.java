@@ -27,8 +27,13 @@ public class PropertyFinderService implements PropertyFinderApi {
     }
 
     @Override
-    public List<Property> findByIds(List<UUID> ids) {
-        return spi.findByIds(ids);
+    public List<Property> findByDateAndMinSize(List<UUID> ids, double minSize) {
+        return spi.findByDateAndMinSize(ids, minSize);
+    }
+
+    @Override
+    public List<Property> findByDateAndMaxSize(List<UUID> ids, double maxSize) {
+        return spi.findByDateAndMaxSize(ids, maxSize);
     }
 
 }

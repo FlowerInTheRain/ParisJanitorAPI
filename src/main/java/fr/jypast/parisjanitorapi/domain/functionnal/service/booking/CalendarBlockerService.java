@@ -2,8 +2,8 @@ package fr.jypast.parisjanitorapi.domain.functionnal.service.booking;
 
 import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.OccupancyCalendar;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.CalendarBlockerApi;
-import fr.jypast.parisjanitorapi.domain.port.out.BookingPersistenceSpi; // Ajoutez cette ligne
-import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi; // Ajoutez cette ligne
+import fr.jypast.parisjanitorapi.domain.port.out.BookingPersistenceSpi;
+import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import fr.jypast.parisjanitorapi.domain.port.out.CalendarPersistenceSpi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
