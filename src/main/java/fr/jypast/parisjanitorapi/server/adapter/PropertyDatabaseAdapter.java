@@ -136,4 +136,31 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
                 .toList();
     }
 
+    @Override
+    @Transactional
+    public List<Property> findByMinRooms(int minRooms) {
+        return repository.findByNumberOfRoomsGreaterThanEqual(minRooms)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByMinCapacity(int minCapacity) {
+        return repository.findByCapacityGreaterThanEqual(minCapacity)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByMinRoomsAndCapacity(int minRooms, int minCapacity) {
+        return repository.findByNumberOfRoomsGreaterThanEqualAndCapacityGreaterThanEqual(minRooms, minCapacity)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
 }

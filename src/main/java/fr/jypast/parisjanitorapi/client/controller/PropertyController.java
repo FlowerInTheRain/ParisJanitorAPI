@@ -182,5 +182,41 @@ public class PropertyController {
         return ResponseEntity.ok(availableProperties);
     }
 
+    @GetMapping("/available/with-min-rooms")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithMinRooms(
+            @RequestParam("minRooms") int minRooms) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByMinRooms(minRooms)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/with-min-capacity")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithMinCapacity(
+            @RequestParam("minCapacity") int minCapacity) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByMinCapacity(minCapacity)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/with-min-rooms-and-capacity")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithMinRoomsAndCapacity(
+            @RequestParam("minRooms") int minRooms,
+            @RequestParam("minCapacity") int minCapacity) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByMinRoomsAndCapacity(minRooms, minCapacity)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
 
 }

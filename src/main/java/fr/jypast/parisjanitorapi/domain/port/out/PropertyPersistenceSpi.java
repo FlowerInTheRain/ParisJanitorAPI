@@ -23,7 +23,8 @@ public interface PropertyPersistenceSpi extends PersistenceSpi<Property, UUID> {
     List<Property> findByRoomsAndCapacity(List<UUID> ids, int rooms, int capacity);
     List<Property> findByRooms(int rooms);
     List<Property> findByCapacity(int capacity);
-
-
+    List<Property> findByMinRooms(int minRooms);
+    List<Property> findByMinCapacity(int minCapacity);
+    List<Property> findByMinRoomsAndCapacity(int minRooms, int minCapacity);
 
 }

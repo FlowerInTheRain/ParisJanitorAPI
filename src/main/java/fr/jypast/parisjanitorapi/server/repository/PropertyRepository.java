@@ -26,6 +26,8 @@ public interface PropertyRepository extends JpaRepository<PropertyEntity, UUID> 
     List<PropertyEntity> findByNumberOfRoomsAndCapacity(int numberOfRooms, int capacity);
     List<PropertyEntity> findByNumberOfRooms(int numberOfRooms);
     List<PropertyEntity> findByCapacity(int capacity);
-
+    List<PropertyEntity> findByNumberOfRoomsGreaterThanEqual(int minRooms);
+    List<PropertyEntity> findByCapacityGreaterThanEqual(int minCapacity);
+    List<PropertyEntity> findByNumberOfRoomsGreaterThanEqualAndCapacityGreaterThanEqual(int minRooms, int minCapacity);
 
 }
