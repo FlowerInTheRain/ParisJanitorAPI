@@ -11,9 +11,7 @@ import java.util.UUID;
 public interface BookingPersistenceSpi extends PersistenceSpi<Booking, UUID> {
     Either<ApplicationError, Booking> save(Booking booking);
     List<Booking> findByPropertyIdAndDates(UUID propertyId, LocalDate startDate, LocalDate endDate);
-    List<Booking> findBookingsBetweenDates(LocalDate startDate, LocalDate endDate);
-
-
+    List<UUID> findBookedPropertyIdsBetweenDates(LocalDate startDate, LocalDate endDate);
     List<Booking> findPropertiesNotIn(List<UUID> propertyIds);
     List<UUID> findUnavailablePropertyIdsBetweenDates(LocalDate startDate, LocalDate endDate);
 }
