@@ -2,6 +2,7 @@ package fr.jypast.parisjanitorapi.server.adapter;
 
 import fr.jypast.parisjanitorapi.domain.ApplicationError;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import fr.jypast.parisjanitorapi.server.mapper.PropertyEntityMapper;
 import fr.jypast.parisjanitorapi.server.repository.PropertyRepository;
@@ -177,6 +178,16 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
     public List<Property> findByCountryAndMinRoomsAndCapacity(String country, List<UUID> ids, int minRooms, int minCapacity) {
         return repository.findByCountryAndIdInAndNumberOfRoomsGreaterThanEqualAndCapacityGreaterThanEqual(
                         country, ids, minRooms, minCapacity)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByCountryAndTypeAndRoomsAndCapacity(String country, List<UUID> ids, int rooms, int capacity, PropertyType type) {
+        return repository.findByCountryAndIdInAndPropertyTypeAndNumberOfRoomsAndCapacity(
+                        country, ids, type, rooms, capacity)
                 .stream()
                 .map(PropertyEntityMapper::toDomain)
                 .toList();

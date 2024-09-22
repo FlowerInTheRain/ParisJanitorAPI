@@ -2,6 +2,7 @@ package fr.jypast.parisjanitorapi.domain.port.out;
 
 import fr.jypast.parisjanitorapi.domain.ApplicationError;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 import io.vavr.control.Either;
 
 import java.util.List;
@@ -28,6 +29,6 @@ public interface PropertyPersistenceSpi extends PersistenceSpi<Property, UUID> {
     List<Property> findByMinRoomsAndCapacity(int minRooms, int minCapacity);
     List<Property> findByCountryAndIds(String country, List<UUID> ids);
     List<Property> findByCountryAndMinRoomsAndCapacity(String country, List<UUID> ids, int minRooms, int minCapacity);
-
+    List<Property> findByCountryAndTypeAndRoomsAndCapacity(String country, List<UUID> ids, int rooms, int capacity, PropertyType type);
 
 }

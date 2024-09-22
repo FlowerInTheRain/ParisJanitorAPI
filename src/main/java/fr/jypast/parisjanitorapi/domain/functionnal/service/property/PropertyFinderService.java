@@ -1,6 +1,7 @@
 package fr.jypast.parisjanitorapi.domain.functionnal.service.property;
 
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyFinderApi;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import lombok.RequiredArgsConstructor;
@@ -82,5 +83,10 @@ public class PropertyFinderService implements PropertyFinderApi {
     @Override
     public List<Property> findByCountryAndMinRoomsAndCapacity(String country, List<UUID> ids, int minRooms, int minCapacity) {
         return spi.findByCountryAndMinRoomsAndCapacity(country, ids, minRooms, minCapacity);
+    }
+
+    @Override
+    public List<Property> findByCountryAndTypeAndRoomsAndCapacity(String country, List<UUID> ids, int rooms, int capacity, PropertyType type) {
+        return spi.findByCountryAndTypeAndRoomsAndCapacity(country, ids, rooms, capacity, type);
     }
 }

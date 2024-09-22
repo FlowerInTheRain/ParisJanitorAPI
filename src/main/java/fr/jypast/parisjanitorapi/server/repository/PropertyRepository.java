@@ -1,5 +1,6 @@
 package fr.jypast.parisjanitorapi.server.repository;
 
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 import fr.jypast.parisjanitorapi.server.entity.PropertyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -32,5 +33,7 @@ public interface PropertyRepository extends JpaRepository<PropertyEntity, UUID> 
     List<PropertyEntity> findByCountryAndIdIn(String country, List<UUID> ids);
     List<PropertyEntity> findByCountryAndIdInAndNumberOfRoomsGreaterThanEqualAndCapacityGreaterThanEqual(
             String country, List<UUID> ids, int minRooms, int minCapacity);
+    List<PropertyEntity> findByCountryAndIdInAndPropertyTypeAndNumberOfRoomsAndCapacity(
+            String country, List<UUID> ids, PropertyType propertyType, int numberOfRooms, int capacity);
 
 }
