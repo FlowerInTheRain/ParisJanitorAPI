@@ -14,6 +14,9 @@ public interface PropertyPersistenceSpi extends PersistenceSpi<Property, UUID> {
     Optional<Property> findById(UUID id);
     void deleteById(UUID id);
     Property update(Property o);
-    List<Property> findByIds(List<UUID> ids);
+    List<UUID> findAllPropertyIds();
+    List<UUID> findAvailablePropertiesByExcludingIds(List<UUID> bookedPropertyIds);
+    List<Property> findByDateAndMinSize(List<UUID> ids, double minSize);
+    List<Property> findByDateAndMaxSize(List<UUID> ids, double maxSize);
 
 }

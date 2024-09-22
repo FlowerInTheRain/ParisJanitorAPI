@@ -11,6 +11,7 @@ import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyDeleterApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyFinderApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyUpdaterApi;
+import fr.jypast.parisjanitorapi.domain.port.out.BookingPersistenceSpi;
 import fr.jypast.parisjanitorapi.domain.port.out.CalendarPersistenceSpi;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import org.springframework.context.annotation.Bean;
@@ -43,5 +44,8 @@ public class PropertyConfiguration {
     }
 
     @Bean
-    public CalendarBlockerApi calendarBlockerApi(CalendarPersistenceSpi spi) { return new CalendarBlockerService(spi); }
-}
+    public CalendarBlockerApi calendarBlockerApi(CalendarPersistenceSpi calendarSpi,
+                                                 BookingPersistenceSpi bookingSpi,
+                                                 PropertyPersistenceSpi propertySpi) {
+        return new CalendarBlockerService(calendarSpi, bookingSpi, propertySpi);
+    }}

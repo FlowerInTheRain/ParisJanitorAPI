@@ -11,5 +11,8 @@ public interface PropertyFinderApi {
     List<Property> findAll();
 
     Optional<Property> findById(UUID id);
-    List<Property> findByIds(List<UUID> ids);
+
+    List<Property> findByDateAndMinSize(List<UUID> ids, double minSize);
+
+    List<Property> findByDateAndMaxSize(List<UUID> ids, double maxSize);
 }

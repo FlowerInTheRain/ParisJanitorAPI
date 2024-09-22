@@ -33,7 +33,6 @@ public class PropertyController {
     private final PropertyCreatorApi propertyCreatorApi;
     private final PropertyUpdaterApi propertyUpdaterApi;
     private final PropertyDeleterApi propertyDeleterApi;
-
     private final CalendarBlockerApi calendarBlockerApi;
 
     @GetMapping
@@ -74,16 +73,34 @@ public class PropertyController {
         propertyDeleterApi.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-    @GetMapping("/available")
-    public ResponseEntity<List<PropertyDto>> getAvailableProperties(
+    // Fichier : PropertyController.java
+    @GetMapping("/available/between-dates-with-min-size")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithMinSize(
             @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate) {
+            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("minSize") double minSize) {
+
         List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
-        List<PropertyDto> availableProperties = propertyFinderApi.findByIds(availablePropertyIds)
+        List<PropertyDto> availableProperties = propertyFinderApi.findByDateAndMinSize(availablePropertyIds, minSize)
                 .stream()
                 .map(PropertyDtoMapper::toDto)
                 .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/between-dates-with-max-size")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithMaxSize(
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("maxSize") double maxSize) {
+
+        List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
+        List<PropertyDto> availableProperties = propertyFinderApi.findByDateAndMaxSize(availablePropertyIds, maxSize)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
         return ResponseEntity.ok(availableProperties);
     }
 

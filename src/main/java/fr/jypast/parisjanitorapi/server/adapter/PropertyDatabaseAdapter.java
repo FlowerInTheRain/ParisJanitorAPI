@@ -58,9 +58,30 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
 
     @Override
     @Transactional
-    public List<Property> findByIds(List<UUID> ids) {
-        return repository.findAllById(ids).stream()
+    public List<UUID> findAllPropertyIds() {
+        return repository.findAllPropertyIds();
+    }
+
+    @Override
+    @Transactional
+    public List<UUID> findAvailablePropertiesByExcludingIds(List<UUID> bookedPropertyIds) {
+        return repository.findAvailablePropertiesByExcludingIds(bookedPropertyIds);
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByDateAndMinSize(List<UUID> ids, double minSize) {
+        return repository.findByIdInAndSizeGreaterThanEqual(ids, minSize).stream()
                 .map(PropertyEntityMapper::toDomain)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional
+    public List<Property> findByDateAndMaxSize(List<UUID> ids, double maxSize) {
+        return repository.findByIdInAndSizeLessThanEqual(ids, maxSize).stream()
+                .map(PropertyEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
 }
