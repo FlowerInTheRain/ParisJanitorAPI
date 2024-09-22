@@ -9,10 +9,10 @@ import java.util.UUID;
 public interface PropertyFinderApi {
 
     List<Property> findAll();
-
     Optional<Property> findById(UUID id);
-
     List<Property> findByDateAndMinSize(List<UUID> ids, double minSize);
-
     List<Property> findByDateAndMaxSize(List<UUID> ids, double maxSize);
+    List<Property> findByCountry(String country);
+    List<Property> findBySizeRange(double minSize, double maxSize);
+
 }

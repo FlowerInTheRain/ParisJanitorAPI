@@ -36,4 +36,13 @@ public class PropertyFinderService implements PropertyFinderApi {
         return spi.findByDateAndMaxSize(ids, maxSize);
     }
 
+    @Override
+    public List<Property> findBySizeRange(double minSize, double maxSize) {
+        return spi.findBySizeRange(minSize, maxSize);
+    }
+
+    @Override
+    public List<Property> findByCountry(String country) {
+        return spi.findByCountry(country);
+    }
 }

@@ -73,7 +73,7 @@ public class PropertyController {
         propertyDeleterApi.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-    // Fichier : PropertyController.java
+
     @GetMapping("/available/between-dates-with-min-size")
     public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithMinSize(
             @RequestParam("startDate") LocalDate startDate,
@@ -102,6 +102,31 @@ public class PropertyController {
                 .toList();
 
         return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/between-sizes")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenSizes(
+            @RequestParam("minSize") double minSize,
+            @RequestParam("maxSize") double maxSize) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findBySizeRange(minSize, maxSize)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/by-country")
+    public ResponseEntity<List<PropertyDto>> getPropertiesByCountry(
+            @RequestParam("country") String country) {
+
+        List<PropertyDto> propertiesByCountry = propertyFinderApi.findByCountry(country)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(propertiesByCountry);
     }
 
 }

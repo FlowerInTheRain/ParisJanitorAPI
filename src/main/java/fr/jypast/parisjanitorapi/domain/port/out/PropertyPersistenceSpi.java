@@ -18,5 +18,7 @@ public interface PropertyPersistenceSpi extends PersistenceSpi<Property, UUID> {
     List<UUID> findAvailablePropertiesByExcludingIds(List<UUID> bookedPropertyIds);
     List<Property> findByDateAndMinSize(List<UUID> ids, double minSize);
     List<Property> findByDateAndMaxSize(List<UUID> ids, double maxSize);
+    List<Property> findByCountry(String country);
+    List<Property> findBySizeRange(double minSize, double maxSize);
 
 }

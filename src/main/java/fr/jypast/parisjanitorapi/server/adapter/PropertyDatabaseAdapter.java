@@ -84,4 +84,22 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    public List<Property> findBySizeRange(double minSize, double maxSize) {
+        return repository.findBySizeBetween(minSize, maxSize)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByCountry(String country) {
+        return repository.findByCountry(country)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
 }

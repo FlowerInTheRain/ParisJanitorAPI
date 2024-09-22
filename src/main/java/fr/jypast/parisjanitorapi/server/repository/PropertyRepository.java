@@ -16,12 +16,13 @@ public interface PropertyRepository extends JpaRepository<PropertyEntity, UUID> 
 
     @Query("SELECT p.id FROM PropertyEntity p")
     List<UUID> findAllPropertyIds();
-
     @Query("SELECT p.id FROM PropertyEntity p WHERE p.id NOT IN (:bookedPropertyIds)")
     List<UUID> findAvailablePropertiesByExcludingIds(List<UUID> bookedPropertyIds);
     List<PropertyEntity> findByIdInAndSizeGreaterThanEqual(List<UUID> ids, double minSize);
-
     List<PropertyEntity> findByIdInAndSizeLessThanEqual(List<UUID> ids, double maxSize);
+    List<PropertyEntity> findBySizeBetween(double minSize, double maxSize);
+    List<PropertyEntity> findByCountry(String country);
+
 
 
 }
