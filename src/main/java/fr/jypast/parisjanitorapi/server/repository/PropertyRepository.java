@@ -22,7 +22,8 @@ public interface PropertyRepository extends JpaRepository<PropertyEntity, UUID> 
     List<PropertyEntity> findByIdInAndSizeLessThanEqual(List<UUID> ids, double maxSize);
     List<PropertyEntity> findBySizeBetween(double minSize, double maxSize);
     List<PropertyEntity> findByCountry(String country);
-
+    List<PropertyEntity> findByIdInAndNumberOfRoomsAndCapacity(List<UUID> ids, int numberOfRooms, int capacity);
+    List<PropertyEntity> findByNumberOfRoomsAndCapacity(int numberOfRooms, int capacity);
 
 
 }

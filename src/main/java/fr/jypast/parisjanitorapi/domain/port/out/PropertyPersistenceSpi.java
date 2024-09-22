@@ -20,5 +20,6 @@ public interface PropertyPersistenceSpi extends PersistenceSpi<Property, UUID> {
     List<Property> findByDateAndMaxSize(List<UUID> ids, double maxSize);
     List<Property> findByCountry(String country);
     List<Property> findBySizeRange(double minSize, double maxSize);
+    List<Property> findByRoomsAndCapacity(List<UUID> ids, int rooms, int capacity);
 
 }

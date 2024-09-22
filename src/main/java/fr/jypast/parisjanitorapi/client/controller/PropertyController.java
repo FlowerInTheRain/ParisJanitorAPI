@@ -129,4 +129,34 @@ public class PropertyController {
         return ResponseEntity.ok(propertiesByCountry);
     }
 
+    @GetMapping("/available/between-dates-with-rooms-and-capacity")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithRoomsAndCapacity(
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("rooms") int rooms,
+            @RequestParam("capacity") int capacity) {
+
+        List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByRoomsAndCapacity(availablePropertyIds, rooms, capacity)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/with-rooms-and-capacity")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithRoomsAndCapacity(
+            @RequestParam("rooms") int rooms,
+            @RequestParam("capacity") int capacity) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByRoomsAndCapacity(null, rooms, capacity)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
 }

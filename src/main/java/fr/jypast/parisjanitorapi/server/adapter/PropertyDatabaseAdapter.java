@@ -102,4 +102,20 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
                 .toList();
     }
 
+    @Override
+    @Transactional
+    public List<Property> findByRoomsAndCapacity(List<UUID> ids, int rooms, int capacity) {
+        if (ids != null && !ids.isEmpty()) {
+            return repository.findByIdInAndNumberOfRoomsAndCapacity(ids, rooms, capacity)
+                    .stream()
+                    .map(PropertyEntityMapper::toDomain)
+                    .toList();
+        } else {
+            return repository.findByNumberOfRoomsAndCapacity(rooms, capacity)
+                    .stream()
+                    .map(PropertyEntityMapper::toDomain)
+                    .toList();
+        }
+    }
+
 }
