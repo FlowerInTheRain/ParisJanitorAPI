@@ -15,5 +15,7 @@ public interface PropertyFinderApi {
     List<Property> findByCountry(String country);
     List<Property> findBySizeRange(double minSize, double maxSize);
     List<Property> findByRoomsAndCapacity(List<UUID> ids, int rooms, int capacity);
+    List<Property> findByRooms(int rooms);
+    List<Property> findByCapacity(int capacity);
 
 }

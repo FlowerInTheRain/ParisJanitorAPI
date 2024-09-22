@@ -158,5 +158,29 @@ public class PropertyController {
 
         return ResponseEntity.ok(availableProperties);
     }
+    @GetMapping("/available/with-rooms")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithRooms(
+            @RequestParam("rooms") int rooms) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByRooms(rooms)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/with-capacity")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithCapacity(
+            @RequestParam("capacity") int capacity) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByCapacity(capacity)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
 
 }

@@ -24,6 +24,8 @@ public interface PropertyRepository extends JpaRepository<PropertyEntity, UUID> 
     List<PropertyEntity> findByCountry(String country);
     List<PropertyEntity> findByIdInAndNumberOfRoomsAndCapacity(List<UUID> ids, int numberOfRooms, int capacity);
     List<PropertyEntity> findByNumberOfRoomsAndCapacity(int numberOfRooms, int capacity);
+    List<PropertyEntity> findByNumberOfRooms(int numberOfRooms);
+    List<PropertyEntity> findByCapacity(int capacity);
 
 
 }

@@ -50,4 +50,14 @@ public class PropertyFinderService implements PropertyFinderApi {
     public List<Property> findByRoomsAndCapacity(List<UUID> ids, int rooms, int capacity) {
         return spi.findByRoomsAndCapacity(ids, rooms, capacity);
     }
+
+    @Override
+    public List<Property> findByRooms(int rooms) {
+        return spi.findByRooms(rooms);
+    }
+
+    @Override
+    public List<Property> findByCapacity(int capacity) {
+        return spi.findByCapacity(capacity);
+    }
 }
