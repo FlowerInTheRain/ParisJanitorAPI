@@ -20,5 +20,8 @@ public interface PropertyFinderApi {
     List<Property> findByMinRooms(int minRooms);
     List<Property> findByMinCapacity(int minCapacity);
     List<Property> findByMinRoomsAndCapacity(int minRooms, int minCapacity);
+    List<Property> findByCountryAndIds(String country, List<UUID> ids);
+    List<Property> findByCountryAndMinRoomsAndCapacity(String country, List<UUID> ids, int minRooms, int minCapacity);
+
 
 }

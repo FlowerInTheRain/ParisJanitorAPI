@@ -74,4 +74,13 @@ public class PropertyFinderService implements PropertyFinderApi {
     public List<Property> findByMinRoomsAndCapacity(int minRooms, int minCapacity) {
         return spi.findByMinRoomsAndCapacity(minRooms, minCapacity);
     }
+    @Override
+    public List<Property> findByCountryAndIds(String country, List<UUID> ids) {
+        return spi.findByCountryAndIds(country, ids);
+    }
+
+    @Override
+    public List<Property> findByCountryAndMinRoomsAndCapacity(String country, List<UUID> ids, int minRooms, int minCapacity) {
+        return spi.findByCountryAndMinRoomsAndCapacity(country, ids, minRooms, minCapacity);
+    }
 }

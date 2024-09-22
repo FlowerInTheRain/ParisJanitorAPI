@@ -163,4 +163,23 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
                 .toList();
     }
 
+    @Override
+    @Transactional
+    public List<Property> findByCountryAndIds(String country, List<UUID> ids) {
+        return repository.findByCountryAndIdIn(country, ids)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByCountryAndMinRoomsAndCapacity(String country, List<UUID> ids, int minRooms, int minCapacity) {
+        return repository.findByCountryAndIdInAndNumberOfRoomsGreaterThanEqualAndCapacityGreaterThanEqual(
+                        country, ids, minRooms, minCapacity)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
 }
