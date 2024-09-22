@@ -2,6 +2,7 @@ package fr.jypast.parisjanitorapi.server.adapter;
 
 import fr.jypast.parisjanitorapi.domain.ApplicationError;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import fr.jypast.parisjanitorapi.server.mapper.PropertyEntityMapper;
 import fr.jypast.parisjanitorapi.server.repository.PropertyRepository;
@@ -82,6 +83,114 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
         return repository.findByIdInAndSizeLessThanEqual(ids, maxSize).stream()
                 .map(PropertyEntityMapper::toDomain)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findBySizeRange(double minSize, double maxSize) {
+        return repository.findBySizeBetween(minSize, maxSize)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByCountry(String country) {
+        return repository.findByCountry(country)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByRoomsAndCapacity(List<UUID> ids, int rooms, int capacity) {
+        if (ids != null && !ids.isEmpty()) {
+            return repository.findByIdInAndNumberOfRoomsAndCapacity(ids, rooms, capacity)
+                    .stream()
+                    .map(PropertyEntityMapper::toDomain)
+                    .toList();
+        } else {
+            return repository.findByNumberOfRoomsAndCapacity(rooms, capacity)
+                    .stream()
+                    .map(PropertyEntityMapper::toDomain)
+                    .toList();
+        }
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByRooms(int rooms) {
+        return repository.findByNumberOfRooms(rooms)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByCapacity(int capacity) {
+        return repository.findByCapacity(capacity)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByMinRooms(int minRooms) {
+        return repository.findByNumberOfRoomsGreaterThanEqual(minRooms)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByMinCapacity(int minCapacity) {
+        return repository.findByCapacityGreaterThanEqual(minCapacity)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByMinRoomsAndCapacity(int minRooms, int minCapacity) {
+        return repository.findByNumberOfRoomsGreaterThanEqualAndCapacityGreaterThanEqual(minRooms, minCapacity)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByCountryAndIds(String country, List<UUID> ids) {
+        return repository.findByCountryAndIdIn(country, ids)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByCountryAndMinRoomsAndCapacity(String country, List<UUID> ids, int minRooms, int minCapacity) {
+        return repository.findByCountryAndIdInAndNumberOfRoomsGreaterThanEqualAndCapacityGreaterThanEqual(
+                        country, ids, minRooms, minCapacity)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByCountryAndTypeAndRoomsAndCapacity(String country, List<UUID> ids, int rooms, int capacity, PropertyType type) {
+        return repository.findByCountryAndIdInAndPropertyTypeAndNumberOfRoomsAndCapacity(
+                        country, ids, type, rooms, capacity)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
     }
 
 }

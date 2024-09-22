@@ -5,6 +5,7 @@ import fr.jypast.parisjanitorapi.client.dto.property.PropertyDto;
 import fr.jypast.parisjanitorapi.client.mapper.PropertyDtoMapper;
 import fr.jypast.parisjanitorapi.client.service.AuthVerifierService;
 import fr.jypast.parisjanitorapi.client.validator.UuidValidator;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.CalendarBlockerApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyDeleterApi;
@@ -73,7 +74,7 @@ public class PropertyController {
         propertyDeleterApi.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-    // Fichier : PropertyController.java
+
     @GetMapping("/available/between-dates-with-min-size")
     public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithMinSize(
             @RequestParam("startDate") LocalDate startDate,
@@ -104,4 +105,187 @@ public class PropertyController {
         return ResponseEntity.ok(availableProperties);
     }
 
+    @GetMapping("/available/between-sizes")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenSizes(
+            @RequestParam("minSize") double minSize,
+            @RequestParam("maxSize") double maxSize) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findBySizeRange(minSize, maxSize)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/by-country")
+    public ResponseEntity<List<PropertyDto>> getPropertiesByCountry(
+            @RequestParam("country") String country) {
+
+        List<PropertyDto> propertiesByCountry = propertyFinderApi.findByCountry(country)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(propertiesByCountry);
+    }
+
+    @GetMapping("/available/between-dates-with-rooms-and-capacity")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithRoomsAndCapacity(
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("rooms") int rooms,
+            @RequestParam("capacity") int capacity) {
+
+        List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByRoomsAndCapacity(availablePropertyIds, rooms, capacity)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/with-rooms-and-capacity")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithRoomsAndCapacity(
+            @RequestParam("rooms") int rooms,
+            @RequestParam("capacity") int capacity) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByRoomsAndCapacity(null, rooms, capacity)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+    @GetMapping("/available/with-rooms")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithRooms(
+            @RequestParam("rooms") int rooms) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByRooms(rooms)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/with-capacity")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithCapacity(
+            @RequestParam("capacity") int capacity) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByCapacity(capacity)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/with-min-rooms")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithMinRooms(
+            @RequestParam("minRooms") int minRooms) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByMinRooms(minRooms)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/with-min-capacity")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithMinCapacity(
+            @RequestParam("minCapacity") int minCapacity) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByMinCapacity(minCapacity)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/with-min-rooms-and-capacity")
+    public ResponseEntity<List<PropertyDto>> getAvailablePropertiesWithMinRoomsAndCapacity(
+            @RequestParam("minRooms") int minRooms,
+            @RequestParam("minCapacity") int minCapacity) {
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByMinRoomsAndCapacity(minRooms, minCapacity)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/by-country-between-dates")
+    public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDates(
+            @RequestParam("country") String country,
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate) {
+
+        List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByCountryAndIds(country, availablePropertyIds)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+    @GetMapping("/available/by-country-between-dates-with-rooms-and-capacity")
+    public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDatesWithRoomsAndCapacity(
+            @RequestParam("country") String country,
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("minRooms") int minRooms,
+            @RequestParam("minCapacity") int minCapacity) {
+
+        List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByCountryAndMinRoomsAndCapacity(country, availablePropertyIds, minRooms, minCapacity)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/by-country-between-dates-with-rooms-capacity-apartment")
+    public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDatesWithRoomsCapacityApartment(
+            @RequestParam("country") String country,
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("rooms") int rooms,
+            @RequestParam("capacity") int capacity) {
+
+        List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByCountryAndTypeAndRoomsAndCapacity(country, availablePropertyIds, rooms, capacity, PropertyType.APARTMENT)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
+
+    @GetMapping("/available/by-country-between-dates-with-rooms-capacity-house")
+    public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDatesWithRoomsCapacityHouse(
+            @RequestParam("country") String country,
+            @RequestParam("startDate") LocalDate startDate,
+            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("rooms") int rooms,
+            @RequestParam("capacity") int capacity) {
+
+        List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
+
+        List<PropertyDto> availableProperties = propertyFinderApi.findByCountryAndTypeAndRoomsAndCapacity(country, availablePropertyIds, rooms, capacity, PropertyType.HOUSE)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(availableProperties);
+    }
 }
