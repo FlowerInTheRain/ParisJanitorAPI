@@ -27,7 +27,9 @@ public class AuthFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse hsResponse = (HttpServletResponse) response;
-        if(req.getRequestURI().equals("/parisjanitor-api/status")) {
+        if(req.getRequestURI().equals("/parisjanitor-api/status") || req.getRequestURI().startsWith("/parisjanitor" +
+                                                                                                            "-api" +
+                                                                                                            "/files")) {
             chain.doFilter(request, response);
             return;
         }
