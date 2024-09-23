@@ -8,6 +8,7 @@ import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -17,13 +18,11 @@ import java.util.List;
 @Component
 public class FilesManagementService implements FilesManagement{
 	private static final Logger LOGGER = LoggerFactory.getLogger(FilesManagementService.class);
-	
 	BlobServiceClient blobServiceClient;
 	@Value("azure.client-id")
 	private String clientId;
 	@Value("azure.tenant-id")
 	private String tenantId;
-	
 	@Value("azure.client-value")
 	private String clientSecret;
 	
@@ -53,14 +52,26 @@ public class FilesManagementService implements FilesManagement{
 	public void addFilesToContainer(MultipartFile[] files, String containerName) {
 		Arrays.stream(files).forEach(file -> {
 			String fileName = file.getName();
-			try {
-				BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
-				var client = containerClient.getBlobClient(fileName);
-				client.upload(file.getInputStream());
-			} catch(Exception e){
-				LOGGER.error(e.getMessage());
+			if(file.getContentType() != null && (file.getContentType().equals(MediaType.IMAGE_JPEG_VALUE) || file.getContentType().equals(MediaType.IMAGE_PNG_VALUE))){
+				try {
+					BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
+					var client = containerClient.getBlobClient(fileName);
+					client.upload(file.getInputStream());
+				} catch(Exception e){
+					LOGGER.error(e.getMessage());
+				}
 			}
 		});
+	}
+	
+	@Override
+	public void updateProfilePicture(MultipartFile[] files, String containerName) {
+		BlobContainerClient containerClient = blobServiceClient
+													  .getBlobContainerClient(containerName);
+		containerClient.listBlobs().stream().forEach(blob -> {
+			containerClient.getBlobClient(blob.getName()).delete();
+		});
+		addFilesToContainer(files,containerName);
 	}
 	
 	@Override
@@ -69,9 +80,17 @@ public class FilesManagementService implements FilesManagement{
 													  .getBlobContainerClient(containerName);
 		try {
 			containerClient.getBlobClient(fileName).delete();
-			
 		} catch(Exception e){
 			LOGGER.error("Blob does not exist");
+		}
+	}
+	
+	@Override
+	public void deleteContainer(String containerName) {
+		try {
+			blobServiceClient.getBlobContainerClient(containerName).delete();
+		} catch(Exception e){
+			LOGGER.error(e.getMessage());
 		}
 	}
 	
