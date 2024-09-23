@@ -24,7 +24,7 @@ public class FilesManagementService implements FilesManagement{
 	@Value("azure.tenant-id")
 	private String tenantId;
 	
-	@Value("azure.client-secret")
+	@Value("azure.client-value")
 	private String clientSecret;
 	
 
