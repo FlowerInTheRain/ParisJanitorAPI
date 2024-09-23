@@ -10,7 +10,7 @@ public interface FilesManagement {
 	void addFilesToContainer(MultipartFile[] files, String containerName);
 	void updateProfilePicture(MultipartFile[] files, String containerName);
 	void deleteFileFromContainer(String containerName, String fileName);
-	
+	void addCertificateToContainer(String containerName, MultipartFile[] files);
 	void deleteContainer(String containerName);
 	List<String> getUrlsFromContainer(String containerName);
 }

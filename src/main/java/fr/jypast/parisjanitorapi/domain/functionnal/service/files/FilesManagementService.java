@@ -65,6 +65,22 @@ public class FilesManagementService implements FilesManagement{
 	}
 	
 	@Override
+	public void addCertificateToContainer(String containerName, MultipartFile[] files) {
+		Arrays.stream(files).forEach(file -> {
+			String fileName = file.getName();
+			if(file.getContentType() != null && (file.getContentType().equals(MediaType.IMAGE_JPEG_VALUE) || file.getContentType().equals(MediaType.IMAGE_PNG_VALUE) || file.getContentType().equals("application/pdf"))){
+				try {
+					BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
+					var client = containerClient.getBlobClient(String.format("certificate-%s", fileName));
+					client.upload(file.getInputStream());
+				} catch(Exception e){
+					LOGGER.error(e.getMessage());
+				}
+			}
+		});
+	}
+	
+	@Override
 	public void updateProfilePicture(MultipartFile[] files, String containerName) {
 		BlobContainerClient containerClient = blobServiceClient
 													  .getBlobContainerClient(containerName);

@@ -45,4 +45,12 @@ public class FilesController {
 		LOGGER.info("Updating user profile picture");
 		filesManagement.updateProfilePicture(files,profileReference);
 	}
+	
+	@PostMapping("/upload/profile/presta/upload-certification/{profileReference}")
+	@ResponseStatus(OK)
+	public void uploadCertificationForPerformer(@PathVariable String profileReference,
+								  @RequestParam("file") MultipartFile[] files	){
+		LOGGER.info("Updating user profile picture");
+		filesManagement.updateProfilePicture(files,profileReference);
+	}
 }
