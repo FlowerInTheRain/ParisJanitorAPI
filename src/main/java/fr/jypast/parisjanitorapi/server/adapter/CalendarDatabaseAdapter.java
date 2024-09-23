@@ -7,7 +7,7 @@ import fr.jypast.parisjanitorapi.server.mapper.CalendarEntityMapper;
 import fr.jypast.parisjanitorapi.server.repository.CalendarRepository;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 import static io.vavr.API.Try;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class CalendarDatabaseAdapter implements CalendarPersistenceSpi {
 

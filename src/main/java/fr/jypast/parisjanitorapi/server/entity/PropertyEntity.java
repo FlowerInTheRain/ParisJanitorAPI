@@ -41,7 +41,6 @@ public class PropertyEntity implements Serializable {
     @Column(name = "isValidated")
     private boolean isValidated;
 
-    // New fields
     @Column(name = "numberOfRooms", nullable = false)
     private int numberOfRooms;
 
@@ -57,6 +56,11 @@ public class PropertyEntity implements Serializable {
 
     @Column(name = "size", nullable = false)
     private double size;
+
+    @ElementCollection
+    @CollectionTable(name = "property_images", joinColumns = @JoinColumn(name = "property_id"))
+    @Column(name = "image_url")
+    private List<String> imageUrls;
 
     @ElementCollection(targetClass = ContactSlot.class)
     @CollectionTable(name = "contact_slots", joinColumns = @JoinColumn(name = "property_id"))

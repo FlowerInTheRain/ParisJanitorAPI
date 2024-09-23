@@ -17,6 +17,7 @@ public record PropertyDto(
         @JsonProperty("propertyType") String propertyType,
         @JsonProperty("country") String country,
         @JsonProperty("size") double size,
+        @JsonProperty("imageUrls") List<String> imageUrls,
         @JsonProperty("contactSlots") List<String> contactSlots,
         @JsonProperty("privacyDeclaration") boolean privacyDeclaration,
         @JsonProperty("conciergerieType") String conciergerieType
