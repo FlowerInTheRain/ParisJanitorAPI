@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.With;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.UUID;
 
 @Value
@@ -15,11 +15,11 @@ public class Invoice {
     @With
     UUID id = UUID.randomUUID();
     @With
-    private UUID propertyId;
+    UUID propertyId;
     @With
-    private LocalDate issueDate;
+    Date issueDate;
     @With
-    private double amount;
+    double amount;
     @With
-    private InvoiceStatus status;
+    InvoiceStatus status;
 }

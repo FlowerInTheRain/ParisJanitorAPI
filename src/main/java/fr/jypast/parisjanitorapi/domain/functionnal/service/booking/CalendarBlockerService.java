@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -49,16 +48,11 @@ public class CalendarBlockerService implements CalendarBlockerApi {
     }
 
     @Override
-<<<<<<< HEAD
     public List<UUID> findAvailablePropertiesBetweenDates(Date startDate, Date endDate) {
-        return calendarPersistenceSpi.findAvailablePropertiesBetweenDates(startDate, endDate);
-=======
-    public List<UUID> findAvailablePropertiesBetweenDates(LocalDate startDate, LocalDate endDate) {
         List<UUID> bookedProperties = bookingRepository.findBookedPropertyIdsBetweenDates(startDate, endDate);
         if (bookedProperties.isEmpty()) {
             return propertyRepository.findAllPropertyIds();
         }
         return propertyRepository.findAvailablePropertiesByExcludingIds(bookedProperties);
->>>>>>> upstream/main
     }
 }

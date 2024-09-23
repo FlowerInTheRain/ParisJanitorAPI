@@ -17,7 +17,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -77,19 +76,11 @@ public class PropertyController {
         return ResponseEntity.noContent().build();
     }
 
-<<<<<<< HEAD
-    @GetMapping("/available")
-    public ResponseEntity<List<PropertyDto>> getAvailableProperties(
-            @RequestParam("startDate") Date startDate,
-            @RequestParam("endDate") Date endDate) {
-=======
     @GetMapping("/available/between-dates-with-min-size")
     public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithMinSize(
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestParam("minSize") double minSize) {
-
->>>>>>> upstream/main
         List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
         List<PropertyDto> availableProperties = propertyFinderApi.findByDateAndMinSize(availablePropertyIds, minSize)
                 .stream()
@@ -101,8 +92,8 @@ public class PropertyController {
 
     @GetMapping("/available/between-dates-with-max-size")
     public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithMaxSize(
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestParam("maxSize") double maxSize) {
 
         List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
@@ -141,8 +132,8 @@ public class PropertyController {
 
     @GetMapping("/available/between-dates-with-rooms-and-capacity")
     public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithRoomsAndCapacity(
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestParam("rooms") int rooms,
             @RequestParam("capacity") int capacity) {
 
@@ -232,8 +223,8 @@ public class PropertyController {
     @GetMapping("/available/by-country-between-dates")
     public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDates(
             @RequestParam("country") String country,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate) {
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate) {
 
         List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
 
@@ -247,8 +238,8 @@ public class PropertyController {
     @GetMapping("/available/by-country-between-dates-with-rooms-and-capacity")
     public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDatesWithRoomsAndCapacity(
             @RequestParam("country") String country,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestParam("minRooms") int minRooms,
             @RequestParam("minCapacity") int minCapacity) {
 
@@ -265,8 +256,8 @@ public class PropertyController {
     @GetMapping("/available/by-country-between-dates-with-rooms-capacity-apartment")
     public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDatesWithRoomsCapacityApartment(
             @RequestParam("country") String country,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestParam("rooms") int rooms,
             @RequestParam("capacity") int capacity) {
 
@@ -283,8 +274,8 @@ public class PropertyController {
     @GetMapping("/available/by-country-between-dates-with-rooms-capacity-house")
     public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDatesWithRoomsCapacityHouse(
             @RequestParam("country") String country,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestParam("rooms") int rooms,
             @RequestParam("capacity") int capacity) {
 

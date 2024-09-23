@@ -5,7 +5,6 @@ import lombok.*;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Entity
@@ -53,7 +52,7 @@ public class UserEntity implements Serializable {
     private UUID token;
 
     @Column(name = "token_date", nullable = false)
-    private LocalDate tokenDate;
+    private Date tokenDate;
 
     @Column(name = "activated", nullable = false)
     private boolean activated;

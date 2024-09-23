@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.With;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.UUID;
 
 @Value
@@ -15,13 +15,13 @@ public class Booking {
     @With
     UUID id = UUID.randomUUID();
     @With
-    private UUID propertyId;
+    UUID propertyId;
     @With
-    private LocalDate startDate;
+    Date startDate;
     @With
-    private LocalDate endDate;
+    Date endDate;
     @With
-    private UUID tenantId;
+    UUID tenantId;
     @With
-    private BookingStatus status;
+    BookingStatus status;
 }

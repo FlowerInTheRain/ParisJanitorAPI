@@ -7,7 +7,6 @@ import lombok.Value;
 import lombok.With;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.UUID;
 
 @Value

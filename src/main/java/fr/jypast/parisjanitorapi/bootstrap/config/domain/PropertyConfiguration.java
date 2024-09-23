@@ -2,6 +2,8 @@ package fr.jypast.parisjanitorapi.bootstrap.config.domain;
 
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.booking.CalendarBlockerService;
+import fr.jypast.parisjanitorapi.domain.functionnal.service.files.FilesManagement;
+import fr.jypast.parisjanitorapi.domain.functionnal.service.files.FilesManagementService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.property.PropertyCreatorService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.property.PropertyDeleterService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.property.PropertyFinderService;
@@ -29,13 +31,13 @@ public class PropertyConfiguration {
 
     @Bean
     public PropertyCreatorApi propertyCreatorApi(PropertyPersistenceSpi spi,
-                                                 TokenControllerService tokenControllerService) {
-        return new PropertyCreatorService(spi, tokenControllerService);
+                                                 TokenControllerService tokenControllerService, FilesManagementService filesManagement) {
+        return new PropertyCreatorService(spi, tokenControllerService, filesManagement);
     }
 
     @Bean
-    public PropertyDeleterApi propertyDeleterApi(PropertyPersistenceSpi spi) {
-        return new PropertyDeleterService(spi);
+    public PropertyDeleterApi propertyDeleterApi(PropertyPersistenceSpi spi, FilesManagementService filesManagementService) {
+        return new PropertyDeleterService(spi, filesManagementService);
     }
 
     @Bean

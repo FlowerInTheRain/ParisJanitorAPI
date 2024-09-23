@@ -3,7 +3,6 @@ package fr.jypast.parisjanitorapi.domain.port.out;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.OccupancyCalendar;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 

@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -63,7 +63,7 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
 
 
     @Override
-    public List<Booking> findByPropertyIdAndDates(UUID propertyId, LocalDate startDate, LocalDate endDate) {
+    public List<Booking> findByPropertyIdAndDates(UUID propertyId, Date startDate, Date endDate) {
         return repository.findByPropertyIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(propertyId, endDate, startDate)
                 .stream()
                 .map(BookingEntityMapper::toDomain)
@@ -71,12 +71,12 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
     }
 
     @Override
-    public List<UUID> findBookedPropertyIdsBetweenDates(LocalDate startDate, LocalDate endDate) {
+    public List<UUID> findBookedPropertyIdsBetweenDates(Date startDate, Date endDate) {
         return repository.findBookedPropertyIdsBetweenDates(startDate, endDate);
     }
 
     @Override
-    public List<UUID> findUnavailablePropertyIdsBetweenDates(LocalDate startDate, LocalDate endDate) {
+    public List<UUID> findUnavailablePropertyIdsBetweenDates(Date startDate, Date endDate) {
         return repository.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(endDate, startDate)
                 .stream()
                 .map(BookingEntity::getPropertyId)

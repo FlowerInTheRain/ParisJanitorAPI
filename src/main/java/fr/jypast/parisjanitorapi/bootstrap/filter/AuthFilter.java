@@ -29,7 +29,11 @@ public class AuthFilter implements Filter {
         HttpServletResponse hsResponse = (HttpServletResponse) response;
         if(req.getRequestURI().equals("/parisjanitor-api/status") || req.getRequestURI().startsWith("/parisjanitor" +
                                                                                                             "-api" +
-                                                                                                            "/files")) {
+                                                                                                            "/files") ||req.getRequestURI().startsWith("/parisjanitor" +
+                                                                                                                                                                                                                                    "-api" +
+                                                                                                                                                                                                                                    "/swagger") ||req.getRequestURI().startsWith("/parisjanitor" +
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      "-api" +
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      "/v3")) {
             chain.doFilter(request, response);
             return;
         }

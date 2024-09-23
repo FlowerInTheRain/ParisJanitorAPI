@@ -7,7 +7,8 @@ import fr.jypast.parisjanitorapi.domain.port.out.UserPersistenceSpi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDate;
+import java.sql.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 @Slf4j
@@ -23,7 +24,7 @@ public class TokenControllerService {
 
     public User updateToken(User user) {
         User updatedUser = user.withToken(UUID.randomUUID())
-                .withTokenDate(LocalDate.now());
+                .withTokenDate(new Date(Instant.now().getEpochSecond()));
         return spi.save(updatedUser)
                 .getOrElseThrow(DataNotSaveException::new);
     }

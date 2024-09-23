@@ -15,9 +15,6 @@ public interface PropertyPersistenceSpi extends PersistenceSpi<Property, UUID> {
     Optional<Property> findById(UUID id);
     void deleteById(UUID id);
     Property update(Property o);
-<<<<<<< HEAD
-    List<Property> findByIds(List<UUID> ids);
-=======
     List<UUID> findAllPropertyIds();
     List<UUID> findAvailablePropertiesByExcludingIds(List<UUID> bookedPropertyIds);
     List<Property> findByDateAndMinSize(List<UUID> ids, double minSize);
@@ -33,6 +30,4 @@ public interface PropertyPersistenceSpi extends PersistenceSpi<Property, UUID> {
     List<Property> findByCountryAndIds(String country, List<UUID> ids);
     List<Property> findByCountryAndMinRoomsAndCapacity(String country, List<UUID> ids, int minRooms, int minCapacity);
     List<Property> findByCountryAndTypeAndRoomsAndCapacity(String country, List<UUID> ids, int rooms, int capacity, PropertyType type);
-
->>>>>>> upstream/main
 }
