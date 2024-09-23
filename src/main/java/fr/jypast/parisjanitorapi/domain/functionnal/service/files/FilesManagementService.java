@@ -7,6 +7,7 @@ import com.azure.storage.blob.BlobServiceClientBuilder;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,15 +19,23 @@ public class FilesManagementService implements FilesManagement{
 	private static final Logger LOGGER = LoggerFactory.getLogger(FilesManagementService.class);
 	
 	BlobServiceClient blobServiceClient;
+	@Value("azure.client-id")
+	private String clientId;
+	@Value("azure.tenant-id")
+	private String tenantId;
 	
+	@Value("azure.client-secret")
+	private String clientSecret;
+	
+
 	@PostConstruct
 	public void init() {
 		blobServiceClient = new BlobServiceClientBuilder()
 									.endpoint("https://esgipa.blob.core.windows.net/")
 									.credential(new ClientSecretCredentialBuilder()
-														.tenantId("851bef4a-6c51-445b-812f-9dd619bedeb7")
-														.clientId("0ed872a4-42b7-4294-b972-b22b0cae0dcb")
-														.clientSecret("Kk58Q~HuqIcMV6lf9h16MBaLPHGdw2p2AgJhkais").build())
+														.tenantId(tenantId)
+														.clientId(clientId)
+														.clientSecret(clientSecret).build())
 									.buildClient();
 	}
 	
@@ -42,7 +51,7 @@ public class FilesManagementService implements FilesManagement{
 	
 	@Override
 	public void addFilesToContainer(MultipartFile[] files, String containerName) {
-		Arrays.asList(files).stream().forEach(file -> {
+		Arrays.stream(files).forEach(file -> {
 			String fileName = file.getName();
 			try {
 				BlobContainerClient containerClient = blobServiceClient.getBlobContainerClient(containerName);
