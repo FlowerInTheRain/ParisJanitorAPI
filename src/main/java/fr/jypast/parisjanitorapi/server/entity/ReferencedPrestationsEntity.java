@@ -46,4 +46,8 @@ public class ReferencedPrestationsEntity {
 	
 	@Column(name = "habilitation_name")
 	private String habilitations;
+	
+	@ManyToOne
+	@JoinColumn(name="provider_id", nullable=false)
+	private ProvidersEntity provider;
 }

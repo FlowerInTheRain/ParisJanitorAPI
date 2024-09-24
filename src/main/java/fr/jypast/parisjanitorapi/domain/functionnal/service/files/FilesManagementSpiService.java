@@ -4,6 +4,7 @@ import com.azure.identity.ClientSecretCredentialBuilder;
  import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
+import fr.jypast.parisjanitorapi.domain.port.out.FilesManagementSpi;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,21 +17,25 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class FilesManagementService implements FilesManagement{
-	private static final Logger LOGGER = LoggerFactory.getLogger(FilesManagementService.class);
+public class FilesManagementSpiService implements FilesManagementSpi {
+	private static final Logger LOGGER = LoggerFactory.getLogger(FilesManagementSpiService.class);
+	
 	BlobServiceClient blobServiceClient;
-	@Value("azure.client-id")
+	
+	@Value("${azure.client-id}")
 	private String clientId;
-	@Value("azure.tenant-id")
+	@Value("${azure.tenant-id}")
 	private String tenantId;
-	@Value("azure.client-value")
+	@Value("${azure.client-value}")
 	private String clientSecret;
+	@Value("${azure.store.endpoint}")
+	private String endpoint;
 	
 
 	@PostConstruct
 	public void init() {
 		blobServiceClient = new BlobServiceClientBuilder()
-									.endpoint("https://esgipa.blob.core.windows.net/")
+									.endpoint(endpoint)
 									.credential(new ClientSecretCredentialBuilder()
 														.tenantId(tenantId)
 														.clientId(clientId)

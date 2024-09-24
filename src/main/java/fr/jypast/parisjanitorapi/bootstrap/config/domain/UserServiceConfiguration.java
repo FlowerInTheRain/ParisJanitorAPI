@@ -1,7 +1,7 @@
 package fr.jypast.parisjanitorapi.bootstrap.config.domain;
 
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
-import fr.jypast.parisjanitorapi.domain.functionnal.service.files.FilesManagementService;
+import fr.jypast.parisjanitorapi.domain.port.out.FilesManagementSpi;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.user.*;
 import fr.jypast.parisjanitorapi.domain.port.in.user.*;
 import fr.jypast.parisjanitorapi.domain.port.out.EmailingSpi;
@@ -31,17 +31,17 @@ public class UserServiceConfiguration {
             UserPersistenceSpi spi,
             UserCheckerService userCheckerService,
             EmailingSpi emailingSpi,
-            FilesManagementService filesManagementService
+            FilesManagementSpi filesManagementSpiService
     ) {
-        return new UserCreatorService(spi, userCheckerService, emailingSpi,filesManagementService);
+        return new UserCreatorService(spi, userCheckerService, emailingSpi, filesManagementSpiService);
     }
 
     @Bean
     public UserDeleterApi userDeleterApi(
             UserPersistenceSpi spi,
-            FilesManagementService filesManagementService
+            FilesManagementSpi filesManagementSpiService
     ) {
-        return new UserDeleterService(spi,filesManagementService);
+        return new UserDeleterService(spi, filesManagementSpiService);
     }
 
     @Bean

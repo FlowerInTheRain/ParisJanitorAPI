@@ -4,7 +4,7 @@ import fr.jypast.parisjanitorapi.domain.functionnal.exception.DataNotSaveExcepti
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.user.User;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
-import fr.jypast.parisjanitorapi.domain.functionnal.service.files.FilesManagement;
+import fr.jypast.parisjanitorapi.domain.port.out.FilesManagementSpi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +21,12 @@ public class PropertyCreatorService implements PropertyCreatorApi {
 
     private final PropertyPersistenceSpi spi;
     private final TokenControllerService tokenControllerService;
-    private final FilesManagement filesManagement;
+    private final FilesManagementSpi filesManagementSpi;
 
     @Override
     public Property createProperty(UUID userToken, Property property) {
         User owner = tokenControllerService.getUserByToken(userToken);
-        filesManagement.createContainer(owner.getId().toString());
+        filesManagementSpi.createContainer(owner.getId().toString());
         return spi.save(property.withOwnerId(owner.getId()))
                 .getOrElseThrow(DataNotSaveException::new);
 
