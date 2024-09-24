@@ -74,7 +74,7 @@ public class UserEntity implements Serializable {
     @JoinColumn(name = "subscription_plan_id", referencedColumnName = "id")
     private SubscriptionPlanEntity userSubscriptionPlan;
     
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "subscription_id", referencedColumnName = "id")
     private Subscriptions userSubscription;
 }

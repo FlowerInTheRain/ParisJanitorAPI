@@ -3,6 +3,8 @@ package fr.jypast.parisjanitorapi.server.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
@@ -19,7 +21,7 @@ public class ProvidersEntity {
 	private Integer id;
 	
 	@Column(name = "name",  nullable = false)
-	private String serviceName;
+	private String fullName;
 	
 	@Column(name = "mail",  nullable = false, length = 200, unique = true)
 	private String email;
@@ -35,4 +37,7 @@ public class ProvidersEntity {
 	
 	@Column(name = "join_request_message",  nullable = false)
 	private String joinRequestMessage;
+	
+	@OneToMany(mappedBy="provider")
+	private List<ReferencedPrestationsEntity> referencedPrestation;
 }
