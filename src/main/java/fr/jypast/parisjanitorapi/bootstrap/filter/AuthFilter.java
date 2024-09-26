@@ -30,7 +30,7 @@ public class AuthFilter implements Filter {
 
         boolean isExcluded = ("POST".equalsIgnoreCase(req.getMethod()) && EXCLUDED_PATHS.matcher(req.getRequestURI()).matches())
                 || ("GET".equalsIgnoreCase(req.getMethod()) && req.getRequestURI().contains("verify"))
-                || req.getRequestURI().matches("^/parisjanitor-api/users/email/.+$"); // Ajouter cette ligne
+                || req.getRequestURI().matches("^/parisjanitor-api/users/email/.+$");
 
         boolean isWebSocket = req.getRequestURI().startsWith("/parisjanitor-api/ws");
 
