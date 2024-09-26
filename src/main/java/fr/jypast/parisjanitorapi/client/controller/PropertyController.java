@@ -288,4 +288,22 @@ public class PropertyController {
 
         return ResponseEntity.ok(availableProperties);
     }
+
+    @GetMapping("/available/apartments")
+    public ResponseEntity<List<PropertyDto>> getAvailableApartments() {
+        List<PropertyDto> availableApartments = propertyFinderApi.findAvailableByType(PropertyType.APARTMENT)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+        return ResponseEntity.ok(availableApartments);
+    }
+
+    @GetMapping("/available/houses")
+    public ResponseEntity<List<PropertyDto>> getAvailableHouses() {
+        List<PropertyDto> availableHouses = propertyFinderApi.findAvailableByType(PropertyType.HOUSE)
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+        return ResponseEntity.ok(availableHouses);
+    }
 }

@@ -193,4 +193,13 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
                 .toList();
     }
 
+    @Override
+    @Transactional
+    public List<Property> findAvailableByType(PropertyType type) {
+        return repository.findByIsAvailableTrueAndPropertyType(type)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .toList();
+    }
+
 }

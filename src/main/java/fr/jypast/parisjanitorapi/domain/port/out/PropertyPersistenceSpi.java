@@ -30,5 +30,6 @@ public interface PropertyPersistenceSpi extends PersistenceSpi<Property, UUID> {
     List<Property> findByCountryAndIds(String country, List<UUID> ids);
     List<Property> findByCountryAndMinRoomsAndCapacity(String country, List<UUID> ids, int minRooms, int minCapacity);
     List<Property> findByCountryAndTypeAndRoomsAndCapacity(String country, List<UUID> ids, int rooms, int capacity, PropertyType type);
+    List<Property> findAvailableByType(PropertyType type);
 
 }

@@ -89,4 +89,9 @@ public class PropertyFinderService implements PropertyFinderApi {
     public List<Property> findByCountryAndTypeAndRoomsAndCapacity(String country, List<UUID> ids, int rooms, int capacity, PropertyType type) {
         return spi.findByCountryAndTypeAndRoomsAndCapacity(country, ids, rooms, capacity, type);
     }
+
+    @Override
+    public List<Property> findAvailableByType(PropertyType type) {
+        return spi.findAvailableByType(type);
+    }
 }
