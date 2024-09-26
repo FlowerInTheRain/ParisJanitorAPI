@@ -10,11 +10,11 @@ import fr.jypast.parisjanitorapi.domain.functionnal.service.PasswordEncoder;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
 import fr.jypast.parisjanitorapi.domain.port.in.user.*;
 import fr.jypast.parisjanitorapi.domain.port.out.EmailingSpi;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -192,14 +192,22 @@ public class UserController {
 
         PasswordEncoder passwordEncoder = new PasswordEncoder();
         String hashedPassword = passwordEncoder.hashPassword(request.password());
-        boolean result = hashedPassword.equals(user.getPassword());
 
-        return result;
+        return hashedPassword.equals(user.getPassword());
     }
 
-    private String getSiteURL(HttpServletRequest request) {
-        String siteURL = request.getRequestURL().toString();
-        return siteURL.replace(request.getServletPath(), "");
+    @GetMapping("/owner-info/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<OwnerDto> getOwnerInfo(@PathVariable UUID id) {
+        return userFinderApi.findById(id)
+                .map(user -> new OwnerDto(
+                        user.getFirstName(),
+                        user.getLastName(),
+                        user.getEmail(),
+                        user.getPhoneNumber()
+                ))
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 }
