@@ -1,10 +1,13 @@
 package fr.jypast.parisjanitorapi.server.adapter;
 
 import fr.jypast.parisjanitorapi.domain.ApplicationError;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.FavoriteProperty;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
+import fr.jypast.parisjanitorapi.server.mapper.FavoritePropertyEntityMapper;
 import fr.jypast.parisjanitorapi.server.mapper.PropertyEntityMapper;
+import fr.jypast.parisjanitorapi.server.repository.FavoritePropertyRepository;
 import fr.jypast.parisjanitorapi.server.repository.PropertyRepository;
 import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +26,9 @@ import static io.vavr.API.Try;
 public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
 
     private final PropertyRepository repository;
+
+    private final FavoritePropertyRepository favoritePropertyRepository;
+
 
     @Override
     @Transactional
@@ -200,6 +206,23 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
                 .stream()
                 .map(PropertyEntityMapper::toDomain)
                 .toList();
+    }
+
+    @Override
+    public FavoriteProperty save(FavoriteProperty favorite) {
+        return FavoritePropertyEntityMapper.toDomain(favoritePropertyRepository.save(FavoritePropertyEntityMapper.fromDomain(favorite)));
+    }
+
+    @Override
+    public List<FavoriteProperty> findByUserId(UUID userId) {
+        return favoritePropertyRepository.findByUserId(userId).stream()
+                .map(FavoritePropertyEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteByUserIdAndPropertyId(UUID userId, UUID propertyId) {
+        favoritePropertyRepository.deleteByUserIdAndPropertyId(userId, propertyId);
     }
 
 }

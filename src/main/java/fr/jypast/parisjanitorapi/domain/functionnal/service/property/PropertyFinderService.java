@@ -1,5 +1,6 @@
 package fr.jypast.parisjanitorapi.domain.functionnal.service.property;
 
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.FavoriteProperty;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyFinderApi;
@@ -93,5 +94,10 @@ public class PropertyFinderService implements PropertyFinderApi {
     @Override
     public List<Property> findAvailableByType(PropertyType type) {
         return spi.findAvailableByType(type);
+    }
+
+    @Override
+    public List<FavoriteProperty> getUserFavorites(UUID userId) {
+        return spi.findByUserId(userId);
     }
 }

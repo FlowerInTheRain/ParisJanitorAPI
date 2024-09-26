@@ -16,4 +16,9 @@ public class PropertyDeleterService implements PropertyDeleterApi {
     public void deleteById(UUID id) {
         spi.deleteById(id);
     }
+
+    @Override
+    public void removeFavorite(UUID userId, UUID propertyId) {
+        spi.deleteByUserIdAndPropertyId(userId, propertyId);
+    }
 }
