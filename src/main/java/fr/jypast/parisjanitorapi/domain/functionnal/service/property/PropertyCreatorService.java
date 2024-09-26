@@ -28,7 +28,7 @@ public class PropertyCreatorService implements PropertyCreatorApi {
     }
 
     private void validateProperty(Property property) {
-        if (property.getAddress() == null || property.getAddress().isBlank()) {
+        if (property.getAdress() == null || property.getAdress().isBlank()) {
             throw new IllegalArgumentException("Property address cannot be empty.");
         }
     }

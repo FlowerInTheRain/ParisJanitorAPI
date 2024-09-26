@@ -8,7 +8,7 @@ import java.util.List;
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public record PropertyCreationRequest(
-        @NotNull @JsonProperty("address") String address,
+        @NotNull @JsonProperty("adress") String adress,
         @NotNull @JsonProperty("description") String description,
         @NotNull @JsonProperty("numberOfRooms") int numberOfRooms,
         @NotNull @JsonProperty("capacity") int capacity,
@@ -18,5 +18,8 @@ public record PropertyCreationRequest(
         @NotNull @JsonProperty("imageUrls") List<String> imageUrls,
         @NotNull @JsonProperty("contactSlots") List<String> contactSlots,
         @NotNull @JsonProperty("privacyDeclaration") boolean privacyDeclaration,
-        @NotNull @JsonProperty("conciergerieType") String conciergerieType
+        @NotNull @JsonProperty("conciergerieType") String conciergerieType,
+        @NotNull @JsonProperty("accommodationType") String accommodationType,
+        @NotNull @JsonProperty("pricePerNight") double pricePerNight,
+        @NotNull @JsonProperty("city") String city
 ) { }
