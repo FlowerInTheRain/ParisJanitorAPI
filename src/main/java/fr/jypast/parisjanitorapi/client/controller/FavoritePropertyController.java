@@ -26,10 +26,9 @@ public class FavoritePropertyController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<FavoriteProperty> addFavorite(
+    public void addFavorite(
             @RequestParam UUID userId, @RequestParam UUID propertyId) {
         FavoriteProperty favorite = propertyCreatorApi.addFavorite(userId, propertyId);
-        return ResponseEntity.ok(favorite);
     }
 
     @GetMapping("/user/{userId}")
