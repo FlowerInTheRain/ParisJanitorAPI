@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.UUID;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/favorites")
@@ -28,35 +27,30 @@ public class FavoritePropertyController {
     private final PropertyDeleterApi propertyDeleterApi;
     private final TokenControllerService tokenControllerService;
 
-
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addFavorite(
-            @RequestHeader HttpHeaders headers,
-            @RequestParam UUID propertyId) {
+    public void addFavorite(@RequestHeader HttpHeaders headers, @RequestParam UUID propertyId) {
         UUID token = authVerifierService.getToken(headers);
         User user = tokenControllerService.getUserByToken(token);
-        FavoriteProperty favorite = propertyCreatorApi.addFavorite(user.getId(), propertyId);
-    }
 
+        propertyCreatorApi.addFavorite(user.getId(), propertyId);
+    }
 
     @GetMapping("/user/me")
     public ResponseEntity<List<FavoriteProperty>> getUserFavorites(@RequestHeader HttpHeaders headers) {
         UUID token = authVerifierService.getToken(headers);
         User user = tokenControllerService.getUserByToken(token);
+
         List<FavoriteProperty> favorites = propertyFinderApi.getUserFavorites(user.getId());
         return ResponseEntity.ok(favorites);
     }
 
-
     @DeleteMapping("/remove")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void removeFavorite(
-            @RequestHeader HttpHeaders headers,
-            @RequestParam UUID propertyId) {
+    public void removeFavorite(@RequestHeader HttpHeaders headers, @RequestParam UUID propertyId) {
         UUID token = authVerifierService.getToken(headers);
         User user = tokenControllerService.getUserByToken(token);
-        propertyDeleterApi.removeFavorite(user.getId(), propertyId);
-    }
 
+        propertyDeleterApi.removeFavorite(user.getId(), propertyId);
+    } 
 }
