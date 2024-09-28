@@ -2,10 +2,7 @@ package fr.jypast.parisjanitorapi.client.mapper;
 
 import fr.jypast.parisjanitorapi.client.dto.property.PropertyCreationRequest;
 import fr.jypast.parisjanitorapi.client.dto.property.PropertyDto;
-import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ConciergerieType;
-import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ContactSlot;
-import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
-import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.*;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -14,7 +11,7 @@ public interface PropertyDtoMapper {
     static PropertyDto toDto(Property domain) {
         return new PropertyDto(
                 domain.getId(),
-                domain.getAddress(),
+                domain.getAdress(),
                 domain.getDescription(),
                 domain.isAvailable(),
                 domain.getOwnerId(),
@@ -27,14 +24,17 @@ public interface PropertyDtoMapper {
                 domain.getImageUrls(),
                 domain.getContactSlots().stream().map(Enum::name).collect(Collectors.toList()),
                 domain.isPrivacyDeclaration(),
-                domain.getConciergerieType().name()
+                domain.getConciergerieType().name(),
+                domain.getPricePerNight(),
+                domain.getCity(),
+                domain.getAccommodationType().name()
         );
     }
 
     static Property creationRequestToDomain(PropertyCreationRequest request) {
         return Property.builder()
                 .id(UUID.randomUUID())
-                .address(request.address().trim())
+                .adress(request.adress().trim())
                 .description(request.description().trim())
                 .numberOfRooms(request.numberOfRooms())
                 .capacity(request.capacity())
@@ -47,12 +47,15 @@ public interface PropertyDtoMapper {
                         .collect(Collectors.toList()))
                 .privacyDeclaration(request.privacyDeclaration())
                 .conciergerieType(ConciergerieType.valueOf(request.conciergerieType().toUpperCase()))
+                .pricePerNight(request.pricePerNight())
+                .city(request.city().trim())
+                .accommodationType(AccommodationType.valueOf(request.accommodationType().toUpperCase()))
                 .build();
     }
 
     static Property patchRequestToDomain(PropertyCreationRequest request) {
         return Property.builder()
-                .address(request.address().trim())
+                .adress(request.adress().trim())
                 .description(request.description().trim())
 
                 .numberOfRooms(request.numberOfRooms())
@@ -65,6 +68,9 @@ public interface PropertyDtoMapper {
                         .collect(Collectors.toList()))
                 .privacyDeclaration(request.privacyDeclaration())
                 .conciergerieType(ConciergerieType.valueOf(request.conciergerieType().toUpperCase()))
+                .city(request.city().trim())
+                .pricePerNight(request.pricePerNight())
+                .accommodationType(AccommodationType.valueOf(request.accommodationType().toUpperCase()))
                 .build();
     }
 }

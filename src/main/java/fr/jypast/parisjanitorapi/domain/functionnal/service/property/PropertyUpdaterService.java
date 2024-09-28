@@ -24,11 +24,11 @@ public class PropertyUpdaterService implements PropertyUpdaterApi {
                 .orElseThrow(() -> new DataNotSaveException());
 
         Property patchedProperty = currentProperty
-                .withAddress(newProperty.getAddress() != null ? newProperty.getAddress() : currentProperty.getAddress())
+                .withAdress(newProperty.getAdress() != null ? newProperty.getAdress() : currentProperty.getAdress())
                 .withDescription(newProperty.getDescription() != null ? newProperty.getDescription() : currentProperty.getDescription())
                 .withOwnerId(newProperty.getOwnerId() != null ? newProperty.getOwnerId() : currentProperty.getOwnerId());
 
         return spi.save(patchedProperty)
-                .getOrElseThrow(DataNotSaveException::new); // Assuming this is the correct usage if spi.save() returns an Either
+                .getOrElseThrow(DataNotSaveException::new);
     }
 }

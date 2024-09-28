@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public record PropertyDto(
         @JsonProperty("id") UUID id,
-        @JsonProperty("address") String address,
+        @JsonProperty("adress") String adress,
         @JsonProperty("description") String description,
         @JsonProperty("isAvailable") boolean isAvailable,
         @JsonProperty("ownerId") UUID ownerId,
@@ -20,6 +20,9 @@ public record PropertyDto(
         @JsonProperty("imageUrls") List<String> imageUrls,
         @JsonProperty("contactSlots") List<String> contactSlots,
         @JsonProperty("privacyDeclaration") boolean privacyDeclaration,
-        @JsonProperty("conciergerieType") String conciergerieType
+        @JsonProperty("conciergerieType") String conciergerieType,
+        @JsonProperty("pricePerNight") double pricePerNight,
+        @JsonProperty("city") String city,
+        @JsonProperty("accommodationType") String accommodationType
 ) {
 }

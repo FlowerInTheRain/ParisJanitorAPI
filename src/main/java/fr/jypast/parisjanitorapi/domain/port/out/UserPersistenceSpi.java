@@ -8,16 +8,10 @@ import java.util.UUID;
 public interface UserPersistenceSpi extends PersistenceSpi<User, UUID> {
 
     Optional<User> findByToken(UUID token);
-
+    Optional<User> findById(UUID id);
     Optional<User> findByEmail(String email);
-
     Optional<User> findUserByEmailAndPassword(String email, String password);
-
-    Optional<User> findByVerificationCode(String code);
-    Optional<User> findByPasswordVerification(String code);
-
     void deleteByToken(UUID token);
-
     User update(User o);
 
 }

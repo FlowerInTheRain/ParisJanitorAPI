@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.*;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.AccommodationType;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ConciergerieType;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ContactSlot;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
@@ -26,8 +27,8 @@ public class PropertyEntity implements Serializable {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name = "address", unique = true, nullable = false)
-    private String address;
+    @Column(name = "adress", unique = true, nullable = false)
+    private String adress;
 
     @Column(name = "description", nullable = false)
     private String description;
@@ -74,4 +75,14 @@ public class PropertyEntity implements Serializable {
     @Column(name = "conciergerieType", nullable = false)
     @Enumerated(EnumType.STRING)
     private ConciergerieType conciergerieType;
+
+    @Column(name = "accommodationType", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private AccommodationType accommodationType;
+
+    @Column(name = "pricePerNight", nullable = false)
+    private double pricePerNight;
+
+    @Column(name = "city", nullable = false)
+    private String city;
 }

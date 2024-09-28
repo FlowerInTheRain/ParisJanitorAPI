@@ -16,7 +16,7 @@ public class Property {
     UUID id = UUID.randomUUID();
 
     @With
-    String address;
+    String adress;
 
     @With
     String description;
@@ -56,6 +56,12 @@ public class Property {
 
     @With
     ConciergerieType conciergerieType;
+
+    @With
+    double pricePerNight;
+
+    @With
+    String city;
 
     @Builder.Default
     @With
