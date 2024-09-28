@@ -13,8 +13,10 @@ import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyFinderApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyUpdaterApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -54,6 +56,14 @@ public class PropertyController {
                         PropertyDtoMapper.creationRequestToDomain(request)
                 )
         );
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<PropertyDto> getPropertyById(@PathVariable UUID id) {
+        return propertyFinderApi.findById(id)
+                .map(property -> ResponseEntity.ok(PropertyDtoMapper.toDto(property)))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
     }
 
     @PatchMapping("/update/{id}")
