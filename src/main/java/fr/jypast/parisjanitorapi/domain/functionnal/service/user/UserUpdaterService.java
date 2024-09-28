@@ -33,7 +33,8 @@ public class UserUpdaterService implements UserUpdaterApi {
                 .withPhoneNumber(user.getPhoneNumber())
                 .withRegion(user.getRegion())
                 .withAdresse1(user.getAdresse1())
-                .withAdresse2(user.getAdresse2());
+                .withAdresse2(user.getAdresse2())
+                .withProfilePicture(user.getProfilePicture());
 
         return spi.save(patchedUser)
                 .getOrElseThrow(DataNotSaveException::new);

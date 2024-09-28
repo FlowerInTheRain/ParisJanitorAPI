@@ -25,7 +25,8 @@ public interface UserDtoMapper {
                 domain.getStatut(),
                 domain.isActivated(),
                 domain.getVerificationCode(),
-                domain.getPasswordVerification()
+                domain.getPasswordVerification(),
+                domain.getProfilePicture()
         );
     }
 
@@ -41,6 +42,7 @@ public interface UserDtoMapper {
                 .region(request.region() != null ? request.region().trim() : null)
                 .adresse1(request.adresse1() != null ? request.adresse1().trim() : null)
                 .adresse2(request.adresse2() != null ? request.adresse2().trim() : null)
+                .profilePicture(request.profilePicture() != null ? request.profilePicture().trim() : null)
                 .build();
     }
 

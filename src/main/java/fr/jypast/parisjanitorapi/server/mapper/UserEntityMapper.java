@@ -22,6 +22,7 @@ public interface UserEntityMapper {
                 .activated(entity.isActivated())
                 .verificationCode(entity.getVerificationCode())
                 .passwordVerification(entity.getPasswordVerification())
+                .profilePicture(entity.getProfilePicture())
                 .build();
     }
 
@@ -42,6 +43,7 @@ public interface UserEntityMapper {
                 .activated(domain.isActivated())
                 .verificationCode(domain.getVerificationCode())
                 .passwordVerification(domain.getPasswordVerification())
+                .profilePicture(domain.getProfilePicture())
                 .build();
     }
 }
