@@ -40,4 +40,7 @@ public class ProvidersEntity {
 	
 	@OneToMany(mappedBy="provider")
 	private List<ReferencedPrestationsEntity> referencedPrestation;
+	
+	@OneToMany(mappedBy="provider")
+	private List<PerformerCalendarEntity> calendar;
 }

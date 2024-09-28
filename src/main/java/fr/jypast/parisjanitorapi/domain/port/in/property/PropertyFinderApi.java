@@ -1,5 +1,6 @@
 package fr.jypast.parisjanitorapi.domain.port.in.property;
 
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.FavoriteProperty;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 
@@ -24,5 +25,7 @@ public interface PropertyFinderApi {
     List<Property> findByCountryAndIds(String country, List<UUID> ids);
     List<Property> findByCountryAndMinRoomsAndCapacity(String country, List<UUID> ids, int minRooms, int minCapacity);
     List<Property> findByCountryAndTypeAndRoomsAndCapacity(String country, List<UUID> ids, int rooms, int capacity, PropertyType type);
+    List<Property> findAvailableByType(PropertyType type);
+    List<FavoriteProperty> getUserFavorites(UUID userId);
 
 }

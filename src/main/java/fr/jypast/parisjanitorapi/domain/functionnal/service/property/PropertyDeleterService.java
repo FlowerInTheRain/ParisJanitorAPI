@@ -20,4 +20,9 @@ public class PropertyDeleterService implements PropertyDeleterApi {
         filesManagementSpi.deleteContainer(id.toString());
         spi.deleteById(id);
     }
+
+    @Override
+    public void removeFavorite(UUID userId, UUID propertyId) {
+        spi.deleteByUserIdAndPropertyId(userId, propertyId);
+    }
 }

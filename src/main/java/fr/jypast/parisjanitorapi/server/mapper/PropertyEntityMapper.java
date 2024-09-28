@@ -8,7 +8,7 @@ public interface PropertyEntityMapper {
     static Property toDomain(PropertyEntity entity) {
         return Property.builder()
                 .id(entity.getId())
-                .address(entity.getAddress())
+                .adress(entity.getAdress())
                 .description(entity.getDescription())
                 .isAvailable(entity.isAvailable())
                 .ownerId(entity.getOwnerId())
@@ -22,13 +22,16 @@ public interface PropertyEntityMapper {
                 .contactSlots(entity.getContactSlots())
                 .privacyDeclaration(entity.isPrivacyDeclaration())
                 .conciergerieType(entity.getConciergerieType())
+                .accommodationType(entity.getAccommodationType())
+                .pricePerNight(entity.getPricePerNight())
+                .city(entity.getCity())
                 .build();
     }
 
     static PropertyEntity fromDomain(Property domain) {
         return PropertyEntity.builder()
                 .id(domain.getId())
-                .address(domain.getAddress())
+                .adress(domain.getAdress())
                 .description(domain.getDescription())
                 .isAvailable(domain.isAvailable())
                 .ownerId(domain.getOwnerId())
@@ -42,6 +45,9 @@ public interface PropertyEntityMapper {
                 .contactSlots(domain.getContactSlots())
                 .privacyDeclaration(domain.isPrivacyDeclaration())
                 .conciergerieType(domain.getConciergerieType())
+                .accommodationType(domain.getAccommodationType())
+                .pricePerNight(domain.getPricePerNight())
+                .city(domain.getCity())
                 .build();
     }
 }

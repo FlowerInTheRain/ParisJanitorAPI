@@ -1,6 +1,7 @@
 package fr.jypast.parisjanitorapi.domain.functionnal.service.property;
 
 import fr.jypast.parisjanitorapi.domain.functionnal.exception.DataNotSaveException;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.FavoriteProperty;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.user.User;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
@@ -33,8 +34,17 @@ public class PropertyCreatorService implements PropertyCreatorApi {
     }
 
     private void validateProperty(Property property) {
-        if (property.getAddress() == null || property.getAddress().isBlank()) {
+        if (property.getAdress() == null || property.getAdress().isBlank()) {
             throw new IllegalArgumentException("Property address cannot be empty.");
         }
+    }
+
+    @Override
+    public FavoriteProperty addFavorite(UUID userId, UUID propertyId) {
+        FavoriteProperty favorite = FavoriteProperty.builder()
+                .userId(userId)
+                .propertyId(propertyId)
+                .build();
+        return spi.save(favorite);
     }
 }
