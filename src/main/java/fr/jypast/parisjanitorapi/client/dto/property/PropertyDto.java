@@ -23,6 +23,8 @@ public record PropertyDto(
         @JsonProperty("conciergerieType") String conciergerieType,
         @JsonProperty("pricePerNight") double pricePerNight,
         @JsonProperty("city") String city,
-        @JsonProperty("accommodationType") String accommodationType
+        @JsonProperty("accommodationType") String accommodationType,
+        @JsonProperty("numberOfBathrooms") int numberOfBathrooms,
+        @JsonProperty("numberOfBedrooms") int numberOfBedrooms
 ) {
 }

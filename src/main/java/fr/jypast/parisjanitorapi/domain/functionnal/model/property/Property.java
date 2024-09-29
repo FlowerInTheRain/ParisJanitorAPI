@@ -66,4 +66,10 @@ public class Property {
     @Builder.Default
     @With
     boolean isValidated = false;
+
+    @With
+    int numberOfBathrooms;
+
+    @With
+    int numberOfBedrooms;
 }

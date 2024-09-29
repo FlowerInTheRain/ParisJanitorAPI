@@ -28,7 +28,9 @@ public interface PropertyDtoMapper {
                 domain.getConciergerieType().name(),
                 domain.getPricePerNight(),
                 domain.getCity(),
-                domain.getAccommodationType().name()
+                domain.getAccommodationType().name(),
+                domain.getNumberOfBathrooms(),
+                domain.getNumberOfBedrooms()
         );
     }
 
@@ -51,6 +53,8 @@ public interface PropertyDtoMapper {
                 .pricePerNight(request.pricePerNight())
                 .city(request.city().trim())
                 .accommodationType(AccommodationType.valueOf(request.accommodationType().toUpperCase()))
+                .numberOfBathrooms(request.numberOfBathrooms())
+                .numberOfBedrooms(request.numberOfBedrooms())
                 .build();
     }
 
