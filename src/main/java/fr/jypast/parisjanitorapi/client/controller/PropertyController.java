@@ -63,7 +63,6 @@ public class PropertyController {
         );
     }
 
-
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<PropertyDto> getPropertyById(@RequestHeader HttpHeaders headers, @PathVariable UUID id) {

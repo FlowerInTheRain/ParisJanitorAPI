@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -31,16 +32,16 @@ public class BookingController {
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public BookingDto createBooking(
-            @RequestHeader HttpHeaders headers, @RequestBody BookingRequest request) {
+    public BookingDto createdBooking(@RequestHeader HttpHeaders headers, @RequestBody BookingRequest request) {
+        UUID token = authVerifierService.getToken(headers);
+        tokenControllerService.getUserByToken(token);
         return BookingDtoMapper.toDto(
                 bookingCreatorApi.createBooking(
-                        authVerifierService.getToken(headers),
+                        token,
                         BookingDtoMapper.creationRequestToDomain(request)
                 )
         );
     }
-
 
     @GetMapping("/available")
     public ResponseEntity<List<PropertyDto>> getAvailableProperties(

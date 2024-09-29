@@ -1,5 +1,6 @@
 package fr.jypast.parisjanitorapi.bootstrap.config.domain;
 
+import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.booking.BookingCreatorService;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.booking.BookingFinderService;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingCreatorApi;
@@ -13,8 +14,9 @@ import org.springframework.context.annotation.Configuration;
 public class BookingConfiguration {
 
     @Bean
-    public BookingCreatorApi bookingCreatorApi(BookingPersistenceSpi bookingPersistenceSpi) {
-        return new BookingCreatorService(bookingPersistenceSpi);
+    public BookingCreatorApi bookingCreatorApi(BookingPersistenceSpi spi,
+                                               TokenControllerService tokenControllerService) {
+        return new BookingCreatorService(spi, tokenControllerService);
     }
 
     @Bean
