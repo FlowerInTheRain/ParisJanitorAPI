@@ -12,6 +12,10 @@ public interface BookingEntityMapper {
                 .startDate(entity.getStartDate())
                 .endDate(entity.getEndDate())
                 .status(entity.getStatus())
+                .numberOfAdults(entity.getNumberOfAdults())
+                .numberOfChildren(entity.getNumberOfChildren())
+                .numberOfBabies(entity.getNumberOfBabies())
+                .numberOfPets(entity.getNumberOfPets())
                 .build();
     }
 
@@ -23,6 +27,10 @@ public interface BookingEntityMapper {
                 .startDate(domain.getStartDate())
                 .endDate(domain.getEndDate())
                 .status(domain.getStatus())
+                .numberOfAdults(domain.getNumberOfAdults())
+                .numberOfChildren(domain.getNumberOfChildren())
+                .numberOfBabies(domain.getNumberOfBabies())
+                .numberOfPets(domain.getNumberOfPets())
                 .build();
     }
 }

@@ -6,6 +6,7 @@ import fr.jypast.parisjanitorapi.client.dto.property.PropertyDto;
 import fr.jypast.parisjanitorapi.client.mapper.BookingDtoMapper;
 import fr.jypast.parisjanitorapi.client.mapper.PropertyDtoMapper;
 import fr.jypast.parisjanitorapi.client.service.AuthVerifierService;
+import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingFinderApi;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class BookingController {
     private final AuthVerifierService authVerifierService;
     private final BookingCreatorApi bookingCreatorApi;
     private final BookingFinderApi bookingFinderApi;
+    private final TokenControllerService tokenControllerService;
 
     @PostMapping
     @ResponseStatus(CREATED)

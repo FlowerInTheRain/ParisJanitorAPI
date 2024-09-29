@@ -23,5 +23,13 @@ public class Booking {
     @With
     UUID tenantId;
     @With
+    int numberOfAdults;
+    @With
+    int numberOfChildren;
+    @With
+    int numberOfBabies;
+    @With
+    int numberOfPets;
+    @With
     BookingStatus status;
 }

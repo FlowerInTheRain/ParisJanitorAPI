@@ -33,6 +33,18 @@ public class BookingEntity implements Serializable {
     @Column(nullable = false)
     private Date endDate;
 
+    @Column(nullable = false)
+    private int numberOfAdults;
+
+    @Column(nullable = false)
+    private int numberOfChildren;
+
+    @Column(nullable = false)
+    private int numberOfBabies;
+
+    @Column(nullable = false)
+    private int numberOfPets;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private BookingStatus status;

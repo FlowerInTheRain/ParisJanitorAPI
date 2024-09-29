@@ -13,5 +13,9 @@ public record BookingDto(
         @JsonProperty("startDate") Date startDate,
         @JsonProperty("endDate") Date endDate,
         @JsonProperty("tenantId") UUID tenantId,
-        @JsonProperty("status") BookingStatus status
+        @JsonProperty("status") BookingStatus status,
+        @JsonProperty("numberOfAdults") int numberOfAdults,
+        @JsonProperty("numberOfChildren") int numberOfChildren,
+        @JsonProperty("numberOfBabies") int numberOfBabies,
+        @JsonProperty("numberOfPets") int numberOfPets
 ) { }

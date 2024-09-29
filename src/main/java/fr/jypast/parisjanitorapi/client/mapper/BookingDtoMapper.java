@@ -13,7 +13,11 @@ public interface BookingDtoMapper {
                 booking.getStartDate(),
                 booking.getEndDate(),
                 booking.getTenantId(),
-                booking.getStatus()
+                booking.getStatus(),
+                booking.getNumberOfAdults(),
+                booking.getNumberOfChildren(),
+                booking.getNumberOfBabies(),
+                booking.getNumberOfPets()
         );
     }
 
@@ -22,8 +26,11 @@ public interface BookingDtoMapper {
                 .propertyId(request.propertyId())
                 .startDate(request.startDate())
                 .endDate(request.endDate())
-                .tenantId(request.tenantId())
                 .status(request.status())
+                .numberOfAdults(request.numberOfAdults())
+                .numberOfChildren(request.numberOfChildren())
+                .numberOfBabies(request.numberOfBabies())
+                .numberOfPets(request.numberOfPets())
                 .build();
     }
 
