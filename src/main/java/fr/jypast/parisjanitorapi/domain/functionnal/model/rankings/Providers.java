@@ -1,11 +1,8 @@
-package fr.jypast.parisjanitorapi.domain.functionnal.model.providers;
+package fr.jypast.parisjanitorapi.domain.functionnal.model.rankings;
 
-import fr.jypast.parisjanitorapi.server.entity.ReferencedPrestationsEntity;
 import lombok.Builder;
 import lombok.Value;
 import lombok.With;
-
-import java.util.List;
 
 @Value
 @Builder

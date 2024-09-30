@@ -209,11 +209,13 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
     }
 
     @Override
+    @Transactional
     public FavoriteProperty save(FavoriteProperty favorite) {
         return FavoritePropertyEntityMapper.toDomain(favoritePropertyRepository.save(FavoritePropertyEntityMapper.fromDomain(favorite)));
     }
 
     @Override
+    @Transactional
     public List<FavoriteProperty> findByUserId(UUID userId) {
         return favoritePropertyRepository.findByUserId(userId).stream()
                 .map(FavoritePropertyEntityMapper::toDomain)
@@ -221,6 +223,7 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
     }
 
     @Override
+    @Transactional
     public void deleteByUserIdAndPropertyId(UUID userId, UUID propertyId) {
         favoritePropertyRepository.deleteByUserIdAndPropertyId(userId, propertyId);
     }

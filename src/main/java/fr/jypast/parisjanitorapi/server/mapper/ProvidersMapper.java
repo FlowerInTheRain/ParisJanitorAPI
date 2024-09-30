@@ -1,6 +1,6 @@
 package fr.jypast.parisjanitorapi.server.mapper;
 
-import fr.jypast.parisjanitorapi.domain.functionnal.model.providers.Providers;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.rankings.Providers;
 import fr.jypast.parisjanitorapi.server.entity.ProvidersEntity;
 
 public interface ProvidersMapper {

@@ -1,6 +1,6 @@
 package fr.jypast.parisjanitorapi.server.mapper;
 
-import fr.jypast.parisjanitorapi.domain.functionnal.model.providers.Certificates;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.rankings.Certificates;
 import fr.jypast.parisjanitorapi.server.entity.ProvidersEntity;
 import fr.jypast.parisjanitorapi.server.entity.ProvidersHabilitationsEntity;
 

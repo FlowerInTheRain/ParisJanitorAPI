@@ -1,7 +1,5 @@
-package fr.jypast.parisjanitorapi.domain.functionnal.model.providers;
+package fr.jypast.parisjanitorapi.domain.functionnal.model.rankings;
 
-import fr.jypast.parisjanitorapi.server.entity.ProvidersEntity;
-import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Value;
 import lombok.With;
