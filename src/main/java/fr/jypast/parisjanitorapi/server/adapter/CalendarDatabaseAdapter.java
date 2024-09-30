@@ -9,7 +9,7 @@ import io.vavr.control.Either;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,7 +32,7 @@ public class CalendarDatabaseAdapter implements CalendarPersistenceSpi {
     }
 
     @Override
-    public List<OccupancyCalendar> findByPropertyIdAndDates(UUID propertyId, List<LocalDate> dates) {
+    public List<OccupancyCalendar> findByPropertyIdAndDates(UUID propertyId, List<Date> dates) {
         return repository.findByPropertyIdAndDateIn(propertyId, dates)
                 .stream()
                 .map(CalendarEntityMapper::toDomain)
@@ -48,7 +48,7 @@ public class CalendarDatabaseAdapter implements CalendarPersistenceSpi {
     }
 
     @Override
-    public List<UUID> findAvailablePropertiesBetweenDates(LocalDate startDate, LocalDate endDate) {
+    public List<UUID> findAvailablePropertiesBetweenDates(Date startDate, Date endDate) {
         return repository.findAvailablePropertiesBetweenDates(startDate, endDate);
     }
 
@@ -71,7 +71,7 @@ public class CalendarDatabaseAdapter implements CalendarPersistenceSpi {
     }
 
     @Override
-    public void deleteByPropertyIdAndDates(UUID propertyId, List<LocalDate> dates) {
+    public void deleteByPropertyIdAndDates(UUID propertyId, List<Date> dates) {
         repository.deleteByPropertyIdAndDateIn(propertyId, dates);
     }
 }

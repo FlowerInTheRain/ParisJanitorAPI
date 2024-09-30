@@ -8,7 +8,7 @@ import fr.jypast.parisjanitorapi.domain.port.out.CalendarPersistenceSpi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,13 +26,13 @@ public class CalendarBlockerService implements CalendarBlockerApi {
     }
 
     @Override
-    public void blockDates(UUID propertyId, List<LocalDate> dates) {
+    public void blockDates(UUID propertyId, List<Date> dates) {
         List<OccupancyCalendar> existingReservations = calendarPersistenceSpi.findByPropertyIdAndDates(propertyId, dates);
         if (!existingReservations.isEmpty()) {
             throw new IllegalStateException("Some dates are already reserved or unavailable.");
         }
 
-        for (LocalDate date : dates) {
+        for (Date date : dates) {
             OccupancyCalendar calendarEntry = OccupancyCalendar.builder()
                     .propertyId(propertyId)
                     .date(date)
@@ -43,12 +43,12 @@ public class CalendarBlockerService implements CalendarBlockerApi {
     }
 
     @Override
-    public void unblockDates(UUID propertyId, List<LocalDate> dates) {
+    public void unblockDates(UUID propertyId, List<Date> dates) {
         calendarPersistenceSpi.deleteByPropertyIdAndDates(propertyId, dates);
     }
 
     @Override
-    public List<UUID> findAvailablePropertiesBetweenDates(LocalDate startDate, LocalDate endDate) {
+    public List<UUID> findAvailablePropertiesBetweenDates(Date startDate, Date endDate) {
         List<UUID> bookedProperties = bookingRepository.findBookedPropertyIdsBetweenDates(startDate, endDate);
         if (bookedProperties.isEmpty()) {
             return propertyRepository.findAllPropertyIds();

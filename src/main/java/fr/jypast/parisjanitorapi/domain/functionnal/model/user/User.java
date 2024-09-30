@@ -5,7 +5,7 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.With;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 @Value
@@ -50,7 +50,7 @@ public class User {
     UUID token;
 
     @With
-    LocalDate tokenDate;
+    Date tokenDate;
 
     @With
     List<UserRole> roles;

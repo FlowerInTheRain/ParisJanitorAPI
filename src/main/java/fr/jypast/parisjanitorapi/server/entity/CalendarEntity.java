@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.UUID;
 
 @Entity
@@ -24,7 +24,7 @@ public class CalendarEntity implements Serializable {
     private UUID propertyId;
 
     @Column(nullable = false)
-    private LocalDate date;
+    private Date date;
 
     @Column(nullable = false)
     private boolean isAvailable;

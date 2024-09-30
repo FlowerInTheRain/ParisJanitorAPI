@@ -11,14 +11,14 @@ import java.util.UUID;
 @Slf4j
 @RequiredArgsConstructor
 public class TokenControllerService {
-
+    
     private final UserPersistenceSpi spi;
-
+    
     public User getUserByToken(UUID token) {
         return spi.findByToken(token)
-                .orElseThrow(TokenNotValidException::new);
+                       .orElseThrow(TokenNotValidException::new);
     }
-
+    
     public boolean tokenExists(UUID token) {
         return spi.findByToken(token).isPresent();
     }

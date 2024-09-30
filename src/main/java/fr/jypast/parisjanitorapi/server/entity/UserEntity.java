@@ -1,13 +1,10 @@
 package fr.jypast.parisjanitorapi.server.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.UUID;
 
 @Entity
@@ -58,7 +55,7 @@ public class UserEntity implements Serializable {
     private UUID token;
 
     @Column(name = "token_date", nullable = false)
-    private LocalDate tokenDate;
+    private Date tokenDate;
 
     @Column(name = "activated", nullable = false)
     private boolean activated;
@@ -68,4 +65,19 @@ public class UserEntity implements Serializable {
 
     @Column(name = "password_verification", nullable = true)
     private String passwordVerification;
+    
+    
+    @Column(name = "free_prestation_available", nullable = true)
+    private Boolean freePrestationUsed;
+    
+    @Column(name = "free_prestation_date", nullable = true)
+    private Date freePrestationDate;
+    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "subscription_plan_id", referencedColumnName = "id")
+    private SubscriptionPlanEntity userSubscriptionPlan;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "subscription_id", referencedColumnName = "id")
+    private Subscriptions userSubscription;
 }

@@ -32,7 +32,6 @@ public interface PropertyPersistenceSpi extends PersistenceSpi<Property, UUID> {
     List<Property> findByCountryAndMinRoomsAndCapacity(String country, List<UUID> ids, int minRooms, int minCapacity);
     List<Property> findByCountryAndTypeAndRoomsAndCapacity(String country, List<UUID> ids, int rooms, int capacity, PropertyType type);
     List<Property> findAvailableByType(PropertyType type);
-
     FavoriteProperty save(FavoriteProperty favorite);
     List<FavoriteProperty> findByUserId(UUID userId);
     void deleteByUserIdAndPropertyId(UUID userId, UUID propertyId);

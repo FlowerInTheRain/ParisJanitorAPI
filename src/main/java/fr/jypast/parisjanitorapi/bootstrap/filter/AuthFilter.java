@@ -27,7 +27,16 @@ public class AuthFilter implements Filter {
 
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse hsResponse = (HttpServletResponse) response;
-
+        if(req.getRequestURI().equals("/parisjanitor-api/status") || req.getRequestURI().startsWith("/parisjanitor" +
+                                                                                                            "-api" +
+                                                                                                            "/files") ||req.getRequestURI().startsWith("/parisjanitor" +
+                                                                                                                                                                                                                                    "-api" +
+                                                                                                                                                                                                                                    "/swagger") ||req.getRequestURI().startsWith("/parisjanitor" +
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      "-api" +
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      "/v3")) {
+            chain.doFilter(request, response);
+            return;
+        }
         boolean isExcluded = ("POST".equalsIgnoreCase(req.getMethod()) && EXCLUDED_PATHS.matcher(req.getRequestURI()).matches())
                 || ("GET".equalsIgnoreCase(req.getMethod()) && req.getRequestURI().contains("verify"))
                 || req.getRequestURI().matches("^/parisjanitor-api/users/email/.+$");
@@ -35,6 +44,7 @@ public class AuthFilter implements Filter {
         boolean isWebSocket = req.getRequestURI().startsWith("/parisjanitor-api/ws");
 
         if (!isExcluded && !isWebSocket && !"OPTIONS".equalsIgnoreCase(req.getMethod())) {
+            
             String authHeader = req.getHeader("Authorization");
             if (authHeader == null || !authHeader.startsWith("Bearer ")) {
                 hsResponse.sendError(401);

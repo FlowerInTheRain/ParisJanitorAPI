@@ -6,7 +6,6 @@ import fr.jypast.parisjanitorapi.domain.functionnal.model.property.*;
 
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 public interface PropertyDtoMapper {
 
     static PropertyDto toDto(Property domain) {
@@ -62,6 +61,7 @@ public interface PropertyDtoMapper {
         return Property.builder()
                 .adress(request.adress().trim())
                 .description(request.description().trim())
+
                 .numberOfRooms(request.numberOfRooms())
                 .capacity(request.capacity())
                 .propertyType(PropertyType.valueOf(request.propertyType().toUpperCase()))

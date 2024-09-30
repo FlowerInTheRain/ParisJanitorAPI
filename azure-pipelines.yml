@@ -1,0 +1,53 @@
+trigger:
+- main
+
+name: middleware-$(Build.BuildId)
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: PackageAndBuild
+    steps:
+    - checkout: self
+      persistCredentials: true
+    - task: CmdLine@2
+      displayName: Download Maven
+      inputs:
+        script: 'wget https://archive.apache.org/dist/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.zip'
+    - task: ExtractFiles@1
+      displayName: Extract maven
+      inputs:
+        archiveFilePatterns: 'apache-maven-3.9.6-bin.zip'
+        destinationFolder: '$(Build.SourcesDirectory)/maven'
+    - task: JavaToolInstaller@0
+      inputs:
+        versionSpec: '17'
+        jdkArchitectureOption: 'x64'
+        jdkSourceOption: 'PreInstalled'
+    - task: CmdLine@2
+      inputs:
+        script: 'ls -l'
+    - task: Maven@3
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'clean install'
+        publishJUnitResults: false
+        javaHomeOption: 'JDKVersion'
+        mavenVersionOption: 'Path'
+        mavenDirectory: '$(Build.SourcesDirectory)/maven/apache-maven-3.9.6'
+        mavenSetM2Home: true
+        mavenAuthenticateFeed: false
+        effectivePomSkip: false
+        sonarQubeRunAnalysis: false   
+    - task: CopyFiles@2
+      displayName: 'Copy Files to artifact staging directory'
+      inputs:
+        SourceFolder: 'target'
+        Contents: '*.jar'
+        TargetFolder: $(Build.ArtifactStagingDirectory)
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'paris-janitor-api'
+        publishLocation: 'Container'

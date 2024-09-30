@@ -19,7 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,6 +35,7 @@ public class PropertyController {
     private final AuthVerifierService authVerifierService;
     private final PropertyFinderApi propertyFinderApi;
     private final PropertyCreatorApi propertyCreatorApi;
+    
     private final PropertyUpdaterApi propertyUpdaterApi;
     private final PropertyDeleterApi propertyDeleterApi;
     private final CalendarBlockerApi calendarBlockerApi;
@@ -96,8 +97,8 @@ public class PropertyController {
     @GetMapping("/available/between-dates-with-min-size")
     public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithMinSize(
             @RequestHeader HttpHeaders headers,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestParam("minSize") double minSize) {
         UUID token = authVerifierService.getToken(headers);
         tokenControllerService.getUserByToken(token);
@@ -111,9 +112,9 @@ public class PropertyController {
 
     @GetMapping("/available/between-dates-with-max-size")
     public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithMaxSize(
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestHeader HttpHeaders headers,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
             @RequestParam("maxSize") double maxSize) {
         UUID token = authVerifierService.getToken(headers);
         tokenControllerService.getUserByToken(token);
@@ -154,9 +155,9 @@ public class PropertyController {
 
     @GetMapping("/available/between-dates-with-rooms-and-capacity")
     public ResponseEntity<List<PropertyDto>> getAvailablePropertiesBetweenDatesWithRoomsAndCapacity(
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestHeader HttpHeaders headers,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
             @RequestParam("rooms") int rooms,
             @RequestParam("capacity") int capacity) {
         UUID token = authVerifierService.getToken(headers);
@@ -253,8 +254,8 @@ public class PropertyController {
     public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDates(
             @RequestHeader HttpHeaders headers,
             @RequestParam("country") String country,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate) {
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate) {
         UUID token = authVerifierService.getToken(headers);
         tokenControllerService.getUserByToken(token);
         List<UUID> availablePropertyIds = calendarBlockerApi.findAvailablePropertiesBetweenDates(startDate, endDate);
@@ -269,8 +270,8 @@ public class PropertyController {
     public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDatesWithRoomsAndCapacity(
             @RequestHeader HttpHeaders headers,
             @RequestParam("country") String country,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestParam("minRooms") int minRooms,
             @RequestParam("minCapacity") int minCapacity) {
         UUID token = authVerifierService.getToken(headers);
@@ -287,8 +288,8 @@ public class PropertyController {
     public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDatesWithRoomsCapacityApartment(
             @RequestHeader HttpHeaders headers,
             @RequestParam("country") String country,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestParam("rooms") int rooms,
             @RequestParam("capacity") int capacity) {
         UUID token = authVerifierService.getToken(headers);
@@ -305,8 +306,8 @@ public class PropertyController {
     public ResponseEntity<List<PropertyDto>> getPropertiesByCountryBetweenDatesWithRoomsCapacityHouse(
             @RequestHeader HttpHeaders headers,
             @RequestParam("country") String country,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate,
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate,
             @RequestParam("rooms") int rooms,
             @RequestParam("capacity") int capacity) {
         UUID token = authVerifierService.getToken(headers);

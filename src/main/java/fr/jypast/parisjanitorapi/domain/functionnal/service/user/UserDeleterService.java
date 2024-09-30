@@ -1,5 +1,6 @@
 package fr.jypast.parisjanitorapi.domain.functionnal.service.user;
 
+import fr.jypast.parisjanitorapi.domain.port.out.FilesManagementSpi;
 import fr.jypast.parisjanitorapi.domain.port.in.user.UserDeleterApi;
 import fr.jypast.parisjanitorapi.domain.port.out.UserPersistenceSpi;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +13,10 @@ import java.util.UUID;
 public class UserDeleterService implements UserDeleterApi {
 
     private final UserPersistenceSpi spi;
-
+    private final FilesManagementSpi filesManagementSpi;
     @Override
     public void deleteById(UUID id) {
+        filesManagementSpi.deleteContainer(id.toString());
         spi.deleteById(id);
     }
 

@@ -13,7 +13,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -43,8 +43,8 @@ public class BookingController {
     @GetMapping("/available")
     public ResponseEntity<List<PropertyDto>> getAvailableProperties(
             @RequestHeader HttpHeaders headers,
-            @RequestParam("startDate") LocalDate startDate,
-            @RequestParam("endDate") LocalDate endDate) {
+            @RequestParam("startDate") Date startDate,
+            @RequestParam("endDate") Date endDate) {
         String userToken = authVerifierService.getToken(headers).toString();
 
         List<PropertyDto> availableProperties = bookingFinderApi.findAvailablePropertiesBetweenDates(startDate, endDate)

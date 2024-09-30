@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.UUID;
 
 @Entity
@@ -28,10 +28,10 @@ public class BookingEntity implements Serializable {
     private UUID tenantId;
 
     @Column(nullable = false)
-    private LocalDate startDate;
+    private Date startDate;
 
     @Column(nullable = false)
-    private LocalDate endDate;
+    private Date endDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

@@ -4,7 +4,7 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.With;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
 import java.util.UUID;
 
 @Value
@@ -15,11 +15,11 @@ public class Intervention {
     @With
     UUID id = UUID.randomUUID();
     @With
-    private UUID propertyId;
+    UUID propertyId;
     @With
-    private String description;
+    String description;
     @With
-    private LocalDateTime date;
+    Date date;
     @With
-    private String serviceProviderId;
+    String serviceProviderId;
 }

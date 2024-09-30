@@ -7,6 +7,7 @@ import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyFinderApi;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +15,8 @@ import java.util.UUID;
 
 @Slf4j
 @RequiredArgsConstructor
+@Component
+
 public class PropertyFinderService implements PropertyFinderApi {
 
     private final PropertyPersistenceSpi spi;

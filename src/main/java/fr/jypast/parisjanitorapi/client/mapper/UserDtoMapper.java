@@ -25,8 +25,7 @@ public interface UserDtoMapper {
                 domain.getStatut(),
                 domain.isActivated(),
                 domain.getVerificationCode(),
-                domain.getPasswordVerification(),
-                domain.getProfilePicture()
+                domain.getPasswordVerification()
         );
     }
 

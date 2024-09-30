@@ -2,10 +2,10 @@ package fr.jypast.parisjanitorapi.bootstrap;
 
 public class PackagesAndLayers {
     // APPLICATION PACKAGES
-    public static final String BOOTSTRAP_PACKAGE = "fr.barlords.parisjanitorapi.bootstrap..";
-    public static final String CLIENT_PACKAGE = "fr.barlords.parisjanitorapi.client..";
-    public static final String DOMAIN_PACKAGE = "fr.barlords.parisjanitorapi.domain..";
-    public static final String SERVER_PACKAGE = "fr.barlords.parisjanitorapi.server..";
+    public static final String BOOTSTRAP_PACKAGE = "fr.jypast.parisjanitorapi.bootstrap..";
+    public static final String CLIENT_PACKAGE = "fr.jypast.parisjanitorapi.client..";
+    public static final String DOMAIN_PACKAGE = "fr.jypast.parisjanitorapi.domain..";
+    public static final String SERVER_PACKAGE = "fr.jypast.parisjanitorapi.server..";
 
     // JAVA, FRAMEWORKS AND LIBRARIES PACKAGES
     public static final String JAVA_PACKAGE = "java..";

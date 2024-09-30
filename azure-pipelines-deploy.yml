@@ -1,0 +1,35 @@
+pool:
+  vmImage: ubuntu-latest
+stages:
+- stage: Deploy
+  displayName: Deploy to app
+  jobs:
+  - job: Deploy
+    steps:
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'specific'
+        project: '12e6b272-e75b-4b73-aebc-da22ad6551a2'
+        pipeline: '16'
+        buildVersionToDownload: 'latest'
+        downloadType: 'single'
+        itemPattern: 'paris-janitor-api/*.jar'
+        downloadPath: '$(System.ArtifactsDirectory)/paris-janitor-api'
+        checkDownloadedFiles: true
+    - task: CopyFiles@2
+      displayName: 'Copy Files from artifact staging directory'
+      inputs:
+        SourceFolder: '$(System.ArtifactsDirectory)/paris-janitor-api'
+        Contents: '*.jar'
+        TargetFolder: '$(System.DefaultWorkingDirectory)/paris-janitor-api'
+        CleanTargetFolder: true
+        OverWrite: true
+    - task: AzureWebApp@1
+      inputs:
+        azureSubscription: 'Azure subscription 1(1)(f1248dd5-2384-4478-bf73-b940c14b63dc)'
+        appType: 'webAppLinux'
+        appName: 'petpals-middleware-dev'
+        package: '$(System.DefaultWorkingDirectory)/paris-janitor-api/*.jar'
+        runtimeStack: 'JAVA|17-java17'
+        startUpCommand: 'java -jar /home/site/wwwroot/*.jar'
+88

@@ -1,0 +1,39 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+pool:
+  vmImage: ubuntu-latest
+name: 'Deploy Janitor API #$(Build.BuildId)'
+stages:
+- stage: Deploy
+  displayName: Deploy to App Service
+  jobs:
+  - job: Deploy
+    steps:
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'specific'
+        project: '12e6b272-e75b-4b73-aebc-da22ad6551a2'
+        pipeline: '19'
+        buildVersionToDownload: 'latest'
+        downloadType: 'single'
+        artifactName: 'paris-janitor-api'
+        itemPattern: 
+        downloadPath: '$(System.ArtifactsDirectory)'
+        checkDownloadedFiles: true
+    - task: CopyFiles@2
+      displayName: 'Copy Files from artifact staging directory'
+      inputs:
+        SourceFolder: '$(System.ArtifactsDirectory)/paris-janitor-api'
+        Contents: 'janitor-api.jar'
+        TargetFolder: $(System.DefaultWorkingDirectory)
+    - task: AzureWebApp@1
+      inputs:
+        azureSubscription: 'Azure subscription 1 (f1248dd5-2384-4478-bf73-b940c14b63dc)'
+        appType: 'webAppLinux'
+        appName: 'paris-janitor-api'
+        package: '$(System.DefaultWorkingDirectory)/*.jar'
+        runtimeStack: 'JAVA|17-java17'
+        startUpCommand: 'java -jar /home/site/wwwroot/*.jar'
