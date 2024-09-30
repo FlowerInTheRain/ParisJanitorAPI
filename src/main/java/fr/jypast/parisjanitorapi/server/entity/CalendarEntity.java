@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.UUID;
 
 @Entity

@@ -4,7 +4,7 @@ package fr.jypast.parisjanitorapi.client.dto.booking;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.BookingStatus;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.UUID;
 
 public record BookingDto(

@@ -4,7 +4,7 @@ import fr.jypast.parisjanitorapi.domain.functionnal.model.user.User;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.PasswordEncoder;
 import lombok.RequiredArgsConstructor;
 
-import java.sql.Date;
+import java.util.Date;
 import java.time.Instant;
 import java.util.UUID;
 

@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Value;
 import lombok.With;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.UUID;
 
 @Value

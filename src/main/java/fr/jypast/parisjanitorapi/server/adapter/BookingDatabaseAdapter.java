@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -83,5 +83,43 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Booking> findByTenantIdAndDatesOverlap(UUID tenantId, Date startDate, Date endDate) {
+        return repository.findByTenantIdAndStartDateBeforeAndEndDateAfter(tenantId, endDate, startDate)
+                .stream()
+                .map(BookingEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
 
+    @Override
+    public List<Booking> findByTenantIdAndEndDateBefore(UUID tenantId, Date date) {
+        return repository.findByTenantIdAndEndDateBefore(tenantId, date)
+                .stream()
+                .map(BookingEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Booking> findByPropertyIdAndEndDateBefore(UUID propertyId, Date date) {
+        return repository.findByPropertyIdAndEndDateBefore(propertyId, date)
+                .stream()
+                .map(BookingEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Booking> findByTenantIdAndDatesBetween(UUID tenantId, Date startDate, Date endDate) {
+        return repository.findByTenantIdAndStartDateBeforeAndEndDateAfter(tenantId, endDate, startDate)
+                .stream()
+                .map(BookingEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Booking> findByTenantIdAndStartDateAfter(UUID tenantId, Date date) {
+        return repository.findByTenantIdAndStartDateAfter(tenantId, date)
+                .stream()
+                .map(BookingEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
 }

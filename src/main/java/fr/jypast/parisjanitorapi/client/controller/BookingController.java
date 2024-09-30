@@ -6,7 +6,6 @@ import fr.jypast.parisjanitorapi.client.dto.property.PropertyDto;
 import fr.jypast.parisjanitorapi.client.mapper.BookingDtoMapper;
 import fr.jypast.parisjanitorapi.client.mapper.PropertyDtoMapper;
 import fr.jypast.parisjanitorapi.client.service.AuthVerifierService;
-import fr.jypast.parisjanitorapi.domain.functionnal.model.user.User;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingFinderApi;
@@ -15,7 +14,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -58,4 +57,38 @@ public class BookingController {
         return ResponseEntity.ok(availableProperties);
     }
 
+    @GetMapping("/past")
+    public List<BookingDto> getPastBookings(@RequestHeader HttpHeaders headers) {
+        UUID tenantId = authVerifierService.getToken(headers);
+        Date now = new Date();
+        return bookingFinderApi.findBookingsByTenantIdAndEndDateBefore(tenantId, now).stream()
+                .map(BookingDtoMapper::toDto)
+                .toList();
+    }
+
+    @GetMapping("/property/history")
+    public List<BookingDto> getPropertyHistory(@RequestHeader HttpHeaders headers, UUID propertyId) {
+        Date now = new Date();
+        return bookingFinderApi.findBookingsByPropertyIdAndEndDateBefore(propertyId, now).stream()
+                .map(BookingDtoMapper::toDto)
+                .toList();
+    }
+
+    @GetMapping("/current")
+    public List<BookingDto> getCurrentBookings(@RequestHeader HttpHeaders headers) {
+        UUID tenantId = authVerifierService.getToken(headers);
+        Date now = new Date();
+        return bookingFinderApi.findBookingsByTenantIdAndDatesBetween(tenantId, now, now).stream()
+                .map(BookingDtoMapper::toDto)
+                .toList();
+    }
+
+    @GetMapping("/upcoming")
+    public List<BookingDto> getUpcomingBookings(@RequestHeader HttpHeaders headers) {
+        UUID tenantId = authVerifierService.getToken(headers);
+        Date now = new Date();
+        return bookingFinderApi.findBookingsByTenantIdAndStartDateAfter(tenantId, now).stream()
+                .map(BookingDtoMapper::toDto)
+                .toList();
+    }
 }

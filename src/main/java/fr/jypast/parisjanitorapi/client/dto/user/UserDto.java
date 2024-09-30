@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.user.UserRole;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.user.UserStatut;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
