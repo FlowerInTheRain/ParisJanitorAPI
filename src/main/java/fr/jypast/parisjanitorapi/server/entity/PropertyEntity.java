@@ -85,4 +85,10 @@ public class PropertyEntity implements Serializable {
 
     @Column(name = "city", nullable = false)
     private String city;
+
+    @Column(name = "numberOfBathrooms", nullable = false)
+    private int numberOfBathrooms;
+
+    @Column(name = "numberOfBedrooms", nullable = false)
+    private int numberOfBedrooms;
 }

@@ -25,6 +25,8 @@ public interface PropertyEntityMapper {
                 .accommodationType(entity.getAccommodationType())
                 .pricePerNight(entity.getPricePerNight())
                 .city(entity.getCity())
+                .numberOfBedrooms(entity.getNumberOfBedrooms())
+                .numberOfBathrooms(entity.getNumberOfBathrooms())
                 .build();
     }
 
@@ -48,6 +50,8 @@ public interface PropertyEntityMapper {
                 .accommodationType(domain.getAccommodationType())
                 .pricePerNight(domain.getPricePerNight())
                 .city(domain.getCity())
+                .numberOfBathrooms(domain.getNumberOfBathrooms())
+                .numberOfBedrooms(domain.getNumberOfBedrooms())
                 .build();
     }
 }

@@ -59,7 +59,8 @@ public class UserCreatorService implements UserCreatorApi {
                 .withPhoneNumber(newUserData.getPhoneNumber())
                 .withRegion(newUserData.getRegion())
                 .withAdresse1(newUserData.getAdresse1())
-                .withAdresse2(newUserData.getAdresse2());
+                .withAdresse2(newUserData.getAdresse2())
+                .withProfilePicture(newUserData.getProfilePicture());
 
         return spi.save(existingUser)
                 .getOrElseThrow(DataNotSaveException::new);

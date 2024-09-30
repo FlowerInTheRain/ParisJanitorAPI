@@ -107,7 +107,8 @@ public class UserController {
                 .withPhoneNumber(request.phoneNumber() != null ? request.phoneNumber().trim() : null)
                 .withRegion(request.region() != null ? request.region().trim() : null)
                 .withAdresse1(request.adresse1() != null ? request.adresse1().trim() : null)
-                .withAdresse2(request.adresse2() != null ? request.adresse2().trim() : null);
+                .withAdresse2(request.adresse2() != null ? request.adresse2().trim() : null)
+                .withProfilePicture(request.profilePicture() != null ? request.profilePicture().trim() : null);
 
         User savedUser = userUpdaterApi.update(token, updatedUser);
 

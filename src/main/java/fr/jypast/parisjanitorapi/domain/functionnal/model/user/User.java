@@ -8,7 +8,6 @@ import lombok.With;
 import java.sql.Date;
 import java.util.List;
 import java.util.UUID;
-
 @Value
 @Builder
 public class User {
@@ -43,6 +42,9 @@ public class User {
 
     @With
     String adresse2;
+
+    @With
+    String profilePicture;
 
     @With
     UUID token;

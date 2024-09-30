@@ -22,5 +22,7 @@ public record PropertyCreationRequest(
         @NotNull @JsonProperty("conciergerieType") String conciergerieType,
         @NotNull @JsonProperty("accommodationType") String accommodationType,
         @NotNull @JsonProperty("pricePerNight") double pricePerNight,
-        @NotNull @JsonProperty("city") String city
+        @NotNull @JsonProperty("city") String city,
+        @NotNull @JsonProperty("numberOfBathrooms") int numberOfBathrooms,
+        @NotNull @JsonProperty("numberOfBedrooms") int numberOfBedrooms
 ) { }

@@ -13,5 +13,7 @@ public record UserUpdateRequest(
         @JsonProperty("phoneNumber") String phoneNumber,
         @JsonProperty("region") String region,
         @JsonProperty("adresse1") String adresse1,
-        @JsonProperty("adresse2") String adresse2
+        @JsonProperty("adresse2") String adresse2,
+        @JsonProperty("profilePicture") String profilePicture
+
 ) {}

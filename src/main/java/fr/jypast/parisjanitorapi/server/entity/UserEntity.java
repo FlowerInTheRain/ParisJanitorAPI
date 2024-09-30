@@ -48,6 +48,9 @@ public class UserEntity implements Serializable {
     @Column(name = "adresse2")
     private String adresse2;
 
+    @Column(name = "profilePicture")
+    private String profilePicture;
+
     @Column(name = "token", nullable = false)
     private UUID token;
 
