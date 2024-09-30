@@ -46,6 +46,13 @@ public class FilesController {
 		filesManagementSpi.updateProfilePicture(files, profileReference);
 	}
 	
+	@PostMapping("/pictures/property/add/{propertyReference}")
+	@ResponseStatus(OK)
+	public void addPropertyPics(@PathVariable String propertyReference, @RequestParam("file") MultipartFile[] files	){
+		LOGGER.info("Updating user profile picture");
+		filesManagementSpi.addFilesToContainer(files, propertyReference);
+	}
+	
 	@PostMapping("/upload/profile/presta/upload-certification/{profileReference}")
 	@ResponseStatus(OK)
 	public void uploadCertificationForPerformer(@PathVariable String profileReference,
