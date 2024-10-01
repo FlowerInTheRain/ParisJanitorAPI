@@ -10,7 +10,9 @@ import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerServi
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingFinderApi;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,5 +92,18 @@ public class BookingController {
         return bookingFinderApi.findBookingsByTenantIdAndStartDateAfter(tenantId, now).stream()
                 .map(BookingDtoMapper::toDto)
                 .toList();
+    }
+
+    @GetMapping("/availability")
+    public ResponseEntity<Boolean> checkPropertyAvailability(
+            @RequestParam UUID propertyId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
+
+        boolean isAvailable = bookingFinderApi.findAvailablePropertiesBetweenDates(startDate, endDate)
+                .stream()
+                .anyMatch(property -> property.getId().equals(propertyId));
+
+        return new ResponseEntity<>(isAvailable, HttpStatus.OK);
     }
 }
