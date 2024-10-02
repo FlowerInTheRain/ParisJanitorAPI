@@ -43,6 +43,7 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
     }
 
     @Override
+    @Transactional
     public List<Booking> findPropertiesNotIn(List<UUID> propertyIds) {
         return repository.findAll()
                 .stream()
@@ -52,17 +53,20 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
     }
 
     @Override
+    @Transactional
     public void deleteById(UUID id) {
         repository.deleteById(id);
     }
 
     @Override
+    @Transactional
     public Optional<Booking> findById(UUID id) {
         return repository.findById(id).map(BookingEntityMapper::toDomain);
     }
 
 
     @Override
+    @Transactional
     public List<Booking> findByPropertyIdAndDates(UUID propertyId, Date startDate, Date endDate) {
         return repository.findByPropertyIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(propertyId, endDate, startDate)
                 .stream()
@@ -71,11 +75,13 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
     }
 
     @Override
+    @Transactional
     public List<UUID> findBookedPropertyIdsBetweenDates(Date startDate, Date endDate) {
         return repository.findBookedPropertyIdsBetweenDates(startDate, endDate);
     }
 
     @Override
+    @Transactional
     public List<UUID> findUnavailablePropertyIdsBetweenDates(Date startDate, Date endDate) {
         return repository.findByStartDateLessThanEqualAndEndDateGreaterThanEqual(endDate, startDate)
                 .stream()
@@ -84,6 +90,7 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
     }
 
     @Override
+    @Transactional
     public List<Booking> findByTenantIdAndDatesOverlap(UUID tenantId, Date startDate, Date endDate) {
         return repository.findByTenantIdAndStartDateBeforeAndEndDateAfter(tenantId, endDate, startDate)
                 .stream()
@@ -92,6 +99,7 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
     }
 
     @Override
+    @Transactional
     public List<Booking> findByTenantIdAndEndDateBefore(UUID tenantId, Date date) {
         return repository.findByTenantIdAndEndDateBefore(tenantId, date)
                 .stream()
@@ -100,6 +108,7 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
     }
 
     @Override
+    @Transactional
     public List<Booking> findByPropertyIdAndEndDateBefore(UUID propertyId, Date date) {
         return repository.findByPropertyIdAndEndDateBefore(propertyId, date)
                 .stream()
@@ -108,6 +117,7 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
     }
 
     @Override
+    @Transactional
     public List<Booking> findByTenantIdAndDatesBetween(UUID tenantId, Date startDate, Date endDate) {
         return repository.findByTenantIdAndStartDateBeforeAndEndDateAfter(tenantId, endDate, startDate)
                 .stream()
@@ -116,10 +126,14 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
     }
 
     @Override
+    @Transactional
     public List<Booking> findByTenantIdAndStartDateAfter(UUID tenantId, Date date) {
         return repository.findByTenantIdAndStartDateAfter(tenantId, date)
                 .stream()
                 .map(BookingEntityMapper::toDomain)
                 .collect(Collectors.toList());
     }
+
+
+
 }

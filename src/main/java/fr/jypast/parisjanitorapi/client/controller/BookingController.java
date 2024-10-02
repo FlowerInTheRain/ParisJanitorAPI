@@ -6,6 +6,8 @@ import fr.jypast.parisjanitorapi.client.dto.property.PropertyDto;
 import fr.jypast.parisjanitorapi.client.mapper.BookingDtoMapper;
 import fr.jypast.parisjanitorapi.client.mapper.PropertyDtoMapper;
 import fr.jypast.parisjanitorapi.client.service.AuthVerifierService;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.Booking;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.user.User;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingFinderApi;
@@ -15,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
@@ -36,14 +39,22 @@ public class BookingController {
     @ResponseStatus(CREATED)
     public BookingDto createdBooking(@RequestHeader HttpHeaders headers, @RequestBody BookingRequest request) {
         UUID token = authVerifierService.getToken(headers);
-        tokenControllerService.getUserByToken(token);
+        User tenantId = tokenControllerService.getUserByToken(token);
+
+        if (tenantId == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid user token: Tenant ID could not be determined.");
+        }
+
+        Booking booking = BookingDtoMapper.creationRequestToDomain(request).withTenantId(tenantId.getId());
+
         return BookingDtoMapper.toDto(
                 bookingCreatorApi.createBooking(
                         token,
-                        BookingDtoMapper.creationRequestToDomain(request)
+                        booking
                 )
         );
     }
+
 
     @GetMapping("/available")
     public ResponseEntity<List<PropertyDto>> getAvailableProperties(
