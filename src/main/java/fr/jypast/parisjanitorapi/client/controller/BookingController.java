@@ -117,4 +117,22 @@ public class BookingController {
 
         return new ResponseEntity<>(isAvailable, HttpStatus.OK);
     }
+
+    @GetMapping("/pending")
+    public ResponseEntity<List<BookingDto>> getPendingBookings(@RequestHeader HttpHeaders headers) {
+        UUID token = authVerifierService.getToken(headers);
+        User tenantId = tokenControllerService.getUserByToken(token);
+
+        if (tenantId == null) {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid user token: Tenant ID could not be determined.");
+        }
+
+        List<BookingDto> pendingBookings = bookingFinderApi.findPendingBookingsByTenantId(tenantId.getId())
+                .stream()
+                .map(BookingDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(pendingBookings);
+    }
+
 }

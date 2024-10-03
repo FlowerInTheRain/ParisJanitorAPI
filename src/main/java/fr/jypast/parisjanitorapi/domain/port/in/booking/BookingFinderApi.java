@@ -9,10 +9,10 @@ import java.util.UUID;
 
 public interface BookingFinderApi {
     List<Property> findAvailablePropertiesBetweenDates(Date startDate, Date endDate);
-
     List<Booking> findBookingsByTenantIdAndEndDateBefore(UUID tenantId, Date date);
     List<Booking> findBookingsByPropertyIdAndEndDateBefore(UUID propertyId, Date date);
     List<Booking> findBookingsByTenantIdAndDatesBetween(UUID tenantId, Date startDate, Date endDate);
     List<Booking> findBookingsByTenantIdAndStartDateAfter(UUID tenantId, Date date);
+    List<Booking> findPendingBookingsByTenantId(UUID tenantId);
 
 }

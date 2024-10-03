@@ -49,5 +49,9 @@ public class BookingFinderService implements BookingFinderApi {
         return bookingPersistenceSpi.findByTenantIdAndStartDateAfter(tenantId, date);
     }
 
+    @Override
+    public List<Booking> findPendingBookingsByTenantId(UUID tenantId) {
+        return bookingPersistenceSpi.findPendingBookingsByTenantId(tenantId);
+    }
 
 }

@@ -1,5 +1,6 @@
 package fr.jypast.parisjanitorapi.server.repository;
 
+import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.BookingStatus;
 import fr.jypast.parisjanitorapi.server.entity.BookingEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,17 +17,12 @@ public interface BookingRepository extends JpaRepository<BookingEntity, UUID> {
     List<UUID> findBookedPropertyIdsBetweenDates(Date startDate, Date endDate);
     List<BookingEntity> findByPropertyIdAndStartDateLessThanEqualAndEndDateGreaterThanEqual(UUID propertyId, Date endDate, Date startDate);
     List<BookingEntity> findByStartDateLessThanEqualAndEndDateGreaterThanEqual(Date endDate, Date startDate);
-    //List<UUID> findBookedPropertyIdsBetweenDates(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
-
     List<BookingEntity> findByPropertyIdAndStartDateBeforeAndEndDateAfter(UUID propertyId, Date endDate, Date startDate);
-
     List<BookingEntity> findByStartDateBeforeAndEndDateAfter(Date endDate, Date startDate);
-
     List<BookingEntity> findByTenantIdAndStartDateBeforeAndEndDateAfter(UUID tenantId, Date endDate, Date startDate);
-
     List<BookingEntity> findByTenantIdAndEndDateBefore(UUID tenantId, Date date);
-
     List<BookingEntity> findByPropertyIdAndEndDateBefore(UUID propertyId, Date date);
-
     List<BookingEntity> findByTenantIdAndStartDateAfter(UUID tenantId, Date date);
+    List<BookingEntity> findByTenantIdAndStatus(UUID tenantId, BookingStatus status);
+
 }

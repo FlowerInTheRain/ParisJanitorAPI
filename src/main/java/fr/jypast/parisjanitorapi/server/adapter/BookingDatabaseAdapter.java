@@ -2,6 +2,7 @@ package fr.jypast.parisjanitorapi.server.adapter;
 
 import fr.jypast.parisjanitorapi.domain.ApplicationError;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.Booking;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.BookingStatus;
 import fr.jypast.parisjanitorapi.domain.port.out.BookingPersistenceSpi;
 import fr.jypast.parisjanitorapi.server.entity.BookingEntity;
 import fr.jypast.parisjanitorapi.server.mapper.BookingEntityMapper;
@@ -134,6 +135,13 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
                 .collect(Collectors.toList());
     }
 
-
+    @Override
+    @Transactional
+    public List<Booking> findPendingBookingsByTenantId(UUID tenantId) {
+        return repository.findByTenantIdAndStatus(tenantId, BookingStatus.PENDING)
+                .stream()
+                .map(BookingEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
 
 }

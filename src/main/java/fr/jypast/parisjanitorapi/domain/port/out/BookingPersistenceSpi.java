@@ -19,5 +19,6 @@ public interface BookingPersistenceSpi extends PersistenceSpi<Booking, UUID> {
     List<Booking> findByPropertyIdAndEndDateBefore(UUID propertyId, Date date);
     List<Booking> findByTenantIdAndDatesBetween(UUID tenantId, Date startDate, Date endDate);
     List<Booking> findByTenantIdAndStartDateAfter(UUID tenantId, Date date);
+    List<Booking> findPendingBookingsByTenantId(UUID tenantId);
 
 }
