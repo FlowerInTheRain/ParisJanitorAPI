@@ -6,6 +6,7 @@ import io.vavr.control.Either;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface BookingPersistenceSpi extends PersistenceSpi<Booking, UUID> {
@@ -20,5 +21,6 @@ public interface BookingPersistenceSpi extends PersistenceSpi<Booking, UUID> {
     List<Booking> findByTenantIdAndDatesBetween(UUID tenantId, Date startDate, Date endDate);
     List<Booking> findByTenantIdAndStartDateAfter(UUID tenantId, Date date);
     List<Booking> findPendingBookingsByTenantId(UUID tenantId);
+    Optional<Booking> findById(UUID bookingId);
 
 }

@@ -6,11 +6,14 @@ import fr.jypast.parisjanitorapi.client.dto.property.PropertyDto;
 import fr.jypast.parisjanitorapi.client.mapper.BookingDtoMapper;
 import fr.jypast.parisjanitorapi.client.mapper.PropertyDtoMapper;
 import fr.jypast.parisjanitorapi.client.service.AuthVerifierService;
+import fr.jypast.parisjanitorapi.domain.functionnal.exception.DataNotSaveException;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.Booking;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.BookingStatus;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.user.User;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingFinderApi;
+import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingUpdaterApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
@@ -33,6 +36,7 @@ public class BookingController {
     private final AuthVerifierService authVerifierService;
     private final BookingCreatorApi bookingCreatorApi;
     private final BookingFinderApi bookingFinderApi;
+    private final BookingUpdaterApi bookingUpdaterApi;
     private final TokenControllerService tokenControllerService;
 
     @PostMapping
@@ -135,4 +139,103 @@ public class BookingController {
         return ResponseEntity.ok(pendingBookings);
     }
 
+    @PutMapping("/{bookingId}/accept")
+    public ResponseEntity<BookingDto> acceptBooking(
+            @RequestHeader HttpHeaders headers,
+            @PathVariable UUID bookingId) {
+
+        UUID token = authVerifierService.getToken(headers);
+        User tenantId = tokenControllerService.getUserByToken(token);
+
+        try {
+            BookingDto updatedBooking = BookingDtoMapper.toDto(
+                    bookingUpdaterApi.updateBookingStatus(bookingId, BookingStatus.RESERVED, tenantId.getId())
+            );
+            return ResponseEntity.ok(updatedBooking);
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        } catch (DataNotSaveException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to update booking status.", e);
+        }
+    }
+
+    @PutMapping("/{bookingId}/start")
+    public ResponseEntity<BookingDto> startBooking(
+            @RequestHeader HttpHeaders headers,
+            @PathVariable UUID bookingId) {
+
+        UUID token = authVerifierService.getToken(headers);
+        User tenantId = tokenControllerService.getUserByToken(token);
+
+        try {
+            BookingDto updatedBooking = BookingDtoMapper.toDto(
+                    bookingUpdaterApi.updateBookingStatus(bookingId, BookingStatus.EN_COURS, tenantId.getId())
+            );
+            return ResponseEntity.ok(updatedBooking);
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        } catch (DataNotSaveException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to update booking status.", e);
+        }
+    }
+
+    @PutMapping("/{bookingId}/finish")
+    public ResponseEntity<BookingDto> finishBooking(
+            @RequestHeader HttpHeaders headers,
+            @PathVariable UUID bookingId) {
+
+        UUID token = authVerifierService.getToken(headers);
+        User tenantId = tokenControllerService.getUserByToken(token);
+
+        try {
+            BookingDto updatedBooking = BookingDtoMapper.toDto(
+                    bookingUpdaterApi.updateBookingStatus(bookingId, BookingStatus.FINISHED, tenantId.getId())
+            );
+            return ResponseEntity.ok(updatedBooking);
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        } catch (DataNotSaveException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to update booking status.", e);
+        }
+    }
+
+    @PutMapping("/{bookingId}/cancel")
+    public ResponseEntity<BookingDto> cancelBooking(
+            @RequestHeader HttpHeaders headers,
+            @PathVariable UUID bookingId) {
+
+        UUID token = authVerifierService.getToken(headers);
+        User tenantId = tokenControllerService.getUserByToken(token);
+
+        try {
+            BookingDto updatedBooking = BookingDtoMapper.toDto(
+                    bookingUpdaterApi.updateBookingStatus(bookingId, BookingStatus.ANNULED, tenantId.getId())
+            );
+            return ResponseEntity.ok(updatedBooking);
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        } catch (DataNotSaveException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to update booking status.", e);
+        }
+    }
+
+    @PutMapping("/{bookingId}/refuse")
+    public ResponseEntity<BookingDto> refuseBooking(
+            @RequestHeader HttpHeaders headers,
+            @PathVariable UUID bookingId) {
+
+        UUID token = authVerifierService.getToken(headers);
+        User tenantId = tokenControllerService.getUserByToken(token);
+
+        try {
+            BookingDto updatedBooking = BookingDtoMapper.toDto(
+                    bookingUpdaterApi.updateBookingStatus(bookingId, BookingStatus.REFUSED, tenantId.getId())
+            );
+            return ResponseEntity.ok(updatedBooking);
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e);
+        } catch (DataNotSaveException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to update booking status.", e);
+        }
+    }
 }
