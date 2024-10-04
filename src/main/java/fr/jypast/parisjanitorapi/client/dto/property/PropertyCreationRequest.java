@@ -25,6 +25,6 @@ public record PropertyCreationRequest(
         @NotNull @JsonProperty("city") String city,
         @NotNull @JsonProperty("numberOfBathrooms") int numberOfBathrooms,
         @NotNull @JsonProperty("numberOfBedrooms") int numberOfBedrooms,
-        @NotNull @JsonProperty("numberOfBedrooms") boolean acceptsPets,
-        @NotNull @JsonProperty("numberOfBedrooms") boolean acceptsBabies
+        @NotNull @JsonProperty("acceptsPets") boolean acceptsPets,
+        @NotNull @JsonProperty("acceptsBabies") boolean acceptsBabies
 ) { }

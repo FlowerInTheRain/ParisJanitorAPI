@@ -11,7 +11,7 @@ public record PropertyDto(
         @JsonProperty("description") String description,
         @JsonProperty("isAvailable") boolean isAvailable,
         @JsonProperty("ownerId") UUID ownerId,
-        @JsonProperty("isValidated") boolean isValidated,
+        @JsonProperty("isValidated") String isValidated,
         @JsonProperty("numberOfRooms") int numberOfRooms,
         @JsonProperty("capacity") int capacity,
         @JsonProperty("propertyType") String propertyType,

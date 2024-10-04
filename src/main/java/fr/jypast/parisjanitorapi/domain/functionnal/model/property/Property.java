@@ -65,7 +65,7 @@ public class Property {
 
     @Builder.Default
     @With
-    boolean isValidated = false;
+    ValidationStatut isValidated = ValidationStatut.AWAITED;
 
     @With
     int numberOfBathrooms;

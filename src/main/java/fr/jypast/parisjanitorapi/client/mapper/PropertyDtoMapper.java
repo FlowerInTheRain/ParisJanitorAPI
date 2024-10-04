@@ -15,7 +15,7 @@ public interface PropertyDtoMapper {
                 domain.getDescription(),
                 domain.isAvailable(),
                 domain.getOwnerId(),
-                domain.isValidated(),
+                domain.getIsValidated().name(),
                 domain.getNumberOfRooms(),
                 domain.getCapacity(),
                 domain.getPropertyType().name(),
@@ -42,6 +42,7 @@ public interface PropertyDtoMapper {
                 .description(request.description().trim())
                 .numberOfRooms(request.numberOfRooms())
                 .capacity(request.capacity())
+                .isValidated(ValidationStatut.AWAITED)
                 .propertyType(PropertyType.valueOf(request.propertyType().toUpperCase()))
                 .country(request.country().trim())
                 .size(request.size())
