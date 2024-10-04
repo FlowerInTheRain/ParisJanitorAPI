@@ -238,4 +238,27 @@ public class BookingController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to update booking status.", e);
         }
     }
+
+    @GetMapping("/has-booking")
+    public ResponseEntity<Boolean> hasBookingBetweenDates(
+            @RequestHeader HttpHeaders headers,
+            @RequestParam("startDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+            @RequestParam("endDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate) {
+
+        UUID token = authVerifierService.getToken(headers);
+        User tenant = tokenControllerService.getUserByToken(token);
+
+        if (tenant == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        boolean hasBooking = bookingFinderApi
+                .findBookingsByTenantIdAndDatesOverlap(tenant.getId(), startDate, endDate)
+                .stream()
+                .findAny()
+                .isPresent();
+
+        return ResponseEntity.ok(!hasBooking);
+    }
+
 }

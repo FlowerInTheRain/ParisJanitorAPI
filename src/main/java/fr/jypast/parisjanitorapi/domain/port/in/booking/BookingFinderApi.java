@@ -14,5 +14,6 @@ public interface BookingFinderApi {
     List<Booking> findBookingsByTenantIdAndDatesBetween(UUID tenantId, Date startDate, Date endDate);
     List<Booking> findBookingsByTenantIdAndStartDateAfter(UUID tenantId, Date date);
     List<Booking> findPendingBookingsByTenantId(UUID tenantId);
+    List<Booking> findBookingsByTenantIdAndDatesOverlap(UUID tenantId, Date startDate, Date endDate);
 
 }

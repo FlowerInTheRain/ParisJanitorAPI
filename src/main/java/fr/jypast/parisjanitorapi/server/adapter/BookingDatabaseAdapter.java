@@ -144,4 +144,5 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
                 .collect(Collectors.toList());
     }
 
+
 }

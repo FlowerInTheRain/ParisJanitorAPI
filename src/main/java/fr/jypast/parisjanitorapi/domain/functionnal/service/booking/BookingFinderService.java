@@ -54,4 +54,9 @@ public class BookingFinderService implements BookingFinderApi {
         return bookingPersistenceSpi.findPendingBookingsByTenantId(tenantId);
     }
 
+    @Override
+    public List<Booking> findBookingsByTenantIdAndDatesOverlap(UUID tenantId, Date startDate, Date endDate) {
+        return bookingPersistenceSpi.findByTenantIdAndDatesOverlap(tenantId, startDate, endDate);
+    }
+
 }
