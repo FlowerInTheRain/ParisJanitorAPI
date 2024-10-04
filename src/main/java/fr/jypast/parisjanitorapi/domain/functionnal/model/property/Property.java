@@ -72,4 +72,11 @@ public class Property {
 
     @With
     int numberOfBedrooms;
+
+    @With
+    boolean acceptsPets;
+
+    @With
+    boolean acceptsBabies;
+
 }

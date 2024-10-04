@@ -25,6 +25,8 @@ public record PropertyDto(
         @JsonProperty("city") String city,
         @JsonProperty("accommodationType") String accommodationType,
         @JsonProperty("numberOfBathrooms") int numberOfBathrooms,
-        @JsonProperty("numberOfBedrooms") int numberOfBedrooms
+        @JsonProperty("numberOfBedrooms") int numberOfBedrooms,
+        @JsonProperty("acceptsPets") boolean acceptsPets,
+        @JsonProperty("acceptsBabies") boolean acceptsBabies
 ) {
 }

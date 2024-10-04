@@ -91,4 +91,10 @@ public class PropertyEntity implements Serializable {
 
     @Column(name = "numberOfBedrooms", nullable = false)
     private int numberOfBedrooms;
+
+    @Column(name = "acceptsPets", nullable = false)
+    private boolean acceptsPets;
+
+    @Column(name = "acceptsBabies", nullable = false)
+    private boolean acceptsBabies;
 }

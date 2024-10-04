@@ -27,6 +27,8 @@ public interface PropertyEntityMapper {
                 .city(entity.getCity())
                 .numberOfBedrooms(entity.getNumberOfBedrooms())
                 .numberOfBathrooms(entity.getNumberOfBathrooms())
+                .acceptsPets(entity.isAcceptsPets())
+                .acceptsBabies(entity.isAcceptsBabies())
                 .build();
     }
 
@@ -52,6 +54,8 @@ public interface PropertyEntityMapper {
                 .city(domain.getCity())
                 .numberOfBathrooms(domain.getNumberOfBathrooms())
                 .numberOfBedrooms(domain.getNumberOfBedrooms())
+                .acceptsPets(domain.isAcceptsPets())
+                .acceptsBabies(domain.isAcceptsBabies())
                 .build();
     }
 }

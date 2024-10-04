@@ -29,7 +29,9 @@ public interface PropertyDtoMapper {
                 domain.getCity(),
                 domain.getAccommodationType().name(),
                 domain.getNumberOfBathrooms(),
-                domain.getNumberOfBedrooms()
+                domain.getNumberOfBedrooms(),
+                domain.isAcceptsPets(),
+                domain.isAcceptsBabies()
         );
     }
 
@@ -54,6 +56,8 @@ public interface PropertyDtoMapper {
                 .accommodationType(AccommodationType.valueOf(request.accommodationType().toUpperCase()))
                 .numberOfBathrooms(request.numberOfBathrooms())
                 .numberOfBedrooms(request.numberOfBedrooms())
+                .acceptsPets(request.acceptsPets())
+                .acceptsBabies(request.acceptsBabies())
                 .build();
     }
 
@@ -75,6 +79,8 @@ public interface PropertyDtoMapper {
                 .city(request.city().trim())
                 .pricePerNight(request.pricePerNight())
                 .accommodationType(AccommodationType.valueOf(request.accommodationType().toUpperCase()))
+                .acceptsPets(request.acceptsPets())
+                .acceptsBabies(request.acceptsBabies())
                 .build();
     }
 }
