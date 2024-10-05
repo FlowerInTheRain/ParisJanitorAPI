@@ -5,7 +5,9 @@ import fr.jypast.parisjanitorapi.client.dto.property.PropertyDto;
 import fr.jypast.parisjanitorapi.client.mapper.PropertyDtoMapper;
 import fr.jypast.parisjanitorapi.client.service.AuthVerifierService;
 import fr.jypast.parisjanitorapi.client.validator.UuidValidator;
+import fr.jypast.parisjanitorapi.domain.functionnal.exception.DataNotSaveException;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ValidationStatut;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.CalendarBlockerApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyCreatorApi;
@@ -360,5 +362,39 @@ public class PropertyController {
                 .toList();
 
         return ResponseEntity.ok(validatedProperties);
+    }
+
+    @PutMapping("/{propertyId}/validate")
+    public ResponseEntity<PropertyDto> validateProperty(
+            @RequestHeader HttpHeaders headers,
+            @PathVariable UUID propertyId) {
+
+        try {
+            PropertyDto updatedProperty = PropertyDtoMapper.toDto(
+                    propertyUpdaterApi.updateValidationStatus(propertyId, ValidationStatut.VALIDATED)
+            );
+            return ResponseEntity.ok(updatedProperty);
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        } catch (DataNotSaveException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to validate property.", e);
+        }
+    }
+
+    @PutMapping("/{propertyId}/refuse")
+    public ResponseEntity<PropertyDto> refuseProperty(
+            @RequestHeader HttpHeaders headers,
+            @PathVariable UUID propertyId) {
+
+        try {
+            PropertyDto updatedProperty = PropertyDtoMapper.toDto(
+                    propertyUpdaterApi.updateValidationStatus(propertyId, ValidationStatut.REFUSED)
+            );
+            return ResponseEntity.ok(updatedProperty);
+        } catch (IllegalStateException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        } catch (DataNotSaveException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Unable to refuse property.", e);
+        }
     }
 }
