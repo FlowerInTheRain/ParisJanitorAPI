@@ -258,7 +258,8 @@ public class BookingController {
                 .findAny()
                 .isPresent();
 
-        return ResponseEntity.ok(!hasBooking);
+        return new ResponseEntity<>(hasBooking, HttpStatus.OK);
+
     }
 
 }
