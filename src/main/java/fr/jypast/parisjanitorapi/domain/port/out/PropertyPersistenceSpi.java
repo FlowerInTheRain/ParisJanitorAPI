@@ -4,6 +4,7 @@ import fr.jypast.parisjanitorapi.domain.ApplicationError;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.FavoriteProperty;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ValidationStatut;
 import io.vavr.control.Either;
 
 import java.util.List;
@@ -35,4 +36,5 @@ public interface PropertyPersistenceSpi extends PersistenceSpi<Property, UUID> {
     FavoriteProperty save(FavoriteProperty favorite);
     List<FavoriteProperty> findByUserId(UUID userId);
     void deleteByUserIdAndPropertyId(UUID userId, UUID propertyId);
+    List<Property> findByIsValidated(ValidationStatut status);
 }

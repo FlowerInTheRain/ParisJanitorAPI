@@ -3,6 +3,7 @@ package fr.jypast.parisjanitorapi.domain.functionnal.service.property;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.FavoriteProperty;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ValidationStatut;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyFinderApi;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import lombok.RequiredArgsConstructor;
@@ -102,5 +103,16 @@ public class PropertyFinderService implements PropertyFinderApi {
     @Override
     public List<FavoriteProperty> getUserFavorites(UUID userId) {
         return spi.findByUserId(userId);
+    }
+
+    @Override
+    public List<Property> findAllAwaitedProperties() {
+        return spi.findByIsValidated(ValidationStatut.AWAITED);
+
+    }
+
+    @Override
+    public List<Property> findAllValidatedProperties() {
+        return spi.findByIsValidated(ValidationStatut.VALIDATED);
     }
 }

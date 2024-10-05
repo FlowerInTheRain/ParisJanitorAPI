@@ -4,6 +4,7 @@ import fr.jypast.parisjanitorapi.domain.ApplicationError;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.FavoriteProperty;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ValidationStatut;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import fr.jypast.parisjanitorapi.server.mapper.FavoritePropertyEntityMapper;
 import fr.jypast.parisjanitorapi.server.mapper.PropertyEntityMapper;
@@ -226,6 +227,15 @@ public class PropertyDatabaseAdapter implements PropertyPersistenceSpi {
     @Transactional
     public void deleteByUserIdAndPropertyId(UUID userId, UUID propertyId) {
         favoritePropertyRepository.deleteByUserIdAndPropertyId(userId, propertyId);
+    }
+
+    @Override
+    @Transactional
+    public List<Property> findByIsValidated(ValidationStatut status) {
+        return repository.findByIsValidated(status)
+                .stream()
+                .map(PropertyEntityMapper::toDomain)
+                .collect(Collectors.toList());
     }
 
 }

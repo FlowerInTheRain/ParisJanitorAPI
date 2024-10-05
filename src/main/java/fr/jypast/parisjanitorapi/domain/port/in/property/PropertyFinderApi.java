@@ -27,5 +27,7 @@ public interface PropertyFinderApi {
     List<Property> findByCountryAndTypeAndRoomsAndCapacity(String country, List<UUID> ids, int rooms, int capacity, PropertyType type);
     List<Property> findAvailableByType(PropertyType type);
     List<FavoriteProperty> getUserFavorites(UUID userId);
+    List<Property> findAllAwaitedProperties();
+    List<Property> findAllValidatedProperties();
 
 }

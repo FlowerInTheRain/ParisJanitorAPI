@@ -341,4 +341,24 @@ public class PropertyController {
                 .toList();
         return ResponseEntity.ok(availableHouses);
     }
+
+    @GetMapping("/awaited")
+    public ResponseEntity<List<PropertyDto>> getAllAwaitedProperties() {
+        List<PropertyDto> awaitedProperties = propertyFinderApi.findAllAwaitedProperties()
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(awaitedProperties);
+    }
+
+    @GetMapping("/validated")
+    public ResponseEntity<List<PropertyDto>> getAllValidatedProperties() {
+        List<PropertyDto> validatedProperties = propertyFinderApi.findAllValidatedProperties()
+                .stream()
+                .map(PropertyDtoMapper::toDto)
+                .toList();
+
+        return ResponseEntity.ok(validatedProperties);
+    }
 }

@@ -1,6 +1,7 @@
 package fr.jypast.parisjanitorapi.server.repository;
 
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ValidationStatut;
 import fr.jypast.parisjanitorapi.server.entity.PropertyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -36,5 +37,6 @@ public interface PropertyRepository extends JpaRepository<PropertyEntity, UUID> 
     List<PropertyEntity> findByCountryAndIdInAndPropertyTypeAndNumberOfRoomsAndCapacity(
             String country, List<UUID> ids, PropertyType propertyType, int numberOfRooms, int capacity);
     List<PropertyEntity> findByIsAvailableTrueAndPropertyType(PropertyType propertyType);
+    List<PropertyEntity> findByIsValidated(ValidationStatut status);
 
 }
