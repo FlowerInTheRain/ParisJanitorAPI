@@ -1,6 +1,7 @@
 package fr.jypast.parisjanitorapi.domain.port.in.booking;
 
 import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.Booking;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.BookingStatus;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 
 import java.util.Date;
@@ -15,5 +16,7 @@ public interface BookingFinderApi {
     List<Booking> findBookingsByTenantIdAndStartDateAfter(UUID tenantId, Date date);
     List<Booking> findPendingBookingsByTenantId(UUID tenantId);
     List<Booking> findBookingsByTenantIdAndDatesOverlap(UUID tenantId, Date startDate, Date endDate);
+    List<Booking> findBookingsByTenantIdAndStatus(UUID tenantId, BookingStatus status);
+    List<Booking> findBookingsByTenantIdAndStatuses(UUID tenantId, List<BookingStatus> statuses);
 
 }

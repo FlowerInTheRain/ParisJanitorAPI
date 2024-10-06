@@ -1,6 +1,7 @@
 package fr.jypast.parisjanitorapi.domain.functionnal.service.booking;
 
 import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.Booking;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.BookingStatus;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.Property;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingFinderApi;
 import fr.jypast.parisjanitorapi.domain.port.out.BookingPersistenceSpi;
@@ -57,6 +58,16 @@ public class BookingFinderService implements BookingFinderApi {
     @Override
     public List<Booking> findBookingsByTenantIdAndDatesOverlap(UUID tenantId, Date startDate, Date endDate) {
         return bookingPersistenceSpi.findByTenantIdAndDatesOverlap(tenantId, startDate, endDate);
+    }
+
+    @Override
+    public List<Booking> findBookingsByTenantIdAndStatus(UUID tenantId, BookingStatus status) {
+        return bookingPersistenceSpi.findByTenantIdAndStatus(tenantId, status);
+    }
+
+    @Override
+    public List<Booking> findBookingsByTenantIdAndStatuses(UUID tenantId, List<BookingStatus> statuses) {
+        return bookingPersistenceSpi.findByTenantIdAndStatuses(tenantId, statuses);
     }
 
 }

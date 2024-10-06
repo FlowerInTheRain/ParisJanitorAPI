@@ -143,6 +143,22 @@ public class BookingDatabaseAdapter implements BookingPersistenceSpi {
                 .map(BookingEntityMapper::toDomain)
                 .collect(Collectors.toList());
     }
+    @Override
+    @Transactional
+    public List<Booking> findByTenantIdAndStatus(UUID tenantId, BookingStatus status) {
+        return repository.findByTenantIdAndStatus(tenantId, status)
+                .stream()
+                .map(BookingEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
 
+    @Override
+    @Transactional
+    public List<Booking> findByTenantIdAndStatuses(UUID tenantId, List<BookingStatus> statuses) {
+        return repository.findByTenantIdAndStatusIn(tenantId, statuses)
+                .stream()
+                .map(BookingEntityMapper::toDomain)
+                .collect(Collectors.toList());
+    }
 
 }

@@ -2,6 +2,7 @@ package fr.jypast.parisjanitorapi.domain.port.out;
 
 import fr.jypast.parisjanitorapi.domain.ApplicationError;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.Booking;
+import fr.jypast.parisjanitorapi.domain.functionnal.model.booking.BookingStatus;
 import io.vavr.control.Either;
 
 import java.util.Date;
@@ -22,5 +23,8 @@ public interface BookingPersistenceSpi extends PersistenceSpi<Booking, UUID> {
     List<Booking> findByTenantIdAndStartDateAfter(UUID tenantId, Date date);
     List<Booking> findPendingBookingsByTenantId(UUID tenantId);
     Optional<Booking> findById(UUID bookingId);
+    List<Booking> findByTenantIdAndStatus(UUID tenantId, BookingStatus status);
+    List<Booking> findByTenantIdAndStatuses(UUID tenantId, List<BookingStatus> statuses);
+
 
 }

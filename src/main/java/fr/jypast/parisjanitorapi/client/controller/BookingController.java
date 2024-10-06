@@ -262,4 +262,40 @@ public class BookingController {
 
     }
 
+    @GetMapping("/finished")
+    public ResponseEntity<List<BookingDto>> getFinishedBookings(@RequestHeader HttpHeaders headers) {
+        UUID token = authVerifierService.getToken(headers);
+        UUID tenantId = tokenControllerService.getUserByToken(token).getId();
+
+        List<Booking> bookings = bookingFinderApi.findBookingsByTenantIdAndStatus(tenantId, BookingStatus.FINISHED);
+        List<BookingDto> bookingDtos = bookings.stream().map(BookingDtoMapper::toDto).toList();
+
+        return ResponseEntity.ok(bookingDtos);
+    }
+
+    @GetMapping("/cancelled-or-refused")
+    public ResponseEntity<List<BookingDto>> getCancelledOrRefusedBookings(@RequestHeader HttpHeaders headers) {
+        UUID token = authVerifierService.getToken(headers);
+        UUID tenantId = tokenControllerService.getUserByToken(token).getId();
+
+        List<Booking> bookings = bookingFinderApi.findBookingsByTenantIdAndStatuses(
+                tenantId, List.of(BookingStatus.ANNULED, BookingStatus.REFUSED)
+        );
+        List<BookingDto> bookingDtos = bookings.stream().map(BookingDtoMapper::toDto).toList();
+
+        return ResponseEntity.ok(bookingDtos);
+    }
+
+    @GetMapping("/reserved")
+    public ResponseEntity<List<BookingDto>> getReservedBookings(@RequestHeader HttpHeaders headers) {
+        UUID token = authVerifierService.getToken(headers);
+        UUID tenantId = tokenControllerService.getUserByToken(token).getId();
+
+        List<Booking> bookings = bookingFinderApi.findBookingsByTenantIdAndStatus(tenantId, BookingStatus.RESERVED);
+        List<BookingDto> bookingDtos = bookings.stream().map(BookingDtoMapper::toDto).toList();
+
+        return ResponseEntity.ok(bookingDtos);
+    }
+
+
 }
