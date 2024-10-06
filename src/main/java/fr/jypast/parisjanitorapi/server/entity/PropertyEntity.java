@@ -24,6 +24,9 @@ public class PropertyEntity implements Serializable {
     @Column(name = "adress", unique = true, nullable = false)
     private String adress;
 
+    @Column(name = "propertyName", nullable = false)
+    private String propertyName;
+
     @Column(name = "description", nullable = false)
     private String description;
 

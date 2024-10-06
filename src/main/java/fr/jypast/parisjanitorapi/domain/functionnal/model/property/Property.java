@@ -19,6 +19,9 @@ public class Property {
     String adress;
 
     @With
+    String propertyName;
+
+    @With
     String description;
 
     @With

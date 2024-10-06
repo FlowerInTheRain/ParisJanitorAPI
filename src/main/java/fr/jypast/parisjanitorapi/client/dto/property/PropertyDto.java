@@ -8,6 +8,7 @@ import java.util.UUID;
 public record PropertyDto(
         @JsonProperty("id") UUID id,
         @JsonProperty("adress") String adress,
+        @JsonProperty("propertyName") String propertyName,
         @JsonProperty("description") String description,
         @JsonProperty("isAvailable") boolean isAvailable,
         @JsonProperty("ownerId") UUID ownerId,

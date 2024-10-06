@@ -12,6 +12,7 @@ public interface PropertyDtoMapper {
         return new PropertyDto(
                 domain.getId(),
                 domain.getAdress(),
+                domain.getPropertyName(),
                 domain.getDescription(),
                 domain.isAvailable(),
                 domain.getOwnerId(),
@@ -39,6 +40,7 @@ public interface PropertyDtoMapper {
         return Property.builder()
                 .id(UUID.randomUUID())
                 .adress(request.adress().trim())
+                .propertyName(request.propertyName().trim())
                 .description(request.description().trim())
                 .numberOfRooms(request.numberOfRooms())
                 .capacity(request.capacity())
@@ -65,8 +67,8 @@ public interface PropertyDtoMapper {
     static Property patchRequestToDomain(PropertyCreationRequest request) {
         return Property.builder()
                 .adress(request.adress().trim())
+                .propertyName(request.propertyName().trim())
                 .description(request.description().trim())
-
                 .numberOfRooms(request.numberOfRooms())
                 .capacity(request.capacity())
                 .propertyType(PropertyType.valueOf(request.propertyType().toUpperCase()))

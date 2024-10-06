@@ -27,6 +27,7 @@ public class PropertyUpdaterService implements PropertyUpdaterApi {
 
         Property patchedProperty = currentProperty
                 .withAdress(newProperty.getAdress() != null ? newProperty.getAdress() : currentProperty.getAdress())
+                .withPropertyName(newProperty.getPropertyName() != null ? newProperty.getPropertyName() : currentProperty.getPropertyName())
                 .withDescription(newProperty.getDescription() != null ? newProperty.getDescription() : currentProperty.getDescription())
                 .withOwnerId(newProperty.getOwnerId() != null ? newProperty.getOwnerId() : currentProperty.getOwnerId());
 

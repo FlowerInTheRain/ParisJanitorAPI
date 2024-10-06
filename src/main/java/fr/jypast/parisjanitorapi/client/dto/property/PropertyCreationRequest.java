@@ -10,6 +10,7 @@ import java.util.List;
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
 public record PropertyCreationRequest(
         @NotNull @JsonProperty("adress") String adress,
+        @NotNull @JsonProperty("propertyName") String propertyName,
         @NotNull @JsonProperty("description") String description,
         @NotNull @JsonProperty("numberOfRooms") int numberOfRooms,
         @NotNull @JsonProperty("capacity") int capacity,
