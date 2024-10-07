@@ -1,6 +1,6 @@
 package fr.jypast.parisjanitorapi.domain.functionnal.service.property;
 
-import fr.jypast.parisjanitorapi.domain.port.out.FilesManagementSpi;
+import fr.jypast.parisjanitorapi.domain.port.in.files.FilesManagementApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyDeleterApi;
 import fr.jypast.parisjanitorapi.domain.port.out.PropertyPersistenceSpi;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +14,10 @@ import java.util.UUID;
 @Component
 public class PropertyDeleterService implements PropertyDeleterApi {
     private final PropertyPersistenceSpi spi;
-    private final FilesManagementSpi filesManagementSpi;
+    private final FilesManagementApi filesManagementApi;
     @Override
     public void deleteById(UUID id) {
-        filesManagementSpi.deleteContainer(id.toString());
+        filesManagementApi.deleteContainer(id.toString());
         spi.deleteById(id);
     }
 

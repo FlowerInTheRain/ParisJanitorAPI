@@ -10,6 +10,7 @@ import fr.jypast.parisjanitorapi.domain.functionnal.model.property.PropertyType;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.property.ValidationStatut;
 import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerService;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.CalendarBlockerApi;
+import fr.jypast.parisjanitorapi.domain.port.in.files.FilesManagementApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyDeleterApi;
 import fr.jypast.parisjanitorapi.domain.port.in.property.PropertyFinderApi;
@@ -42,6 +43,7 @@ public class PropertyController {
     private final PropertyDeleterApi propertyDeleterApi;
     private final CalendarBlockerApi calendarBlockerApi;
     private final TokenControllerService tokenControllerService;
+    private final FilesManagementApi filesManagementApi;
 
     @GetMapping
     @ResponseStatus(OK)
@@ -71,7 +73,11 @@ public class PropertyController {
         UUID token = authVerifierService.getToken(headers);
         tokenControllerService.getUserByToken(token);
         return propertyFinderApi.findById(id)
-                .map(property -> ResponseEntity.ok(PropertyDtoMapper.toDto(property)))
+                .map(property -> {
+                      var prop =
+                              property.withImageUrls(filesManagementApi.getUrlsFromContainer(property.getId().toString()));
+                    return ResponseEntity.ok(PropertyDtoMapper.toDto(prop))    ;
+                })
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Property not found"));
     }
 

@@ -32,7 +32,8 @@ public interface PropertyDtoMapper {
                 domain.getNumberOfBathrooms(),
                 domain.getNumberOfBedrooms(),
                 domain.isAcceptsPets(),
-                domain.isAcceptsBabies()
+                domain.isAcceptsBabies(),
+                domain.getImageUrls()
         );
     }
 

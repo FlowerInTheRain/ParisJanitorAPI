@@ -28,6 +28,9 @@ public record PropertyDto(
         @JsonProperty("numberOfBathrooms") int numberOfBathrooms,
         @JsonProperty("numberOfBedrooms") int numberOfBedrooms,
         @JsonProperty("acceptsPets") boolean acceptsPets,
-        @JsonProperty("acceptsBabies") boolean acceptsBabies
+        @JsonProperty("acceptsBabies") boolean acceptsBabies,
+		@JsonProperty("picturesUrl") List<String> picturesUrl
+		
+		
 ) {
 }

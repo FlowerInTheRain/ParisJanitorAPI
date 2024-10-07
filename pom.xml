@@ -138,7 +138,11 @@
             <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
             <version>2.6.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.stripe</groupId>
+            <artifactId>stripe-java</artifactId>
+            <version>27.1.0</version>
+        </dependency>
     </dependencies>
 
     <build>

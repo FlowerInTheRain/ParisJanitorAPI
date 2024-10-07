@@ -14,6 +14,7 @@ import fr.jypast.parisjanitorapi.domain.functionnal.service.TokenControllerServi
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingFinderApi;
 import fr.jypast.parisjanitorapi.domain.port.in.booking.BookingUpdaterApi;
+import fr.jypast.parisjanitorapi.domain.port.in.files.FilesManagementApi;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpHeaders;
@@ -24,7 +25,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
@@ -38,6 +41,7 @@ public class BookingController {
     private final BookingFinderApi bookingFinderApi;
     private final BookingUpdaterApi bookingUpdaterApi;
     private final TokenControllerService tokenControllerService;
+    private final FilesManagementApi filesManagementApi;
 
     @PostMapping
     @ResponseStatus(CREATED)

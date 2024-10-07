@@ -4,7 +4,7 @@ import com.azure.identity.ClientSecretCredentialBuilder;
  import com.azure.storage.blob.BlobContainerClient;
 import com.azure.storage.blob.BlobServiceClient;
 import com.azure.storage.blob.BlobServiceClientBuilder;
-import fr.jypast.parisjanitorapi.domain.port.out.FilesManagementSpi;
+import fr.jypast.parisjanitorapi.domain.port.in.files.FilesManagementApi;
 import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,8 +17,8 @@ import java.util.Arrays;
 import java.util.List;
 
 @Component
-public class FilesManagementSpiService implements FilesManagementSpi {
-	private static final Logger LOGGER = LoggerFactory.getLogger(FilesManagementSpiService.class);
+public class FilesManagementApiService implements FilesManagementApi {
+	private static final Logger LOGGER = LoggerFactory.getLogger(FilesManagementApiService.class);
 	
 	BlobServiceClient blobServiceClient;
 	

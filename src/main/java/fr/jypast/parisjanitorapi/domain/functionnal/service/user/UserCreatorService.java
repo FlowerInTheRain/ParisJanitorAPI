@@ -2,7 +2,7 @@ package fr.jypast.parisjanitorapi.domain.functionnal.service.user;
 
 import fr.jypast.parisjanitorapi.domain.functionnal.exception.DataNotSaveException;
 import fr.jypast.parisjanitorapi.domain.functionnal.model.user.User;
-import fr.jypast.parisjanitorapi.domain.port.out.FilesManagementSpi;
+import fr.jypast.parisjanitorapi.domain.port.in.files.FilesManagementApi;
 import fr.jypast.parisjanitorapi.domain.port.in.user.UserCreatorApi;
 import fr.jypast.parisjanitorapi.domain.port.out.EmailingSpi;
 import fr.jypast.parisjanitorapi.domain.port.out.UserPersistenceSpi;
@@ -19,7 +19,7 @@ public class UserCreatorService implements UserCreatorApi {
     private final UserPersistenceSpi spi;
     private final UserCheckerService userCheckerService;
     private final EmailingSpi emailSenderSpi;
-    private final FilesManagementSpi filesManagementSpi;
+    private final FilesManagementApi filesManagementApi;
 
     @Override
     public User create(User user) {
@@ -31,7 +31,7 @@ public class UserCreatorService implements UserCreatorApi {
 
         User savedUser = spi.save(user)
                 .getOrElseThrow(DataNotSaveException::new);
-        filesManagementSpi.createContainer(user.getId().toString());
+        filesManagementApi.createContainer(user.getId().toString());
         emailSenderSpi.sendAccountValidationEmail(savedUser);
 
         return savedUser;
@@ -43,7 +43,7 @@ public class UserCreatorService implements UserCreatorApi {
 
         if (existingUserOpt.isPresent()) {
             User existingUser = existingUserOpt.get();
-            filesManagementSpi.createContainer(user.getId().toString());
+            filesManagementApi.createContainer(user.getId().toString());
             return updateExistingUser(existingUser, user);
         } else {
             return this.create(user.withId(id));

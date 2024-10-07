@@ -1,6 +1,7 @@
 package fr.jypast.parisjanitorapi.domain.functionnal.model.property;
 
 import lombok.Builder;
+import lombok.Setter;
 import lombok.Value;
 import lombok.With;
 
@@ -9,6 +10,7 @@ import java.util.UUID;
 
 @Value
 @Builder
+@Setter
 public class Property {
 
     @Builder.Default

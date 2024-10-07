@@ -1,14 +1,15 @@
 package fr.jypast.parisjanitorapi.domain.functionnal.model.booking;
 
-import lombok.Builder;
-import lombok.Value;
-import lombok.With;
+import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Value
 @Builder
+@Getter
+@Setter
 public class Booking {
 
     @Builder.Default
@@ -32,4 +33,6 @@ public class Booking {
     int numberOfPets;
     @With
     BookingStatus status;
+    @With
+    List<String> propertyImages;
 }
